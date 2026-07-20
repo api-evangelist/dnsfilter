@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/dnsfilter-openapi-original.json
+docs: https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens
+notes: >-
+  Authentication is required for most, but not all, endpoints. It is done by
+  setting the `Authorization` request header to the API key value directly
+  (no `Bearer ` prefix), e.g. `Authorization: eyJ...`. API keys are created
+  and managed in the DNSFilter dashboard under Account Settings, and via the
+  Api Keys API (V1_Api_Keys-create / -index / -revoke). Keys carry a name,
+  expiry, last_four, and status. No OAuth2 or OpenID Connect is offered; there
+  is no scope surface.
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  oauth2_flows: []
+schemes:
+- name: header_authorization
+  type: apiKey
+  in: header
+  parameter: Authorization
+  value_format: raw-api-key
+  prefix: none
+  sources:
+  - openapi/dnsfilter-openapi-original.json
