@@ -1,0 +1,392 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Cybersight CSV Exports API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Cybersight CSV Exports
+  description: ''
+paths:
+  /v2/cyber_sight/csv_exports/create:
+    post:
+      tags:
+      - Cybersight CSV Exports
+      operationId: V2_Cybersight_CSV_Exports-create
+      parameters:
+      - name: ai_tool
+        description: 'Required when report_type is top_ai_usage. Determines which AI activity view to export: "web" for AI websites, "app" for AI applications, "all" for a combined web+app row list, "client" for AI usage per roaming client.'
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - all
+          - web
+          - app
+          - client
+      - name: end_at
+        description: format:iso8601 End date/time for the report query, required
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: included_columns
+        description: 'Column keys to include; must be nested under cyber_sight_csv_export in the request body (e.g. cyber_sight_csv_export: { included_columns: [...] }). Invalid keys are ignored; order is preserved where applicable.
+
+          For activity_logs: see activity_logs filter list (e.g. organization_name, activity_type, web_host, app_name, etc).
+
+          For top_websites: organization_name, web_host, categories, unique user counts,
+
+          activity_count, focus times & percentages.
+
+          For top_applications: organization_name, application, user_agent_count_unique,
+
+          agent_local_user_count_unique, activity_count, application_focus_in_seconds, percent_time.
+
+          For top_categories: organization_name, category, user_agent_count_unique, agent_local_user_count_unique,
+
+          activity_count, category_focus_in_seconds, percent_time.
+
+          For top_streaming: organization_name, streaming_app_name, user_agent_count_unique,
+
+          agent_local_user_count_unique, activity_count, streaming_app_focus_in_seconds, percent_time.
+
+          For top_risky_users: organization_name, user_name, event_count, time_in_seconds,
+
+          percent_company_time, percent_of_events.
+
+          For top_active_clients: organization_name, roaming_client, user_count,
+
+          time_in_seconds, percent_time.
+
+          For top_ai_usage (ai_tool=web): organization_name, web_host, user_agent_count_unique,
+
+          agent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories.
+
+          For top_ai_usage (ai_tool=all): organization_name, ai_tool, user_agent_count_unique,
+
+          agent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories
+
+          ("-" for application rows; comma-joined web category names for website rows).
+
+          For top_ai_usage (ai_tool=app): organization_name, application, user_agent_count_unique,
+
+          agent_local_user_count_unique, activity_count, time_in_seconds, percent_time.
+
+          For top_ai_usage (ai_tool=client): organization_name, roaming_client, user_count,
+
+          time_in_seconds, percent_time.'
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: report_type
+        description: Type of CyberSight Report csv export, required.
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - activity_logs
+          - top_websites
+          - top_applications
+          - top_categories
+          - top_streaming
+          - top_risky_users
+          - top_active_clients
+          - top_ai_usage
+      - name: start_at
+        description: format:iso8601 Start date/time for the report query, required
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity (e.g. unknown report_type)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: CyberSight csv export
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CyberSightCsvExport'
+      description: "Creates a cybersight csv export record to track export of cybersight report info.\nInvalid report filters and invalid included_columns are ignored; the CSV is generated\nusing any valid filters and columns that remain.\n\nFilters (query/body) by report type:\n  activity_logs: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids, user_agent_uuids,\n    agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, activity_type_ids,\n    app_executable_path, app_name, app_window_title, web_full_url, web_host.\n  top_websites: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids, user_agent_uuids,\n    agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, web_full_url, web_host.\n  top_applications: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, app_name,\n    app_executable_path, app_window_title.\n  top_categories: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, threats_only, web_categories.\n  top_streaming: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, app_name.\n  top_risky_users: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction.\n  top_active_clients: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction.\n  top_ai_usage: start_at, end_at, ai_tool (required), org_uuids, msp_uuid, excluded_org_uuids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction.\n    When ai_tool=web: web_full_url, web_host.\n    When ai_tool=app: app_name, app_executable_path, app_window_title."
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v2/cyber_sight_csv_exports
+      x-action: create
+      requestBody:
+        description: CyberSight csv export information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CyberSightCsvExportCreate'
+  /v2/cyber_sight/csv_exports/{id}:
+    get:
+      tags:
+      - Cybersight CSV Exports
+      operationId: V2_Cybersight_CSV_Exports-show
+      parameters:
+      - name: id
+        description: uuid of CyberSight csv export
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: CyberSight csv export
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CyberSightCsvExport'
+        '202':
+          description: Export is still processing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CyberSightCsvExportPending'
+      description: Shows a CyberSight csv export.
+      summary: Show
+      security:
+      - header_authorization: []
+      x-controller: v2/cyber_sight_csv_exports
+      x-action: show
+components:
+  schemas:
+    CyberSightCsvExport:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: format:uuidv7 CyberSight CSV export UUID
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Organization IDs included in the export
+        url:
+          type: string
+          description: Presigned S3 URL to download the CSV file (null if export is still processing or failed)
+        error:
+          type: string
+          description: Error message if export failed (null if export succeeded)
+      description: CyberSight CSV Export
+    CyberSightCsvExportCreate:
+      type: object
+      properties:
+        cyber_sight_csv_export:
+          type: object
+          properties:
+            included_columns:
+              type: array
+              items:
+                type: string
+            organization_ids:
+              type: array
+              items:
+                type: integer
+          description: 'Request body nest. included_columns: column keys to include (optional). organization_ids: deprecated, use top-level org_uuids instead; still accepted for backward compatibility.'
+        report_type:
+          type: string
+          enum:
+          - activity_logs
+          - top_websites
+          - top_applications
+          - top_categories
+          - top_streaming
+          - top_risky_users
+          - top_active_clients
+          - top_ai_usage
+          description: Type of CyberSight Report to export
+        ai_tool:
+          type: string
+          enum:
+          - all
+          - web
+          - app
+          - client
+          description: 'Required when report_type is top_ai_usage. Selects the AI activity view: "web" for AI websites, "app" for AI applications, "all" for a combined web+app row list, "client" for AI usage per roaming client. When ai_tool is "web" or "all", the export includes a "categories" column ("Category" header) listing comma-joined web category names per row; for "all", application rows render this column as "-".'
+        start_at:
+          type: string
+          description: format:iso8601 Start date/time for the report query
+        end_at:
+          type: string
+          description: format:iso8601 End date/time for the report query
+        msp_uuid:
+          type: string
+          description: format:uuidv7 MSP UUID to scope the export (preferred)
+        org_uuids:
+          type: array
+          items:
+            type: string
+          description: format:uuidv7 Organization UUIDs to scope the export (preferred; use instead of cyber_sight_csv_export.organization_ids)
+        excluded_org_uuids:
+          type: array
+          items:
+            type: string
+          description: format:uuidv7 Organization UUIDs to exclude from results
+        category_ids:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: integer
+          - type: object
+            properties:
+              operator:
+                type: string
+                enum:
+                - is
+                - isnot
+              value:
+                oneOf:
+                - type: array
+                  items:
+                    type: integer
+                - type: string
+          description: strings should be comma delimited integers
+        user_agent_uuids:
+          type: array
+          items:
+            type: string
+          description: format:uuidv7 User agent UUIDs to filter by
+        agent_local_user_uuids:
+          type: array
+          items:
+            type: string
+          description: format:uuidv7 Agent local user UUIDs to filter by
+        weekdays_only:
+          type: boolean
+          description: default:false Only include weekdays in results
+        search_id:
+          type: string
+          description: OpenSearch async search ID for continuation
+        size:
+          type: integer
+          description: Maximum number of results (e.g. buckets) to return
+        activity_type_ids:
+          type: array
+          items:
+            type: integer
+          description: Activity type IDs to filter by (activity_logs only)
+        app_executable_path:
+          type: string
+          description: Filter by application executable path, regex (activity_logs, top_applications, top_ai_usage when ai_tool=app)
+        app_name:
+          type: string
+          description: Filter by application name, regex (activity_logs, top_applications, top_streaming, top_ai_usage when ai_tool=app)
+        app_window_title:
+          type: string
+          description: Filter by application window title, regex (activity_logs, top_applications, top_ai_usage when ai_tool=app)
+        web_full_url:
+          type: string
+          description: Filter by web full URL, regex (activity_logs, top_websites, top_ai_usage when ai_tool=web)
+        web_host:
+          type: string
+          description: Filter by web host, regex (activity_logs, top_websites, top_ai_usage when ai_tool=web)
+        threats_only:
+          type: boolean
+          description: Filter to threat categories only (top_categories only)
+        web_categories:
+          type: string
+          description: Comma-separated category IDs (top_categories, top_categories_users; required for top_categories_users)
+        sort_by:
+          type: string
+          enum:
+          - app_executable_path
+          - app_name
+          - app_window_title
+          - cyber_sight_service_version
+          - event_duration
+          - event_end_at
+          - event_start_at
+          - remote_ip
+          - web_full_url
+          - web_host
+          description: default is event_start_at (activity_logs only)
+        sort_direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          description: Sort direction for results
+      required:
+      - report_type
+      - start_at
+      - end_at
+      description: CyberSight CSV Export creation request
+    CyberSightCsvExportPending:
+      type: object
+      properties:
+        export:
+          type: object
+          properties:
+            uuid:
+              type: string
+            status:
+              type: string
+          description: Export information
+        export.uuid:
+          type: string
+          description: format:uuidv7 CyberSight CSV export UUID
+        export.status:
+          type: string
+          description: enum<processing> Status indicating the export is still processing
+      description: CyberSight CSV Export Pending Response
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

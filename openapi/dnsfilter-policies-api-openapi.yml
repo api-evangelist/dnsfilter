@@ -1,0 +1,1642 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Policies API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Policies
+  description: ''
+paths:
+  /v1/policies:
+    get:
+      tags:
+      - Policies
+      operationId: V1_Policies-index
+      parameters:
+      - name: include_global_policies
+        description: include global policies to listing
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_id
+        description: Organization ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Policies basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PolicySpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets user associated policies basic information.
+      summary: Get extant
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: index
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-create
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not create policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '201':
+          description: Created policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Creates a new policy with the specified data.
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: create
+      requestBody:
+        description: Policy information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCreateSpec'
+  /v1/policies/all:
+    get:
+      tags:
+      - Policies
+      operationId: V1_Policies-all
+      parameters:
+      - name: include_global_policies
+        description: include global policies to listing
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_id
+        description: Organization ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Policies basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PolicySpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets ALL user associated policies basic information.
+      summary: Get all
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: all
+  /v1/policies/{id}:
+    get:
+      tags:
+      - Policies
+      operationId: V1_Policies-show
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: include_relationships
+        description: Include relationships in the response true/false, defaults to true
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Gets basic information of the specified policy.
+      summary: Show policy
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: show
+    patch:
+      tags:
+      - Policies
+      operationId: V1_Policies-update
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Updates a policy with the specified data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: update
+      requestBody:
+        description: Policy information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCreateSpec'
+    delete:
+      tags:
+      - Policies
+      operationId: V1_Policies-destroy
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Deletes a policy.
+      summary: Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: destroy
+  /v1/policies/application:
+    get:
+      tags:
+      - Policies
+      operationId: V1_Policies-application
+      parameters:
+      - name: application_id
+        description: Application ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      - name: name
+        description: Name or partial name of a policy to query
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      - name: policy_ids
+        description: List of Policy IDs
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicyApplicationSpec'
+      description: Gets policies information for a specific application.
+      summary: Get application
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: application
+  /v1/policies/application_update:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-application_update
+      parameters:
+      - name: allow_policies
+        description: List of Policy IDs to be allowed on an specific application
+        required: true
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: application_id
+        description: Application ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      - name: block_policies
+        description: List of Policy IDs to be blocked on an specific application
+        required: true
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicyApplicationSpec'
+      description: Updates a policy with the specified application data.
+      summary: Update application
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: application_update
+  /v1/policies/{id}/add_blacklist_domain:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-add_blacklist_domain
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Adds a single domain to the blocklist.
+      summary: Add block domain
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: add_blacklist_domain
+      requestBody:
+        description: Domain to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleDomainSpec'
+  /v1/policies/{id}/remove_blacklist_domain:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-remove_blacklist_domain
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Removes a single domain from the blocklist.
+      summary: Remove block domain
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: remove_blacklist_domain
+      requestBody:
+        description: Domain to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleDomainSpec'
+  /v1/policies/{id}/add_whitelist_domain:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-add_whitelist_domain
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Adds a single domain to the allowlist.
+      summary: Add allow domain
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: add_whitelist_domain
+      requestBody:
+        description: Domain to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleDomainSpec'
+  /v1/policies/{id}/remove_whitelist_domain:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-remove_whitelist_domain
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Removes a single domain from the allowlist.
+      summary: Remove allow domain
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: remove_whitelist_domain
+      requestBody:
+        description: Domain to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleDomainSpec'
+  /v1/policies/{id}/add_blacklist_category:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-add_blacklist_category
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Adds a single category to the blocklist.
+      summary: Add block category
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: add_blacklist_category
+      requestBody:
+        description: Category to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleCategorySpec'
+  /v1/policies/{id}/remove_blacklist_category:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-remove_blacklist_category
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Removes a single category from the blocklist.
+      summary: Remove block category
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: remove_blacklist_category
+      requestBody:
+        description: Category to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleCategorySpec'
+  /v1/policies/{id}/add_allowed_application:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-add_allowed_application
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Adds a single application to the allow list.
+      summary: Add allow category
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: add_allowed_application
+      requestBody:
+        description: Application to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleApplicationSpec'
+  /v1/policies/{id}/remove_allowed_application:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-remove_allowed_application
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Removes a single application from the allow list.
+      summary: Remove allow category
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: remove_allowed_application
+      requestBody:
+        description: Application to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleApplicationSpec'
+  /v1/policies/{id}/add_blocked_application:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-add_blocked_application
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Adds a single application to the block list.
+      summary: Add block application
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: add_blocked_application
+      requestBody:
+        description: Application to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleApplicationSpec'
+  /v1/policies/{id}/remove_blocked_application:
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-remove_blocked_application
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update policy with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PolicySpec'
+      description: Removes a single application from the block list.
+      summary: Remove block application
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: remove_blocked_application
+      requestBody:
+        description: Application to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateSingleApplicationSpec'
+  /v1/policies/{id}/permissive_mode:
+    get:
+      tags:
+      - Policies
+      operationId: V1_Policies-get_permissive_mode
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid parameter
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy's permissive mode value
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/PolicyPermissiveModeSpec'
+      description: Get permissive mode value.
+      summary: Get permissive mode
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: get_permissive_mode
+    post:
+      tags:
+      - Policies
+      operationId: V1_Policies-update_permissive_mode
+      parameters:
+      - name: id
+        description: Policy ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: permissive_mode
+        description: Updated permissive mode value
+        required: true
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid parameter
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Policy's permissive mode value
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/PolicyPermissiveModeSpec'
+      description: Update permissive mode value.
+      summary: Update permissive mode
+      security:
+      - header_authorization: []
+      x-controller: v1/policies
+      x-action: update_permissive_mode
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    PolicyUpdateSingleCategorySpec:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          description: Category ID
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+      required:
+      - category_id
+      description: Policy single category update request parameters
+    PolicyApplicationSpec:
+      type: object
+      properties:
+        application:
+          $ref: '#/components/schemas/Application'
+        organization:
+          $ref: '#/components/schemas/Organization'
+        allow_policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicySpec'
+          description: List of Policies allowed for an application
+        block_policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicySpec'
+          description: List of Policies blocked for an application
+      description: Application policies response
+    PolicySpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Policy'
+          relationships:
+            type: object
+            properties:
+              organization:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              network_policies:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+              networks:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Policy associated resources
+      description: Policy specification
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    Organization:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        address:
+          type: string
+          description: Organization legal address
+        allow_create_network:
+          type: boolean
+          description: Current user can create new networks in the organization
+        allowlist_updated_at:
+          type: string
+          format: date-time
+          description: The datetime the allow list was last updated
+        billing_address:
+          type: string
+          description: The organization's billing address
+        billing_contact_email:
+          type: string
+          description: Contact email
+        billing_contact_name:
+          type: string
+          description: Contact name
+        billing_contact_phone:
+          type: string
+          description: Contact phone
+        billing_manual:
+          type: boolean
+          description: Internal Use Only
+        blocklist_updated_at:
+          type: string
+          format: date-time
+          description: The datetime the block list was last updated
+        canceled:
+          type: boolean
+          description: True if the organization has been canceled
+        canceled_at:
+          type: string
+          format: date-time
+          description: The datetime the organization was canceled
+        external_id:
+          type: string
+          description: A unique identifier for external integrations
+        feature_flags:
+          type: array
+          items:
+            type: string
+          description: Allowed features in APP
+        fetched_onboard_details:
+          type: boolean
+          description: True if organization has provided onboarding details
+        first_traffic_sent:
+          type: string
+          format: date-time
+          description: The datetime the organizations first received DNS network traffic
+        industry:
+          type: string
+          description: Internal Use Only
+        managed_by_msp_id:
+          type: integer
+          description: Organization is managed by the specified MSP (may be null)
+        metadata:
+          type: string
+          description: Internal Use Only
+        msp_feature_flags:
+          type: array
+          items:
+            type: string
+          description: Allowed features in APP (defined for sub orgs only)
+        name:
+          type: string
+          description: Organization legal name
+        owned_msp_id:
+          type: integer
+          description: Organization is owned by an MSP (may be null)
+        plan_details:
+          type: string
+          description: Internal Use Only
+        release_channel:
+          type: string
+          description: Internal Use Only
+        role:
+          type: string
+          description: Role
+        send_uninstall_notifications_to_admin_users:
+          type: boolean
+          description: Notify admins of uninstall notifications
+        sso_enabled:
+          type: boolean
+          description: Organization's SSO status
+        stripe_customer_id:
+          type: string
+          description: Stripe ID
+        summary_email_address:
+          type: string
+          description: The email to send the weekly summary of activity email
+        summary_email_enabled:
+          type: boolean
+          description: True if the weekly summary of activity email should be sent
+        sync_tools_auto_update:
+          type: string
+          description: Internal Use Only
+        trial_days:
+          type: integer
+          description: Number of trial days (may be null)
+        unbounce_data:
+          type: string
+          description: Internal Use Only
+        unique_id:
+          type: string
+          description: A globally unique value among all organizations
+        update_payment:
+          type: boolean
+          description: Organization has a valid payment method associated
+        usage_alert_cents:
+          type: string
+          description: Internal Use Only
+        user_agent_uninstall_notification:
+          type: boolean
+          description: Notify recipients when user agent is uninstalled
+        user_agent_uninstall_notification_recipient_emails:
+          type: array
+          items:
+            type: string
+          description: Recipients to receive uninstalled user agent notifications
+        user_agents_auto_update:
+          type: boolean
+          description: True if user agents will auto update
+        will_cancel_at:
+          type: string
+          format: date-time
+          description: The datetime the organization will be canceled
+        active_psa_integration:
+          type: boolean
+          description: Organization has an active PSA integration
+        segment:
+          type: string
+          description: Internal Use Only
+        vpn_settings_organization:
+          type: object
+          properties:
+            vpn_settings_state_type_id:
+              type: integer
+          description: Vpn organization settings
+      description: Organization resource
+    PolicyUpdateSingleApplicationSpec:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Application name
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+      required:
+      - name
+      description: Policy single application update request parameters
+    PolicyCreateSpec:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/PolicyCreate'
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+        append_domains:
+          type: boolean
+          description: 'Option to append allowlist/blocklist domains to the existing ones. Default: false'
+      required:
+      - policy
+      description: Policy creation request parameters
+    PolicyPermissiveModeSpec:
+      type: object
+      properties:
+        permissive_mode:
+          type: boolean
+          description: Policy's permissive mode value
+      description: Policy permissive mode response
+    Policy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Policy name
+        organization_id:
+          type: integer
+          description: Organization ID
+        whitelist_domains:
+          type: array
+          items:
+            type: string
+          description: Allowlisted domains
+        blacklist_domains:
+          type: array
+          items:
+            type: string
+          description: Blocklisted domains
+        blacklist_categories:
+          type: array
+          items:
+            type: integer
+          description: Blocklisted categories
+        allow_unknown_domains:
+          type: boolean
+          description: Allow unknown domains yes/no
+        google_safesearch:
+          type: boolean
+          description: Force Google safe search yes/no
+        bing_safe_search:
+          type: boolean
+          description: Force Bing safe search yes/no
+        duck_duck_go_safe_search:
+          type: boolean
+          description: Force Duck Duck Go safe search yes/no
+        ecosia_safesearch:
+          type: boolean
+          description: Force Ecosia safe search yes/no
+        yandex_safe_search:
+          type: boolean
+          description: Force Yandex safe search yes/no
+        youtube_restricted:
+          type: boolean
+          description: YouTube blocked yes/no
+        youtube_restricted_level:
+          type: string
+          enum:
+          - strict
+          - none
+          description: YouTube restricted level
+        interstitial:
+          type: boolean
+          description: Interstitial page enabled yes/no
+        is_global_policy:
+          type: boolean
+          description: Policy is a global policy yes/no
+        can_edit:
+          type: boolean
+          description: Current user can edit the policy yes/no
+        lock_version:
+          type: integer
+          description: Object version
+        allow_list_only:
+          type: boolean
+          description: If true, only domains on the allow list will be allowed. All others will be blocked regardless of configuration.
+      description: Policy resource
+    PolicyCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Policy name
+        organization_id:
+          type: integer
+          description: Organization ID
+        allow_unknown_domains:
+          type: boolean
+          description: Allow unknown domains yes/no
+        google_safesearch:
+          type: boolean
+          description: Force Google safe search yes/no
+        bing_safe_search:
+          type: boolean
+          description: Force Bing safe search yes/no
+        duck_duck_go_safe_search:
+          type: boolean
+          description: Force Duck Duck Go safe search yes/no
+        ecosia_safesearch:
+          type: boolean
+          description: Force Ecosia safe search yes/no
+        youtube_restricted:
+          type: boolean
+          description: YouTube blocked yes/no
+        youtube_restricted_level:
+          type: string
+          enum:
+          - strict
+          - none
+          description: YouTube restricted level
+        interstitial:
+          type: boolean
+          description: Interstitial page enabled yes/no
+        policy_ip_id:
+          type: integer
+          description: Policy IP ID
+        whitelist_domains:
+          type: array
+          items:
+            type: string
+          description: Allowlisted domains
+        blacklist_domains:
+          type: array
+          items:
+            type: string
+          description: Blocklisted domains
+        blacklist_categories:
+          type: array
+          items:
+            type: integer
+          description: Blocklisted categories
+        is_global_policy:
+          type: boolean
+          description: Global Policy
+        allow_applications:
+          type: array
+          items:
+            type: string
+          description: Allowed applications
+        block_applications:
+          type: array
+          items:
+            type: string
+          description: Blocked applications
+        lock_version:
+          type: integer
+          description: Object version
+        yandex_safe_search:
+          type: boolean
+          description: Force Yandex safe search yes/no
+        allow_list_only:
+          type: boolean
+          description: If true, only domains on the allow list will be allowed. All others will be blocked regardless of configuration.
+      required:
+      - name
+      - organization_id
+      description: Policy creation request parameters
+    Application:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Application name
+        display_name:
+          type: string
+          description: Application display name
+        description:
+          type: string
+          description: Application description
+        home_page_url:
+          type: string
+          description: Home page URL
+        favicon:
+          type: string
+          description: Application favicon
+        icon:
+          type: string
+          description: Application icon
+      description: Application resource
+    PolicyUpdateSingleDomainSpec:
+      type: object
+      properties:
+        domain:
+          type: string
+          description: Domain
+        note:
+          type: string
+          description: Note
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+      required:
+      - domain
+      - note
+      description: Policy single domain update request parameters
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

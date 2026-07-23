@@ -1,0 +1,314 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Billings API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Billings
+  description: ''
+paths:
+  /v1/billing:
+    get:
+      tags:
+      - Billings
+      operationId: V1_Billings-show
+      parameters:
+      - name: organization_id
+        description: User organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Billing information provided by Stripe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+      description: List basic billing information of the user organization registered in Stripe platform.
+      summary: Show
+      security:
+      - header_authorization: []
+      x-controller: v1/billings
+      x-action: show
+    post:
+      tags:
+      - Billings
+      operationId: V1_Billings-create
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not associate payment method with the specified data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content, only status `204` to indicate that the payment method was registered
+      description: Register a newly created payment method in database.
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/billings
+      x-action: create
+      requestBody:
+        description: Payment method information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingCreate'
+  /v1/billing/address/{organization_id}:
+    get:
+      tags:
+      - Billings
+      operationId: V1_Billings-address_show
+      parameters:
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Billing address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing_BillingAddress'
+      description: Show the billing address for the given organization.
+      summary: Show address
+      security:
+      - header_authorization: []
+      x-controller: v1/billings
+      x-action: address_show
+    patch:
+      tags:
+      - Billings
+      operationId: V1_Billings-address_update
+      parameters:
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update billing address with the specified data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Billing address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing_BillingAddress'
+      description: Update the billing address for the given organization.
+      summary: Update address
+      security:
+      - header_authorization: []
+      x-controller: v1/billings
+      x-action: address_update
+      requestBody:
+        description: Billing address
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Billing_BillingAddressUpdateSpec'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    PaymentMethod:
+      type: object
+      properties:
+        object:
+          type: string
+          description: Payment method type (credit card, paypal, etc.)
+        address_city:
+          type: string
+          description: City
+        address_country:
+          type: string
+          description: Country
+        address_line1:
+          type: string
+          description: Address line 1
+        address_line2:
+          type: string
+          description: Address line 2
+        address_state:
+          type: string
+          description: State
+        address_zip:
+          type: string
+          description: Address ZIP code
+        brand:
+          type: string
+          description: Brand
+        country:
+          type: string
+          description: Country associated with the payment method
+        exp_month:
+          type: integer
+          description: Expiration month
+        exp_year:
+          type: integer
+          description: Expiration year
+        last4:
+          type: string
+          description: Last four digits
+      description: Payment method resource
+    Billing_BillingAddress:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: First Name
+        last_name:
+          type: string
+          description: Last Name
+        email:
+          type: string
+          description: Email
+        company:
+          type: string
+          description: Company
+        phone:
+          type: string
+          description: Phone
+        line1:
+          type: string
+          description: Address Line1
+        line2:
+          type: string
+          description: Address Line2
+        line3:
+          type: string
+          description: Address Line3
+        city:
+          type: string
+          description: City
+        state_code:
+          type: string
+          description: The ISO 3166-2 state/province code without the country prefix. Currently supported for USA, Canada and India.
+        state:
+          type: string
+          description: State
+        zip:
+          type: string
+          description: Zip or postal code
+        country:
+          type: string
+          description: Country Must be one of ISO 3166 alpha-2 country code.
+      description: Billing address resource
+    Billing_BillingAddressUpdateSpec:
+      type: object
+      properties:
+        billing_address:
+          $ref: '#/components/schemas/Billing_BillingAddress'
+      required:
+      - billing_address
+      description: Billing address update request parameters
+    BillingCreate:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: User organization ID
+        payment_token:
+          type: string
+          description: Stripe token
+      required:
+      - organization_id
+      - payment_token
+      description: Billing creation request parameters
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

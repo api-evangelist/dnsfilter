@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Dictionary Lookups API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Dictionary Lookups
+  description: ''
+paths:
+  /v1/dictionary/qp_methods:
+    get:
+      tags:
+      - Dictionary Lookups
+      operationId: V1_Dictionary_Lookups-qp_methods
+      parameters: []
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: QP Methods
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    allow:
+                      type: boolean
+                    name:
+                      type: string
+                    description:
+                      type: string
+      summary: List QP Methods
+      x-controller: v1/dictionary
+      x-action: qp_methods
+  /v2/dictionary/ai_applications:
+    get:
+      tags:
+      - Dictionary Lookups
+      operationId: V2_Dictionary_Lookups-ai_applications
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      description: Return a list of AI Applications and websites.
+      summary: AI Applications
+      x-controller: v2/dictionary
+      x-action: ai_applications
+  /v2/dictionary/cyber_sight_activity_types:
+    get:
+      tags:
+      - Dictionary Lookups
+      operationId: V2_Dictionary_Lookups-cyber_sight_activity_types
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CyberSightActivityType'
+      description: Returns all available CyberSightReports activity types.
+      summary: CyberSight Activity Types
+      x-controller: v2/dictionary
+      x-action: cyber_sight_activity_types
+  /v2/dictionary/vpn_settings_state_types:
+    get:
+      tags:
+      - Dictionary Lookups
+      operationId: V2_Dictionary_Lookups-vpn_settings_state_types
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VpnSettingsStateType'
+      description: Returns all available VPN Settings State types.
+      summary: VPN Settings State Types
+      x-controller: v2/dictionary
+      x-action: vpn_settings_state_types
+components:
+  schemas:
+    VpnSettingsStateType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: State type ID
+        name:
+          type: string
+          description: The name of the state type
+        friendly_name:
+          type: string
+          description: The friendly/display name that can be shown to the user
+        description:
+          type: string
+          description: Simple description of the state type
+      description: Vpn Settings State Types
+    CyberSightActivityType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Activity type ID
+        name:
+          type: string
+          description: The name of the activity type
+        friendly_name:
+          type: string
+          description: The friendly/display name that can be shown to the user
+        description:
+          type: string
+          description: Simple description of the activity
+      description: Activity Types
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

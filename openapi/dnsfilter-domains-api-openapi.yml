@@ -1,0 +1,217 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Domains API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Domains
+  description: ''
+paths:
+  /v1/domains/user_lookup:
+    get:
+      tags:
+      - Domains
+      operationId: V1_Domains-user_lookup
+      parameters:
+      - name: fqdn
+        description: FQDN to lookup
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Domains basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DomainSpec'
+      description: Gets all the domains associated for a particular FQDN.
+      summary: Lookup
+      security:
+      - header_authorization: []
+      x-controller: v1/domains
+      x-action: user_lookup
+  /v1/domains/bulk_lookup:
+    get:
+      tags:
+      - Domains
+      operationId: V1_Domains-bulk_lookup
+      parameters:
+      - name: fqdns
+        description: Comma separated list of FQDNs to lookup
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Domains basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DomainSpec'
+      description: Gets the domains and categories associated for each FQDN of the specified list.
+      summary: Bulk lookup
+      security:
+      - header_authorization: []
+      x-controller: v1/domains
+      x-action: bulk_lookup
+  /v1/domains/suggest_threat:
+    post:
+      tags:
+      - Domains
+      operationId: V1_Domains-suggest_threat
+      parameters:
+      - name: categories
+        description: Suggested security categories, comma separated IDs
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: fqdn
+        description: FQDN to verify
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: notes
+        description: User notes about the threat suggestion/verification
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Operation response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+      description: 'Mark a FQDN to verify its threat categorization.
+
+
+        Request example: `/v1/domains/suggest_threat?fqdn=XXXX&notes&test-report&categories=1,222,989`'
+      summary: Suggest threat
+      security:
+      - header_authorization: []
+      x-controller: v1/domains
+      x-action: suggest_threat
+components:
+  schemas:
+    DomainSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - $ref: '#/components/schemas/ApplicationLookup'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Domain'
+          relationships:
+            type: object
+            properties:
+              categories:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Domain current associated categories and applications
+      description: Domain specification
+    Domain:
+      type: object
+      properties:
+        host:
+          type: string
+          description: Host
+        name:
+          type: string
+          description: Name
+      description: Domain resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Successful operation yes/no
+      description: Success basic representation
+    ApplicationLookup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Application Id
+        name:
+          type: string
+          description: Application name
+        category:
+          type: string
+          description: Application category name
+      description: ApplicationLookup resource
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

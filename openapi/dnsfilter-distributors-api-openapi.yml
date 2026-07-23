@@ -1,0 +1,1942 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Distributors API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Distributors
+  description: ''
+paths:
+  /v1/distributors/health:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-health
+      parameters: []
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+      description: 'Allows testing API reachability and validation of the authentication header.
+
+
+        NOTE: This endpoint supports the read-only pre-shared secret key.'
+      summary: Health Check
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: health
+  /v1/distributors/distributors:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-distributors_index
+      parameters: []
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Distributor'
+      description: Allows to fetch basic information about a Distributor and its parent organization.
+      summary: Get
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: distributors_index
+    patch:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-distributors_update
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/DistributorUpdateSpec'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to update distributor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Distributor'
+      description: Updates the specified support Distributor information.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: distributors_update
+  /v1/distributors/msps:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-msps_index
+      parameters:
+      - name: canceled_at_from
+        description: 'Parent organization _canceled_at_ time range lower limit (inclusive). Unix timestampNote: either_include_canceled_ or _only_canceled_ must be _true_ for this filter to work'
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: canceled_at_to
+        description: 'Parent organization _canceled_at_ time range upper limit (inclusive). Unix timestampNote: either_include_canceled_ or _only_canceled_ must be _true_ for this filter to work'
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: created_at_from
+        description: Parent organization _created_at_ time range lower limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: created_at_to
+        description: Parent organization _created_at_ time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: distributor_id
+        description: Parent organization _distributor_id_ filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: distributor_sku
+        description: Parent organization _distributor_skus_ filter. Case-sensitive exact match
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: distributor_status
+        description: Parent organization _distributor_status_ filter. Case-sensitive exact match
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: external_id
+        description: Parent organization _external_id_ filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: include_canceled
+        description: 'Include canceled MSPs. Ignored if _only_canceled_ is specified (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: msp_name
+        description: MSP _name_ filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: only_canceled
+        description: 'Filter by canceled MSPs only (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: page
+        description: Page number (defaults to 1) and size (defaults to 1500, maximum 1500).
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: parent_organization_name
+        description: MSP parent organization _name_ filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: transferred_at_from
+        description: Parent organization _transferred_at_ time range lower limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: transferred_at_to
+        description: Parent organization _transferred_at_ time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: trial_end
+        description: 'Parent organization _trial_end_ filterExact match search. Date in ISO8601 format, e.g.: 2022-12-31'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: updated_at_from
+        description: Parent organization _updated_at_ time range lower limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: updated_at_to
+        description: Parent organization _updated_at_ time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MspDistributor'
+      description: 'Allows to get the list of MSPs that matches the search criteria.
+
+
+        Returns all non-canceled ones by default if no search filters are
+
+        specified.
+
+
+        Note: endpoint does pagination, be sure to fetch all available pages to
+
+        get the full list.'
+      summary: MSP Search
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: msps_index
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-msps_create
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/MspDistributorCreateSpec'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MspDistributor'
+      description: Creates an MSP and its parent organization.
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: msps_create
+  /v1/distributors/msps/{id}:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-msps_show
+      parameters:
+      - name: id
+        description: MSP ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MspDistributor'
+      description: Allows to fetch basic information about an MSP and its parent organization.
+      summary: Show MSP
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: msps_show
+    patch:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-msps_update
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/MspDistributorUpdateSpec'
+      - name: id
+        description: MSP ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MspDistributor'
+      description: Updates the specified MSP and its parent organization data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: msps_update
+  /v1/distributors/msps/{id}/cancel:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-msps_cancel
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          type: object
+          properties:
+            distributor_status:
+              type: string
+      - name: id
+        description: MSP ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to cancel MSP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MspDistributor'
+      description: Cancels the specified MSP parent organization and all of its sub-organizations.
+      summary: Cancel
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: msps_cancel
+  /v1/distributors/msps/{id}/reactivate:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-msps_reactivate
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          type: object
+          properties:
+            distributor_status:
+              type: string
+            reactivate_sub_organizations:
+              type: boolean
+      - name: id
+        description: MSP ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to reactivate MSP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MspDistributor'
+      description: Reactivates the specified MSP parent organization and all of its sub-organization if specified.
+      summary: Reactivate
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: msps_reactivate
+  /v1/distributors/organizations:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_index
+      parameters:
+      - name: canceled_at_from
+        description: 'Organization _canceled_at_ time range lower limit (inclusive). Unix timestamp. Note: either _include_canceled_ or _only_canceled_ must be _true_ for this filter to work'
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: canceled_at_to
+        description: 'Organization _canceled_at_ time range upper limit (inclusive). Unix timestamp. Note: either _include_canceled_ or _only_canceled_ must be _true_ for this filter to work'
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: created_at_from
+        description: Organization _created_at_ time range lower limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: created_at_to
+        description: Organization _created_at_ time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: distributor_id
+        description: Organization _distributor_id_ filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: distributor_sku
+        description: Organization _distributor_skus_ filter. Case-sensitive exact match
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: distributor_status
+        description: Organization _distributor_status_ filter. Case-sensitive exact match
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: external_id
+        description: Organization _external_id_ filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: include_canceled
+        description: 'Include canceled organizationsIgnored if _only_canceled_ is specified (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: msp_id
+        description: Organization _msp_id/managed_by_msp_id_ filter. Exact match search. MSP parent organization is automatically excluded from the result with this filter.
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name
+        description: Organization _name_ filter. Case-insensitive search pattern.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: only_canceled
+        description: 'Filter by canceled organizations only (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: page
+        description: Page number (defaults to 1) and size (defaults to 1500, maximum 1500).
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: transferred_at_from
+        description: Organization _transferred_at_ time range lower limit(inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: transferred_at_to
+        description: Organization _transferred_at_ time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: trial_end
+        description: 'Organization _trial_end_ filter. Exact match search. Date in ISO8601 format, e.g.: 2022-12-31'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: updated_at_from
+        description: Organization _updated_at_ time range lower limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: updated_at_to
+        description: Organization _updated_at_ time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationDistributor'
+      description: 'Allows to get the list of organizations that matches the search criteria,
+
+        returns all non-canceled ones by default if no search filters are
+
+        specified. Note: endpoint does pagination, be sure to fetch all available
+
+        pages to get the full list.'
+      summary: Organizations Search
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_index
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_create
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/OrganizationDistributorCreateSpec'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDistributor'
+      description: Creates an MSP sub-organization.
+      summary: Create suborganization
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_create
+  /v1/distributors/organizations/{id}:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_show
+      parameters:
+      - name: id
+        description: Scope response to id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDistributor'
+      description: Allows to fetch basic information about an MSP parent organization or sub-organization.
+      summary: Show Organization
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_show
+    patch:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_update
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/OrganizationDistributorUpdateSpec'
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to update organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDistributor'
+      description: Updates the specified MSP sub-organization data.
+      summary: Update suborganization
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_update
+  /v1/distributors/organizations/{id}/cancel:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_cancel
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          type: object
+          properties:
+            distributor_status:
+              type: string
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to cancel organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDistributor'
+      description: 'Cancels the specified MSP sub-organization.
+
+
+        Note: See _Organization Cancellation_ for important details.'
+      summary: Cancel suborganization
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_cancel
+  /v1/distributors/organizations/{id}/reactivate:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_reactivate
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          type: object
+          properties:
+            distributor_status:
+              type: string
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to reactivate organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDistributor'
+      description: 'Reactivates the specified MSP sub-organization.
+
+
+        Note: See _Organization Cancellation_ for important details.'
+      summary: Reactivate suborg
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_reactivate
+  /v1/distributors/organizations/{id}/add_sku:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_add_sku
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          type: object
+          properties:
+            sku:
+              type: string
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDistributor'
+      description: 'Helper endpoint to add a single SKU to the specified MSP parent
+
+        organization or sub-organization instead of doing a full update that
+
+        should contain all SKUs.'
+      summary: Add Sku
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_add_sku
+  /v1/distributors/organizations/{id}/remove_sku:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-organizations_remove_sku
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          type: object
+          properties:
+            sku:
+              type: string
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDistributor'
+      description: 'Helper endpoint to remove a single SKU to the specified MSP parent
+
+        organization or sub-organization instead of doing a full update that
+
+        should contain all SKUs.'
+      summary: Remove Sku
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: organizations_remove_sku
+  /v1/distributors/users:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_index
+      parameters:
+      - name: created_at_from
+        description: User created_at time range lower limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: created_at_to
+        description: User created_at time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: distributor_guid
+        description: User distributor_guid filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: email
+        description: User email filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: first_name
+        description: User first_name filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: last_name
+        description: User last_name filter. Case-insensitive search pattern
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: msp_id
+        description: Users with a direct membership to the parent organization of the specified MSP ID. Exact match search.
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number (defaults to 1) and size (defaults to 1500, maximum 1500).
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: transferred_at_from
+        description: User transferred_at time range lower limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: transferred_at_to
+        description: User transferred_at time range upper limit (inclusive). Unix timestamp
+        required: false
+        in: query
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDistributor'
+      description: 'Allows to get the list of users that matches the search criteria. Note:
+
+        endpoint does pagination, be sure to fetch all available pages to get the
+
+        full list.'
+      summary: Users Search
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_index
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_create
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/UserDistributorCreateSpec'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to create user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDistributor'
+      description: Creates a new user alongside a membership with an organization.
+      summary: Create user
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_create
+  /v1/distributors/users/{id}:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_show
+      parameters:
+      - name: id
+        description: Scope response to id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDistributor'
+      description: Allows to fetch basic information about an user.
+      summary: Show User
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_show
+  /v1/distributors/users/{id}/add_membership:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_add_membership
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/UserMembershipDistributorSpec'
+      - name: id
+        description: User ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to add membership
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDistributor'
+      description: Adds/creates a new user membership with an organization.
+      summary: Add membership
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_add_membership
+  /v1/distributors/users/{id}/update_membership:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_update_membership
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          $ref: '#/components/schemas/UserMembershipDistributorSpec'
+      - name: id
+        description: User ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to update membership
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDistributor'
+      description: Updates an existing user membership with an organization.
+      summary: Update membership
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_update_membership
+  /v1/distributors/users/{id}/remove_membership:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_remove_membership
+      parameters:
+      - name: body
+        description: body
+        required: true
+        in: query
+        schema:
+          type: object
+          properties:
+            organization_id:
+              type: integer
+      - name: id
+        description: User ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to remove membership
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDistributor'
+      description: Removes/deletes an existing user membership with an organization.
+      summary: Remove membership
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_remove_membership
+  /v1/distributors/users/{id}/send_reset_password_email:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_send_reset_password_email
+      parameters:
+      - name: id
+        description: Scope response to id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failure to generate reset password email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: Email sent
+      description: Sends a reset password email to the specified user.
+      summary: Reset password
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_send_reset_password_email
+  /v1/distributors/users/{id}/reset_password_url:
+    post:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-users_reset_password_url
+      parameters:
+      - name: id
+        description: Scope response to id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reset_password_url:
+                    type: string
+      description: 'Creates a new reset password URL for the specified user.
+
+
+        The URL is valid for 432000 seconds (5 days).'
+      summary: Reset password URL
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: users_reset_password_url
+  /v1/distributors/reports/usage_by_organization:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-reports_usage_by_organization
+      parameters:
+      - name: date
+        description: 'Report date.  Date in ISO8601 format, e.g.: 2022-12-31'
+        required: true
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: include_in_trial
+        description: 'Includes organizations that were in trial in the result (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: include_parent_organization
+        description: 'Includes MSPs parent organizations in the result (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: msp_ids
+        description: 'List of MSP IDs, e.g.: 1,2,3'
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_ids
+        description: 'List of organization IDs, e.g.: 4,5,6'
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+      description: 'Allows to fetch user usage information per organization.
+
+        NOTE: This endpoint supports the read-only pre-shared secret key.'
+      summary: Get usage info
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: reports_usage_by_organization
+  /v1/distributors/reports/usage_by_sku:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-reports_usage_by_sku
+      parameters:
+      - name: date
+        description: 'Report date.  Date in ISO8601 format, e.g.: 2022-12-31'
+        required: true
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: include_in_trial
+        description: 'Includes organizations that were in trial in the result (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: include_parent_organization
+        description: 'Includes MSPs parent organizations in the result (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: msp_ids
+        description: 'List of MSP IDs, e.g.: 1,2,3'
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_ids
+        description: 'List of organization IDs, e.g.: 4,5,6'
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+      description: 'Allows to fetch user usage information per SKU.
+
+
+        NOTE: it might be possible that the covered_users and estimated_users
+
+        values do not match the total_requests / 6000 math, since these values
+
+        are the sum of already rounded up values of organizations with the given
+
+        SKU.
+
+
+        NOTE: This endpoint supports the read-only pre-shared secret key.'
+      summary: Get usage info by SKU
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: reports_usage_by_sku
+  /v1/distributors/reports/covered_users_summary_by_organization:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-reports_covered_users_summary_by_organization
+      parameters:
+      - name: from
+        description: 'Report range lower limit. Date in ISO8601 format, e.g.: 2022-12-01'
+        required: true
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: include_in_trial
+        description: 'Includes organizations that were in trial in the result (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: include_parent_organization
+        description: 'Includes MSPs parent organizations in the result (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: msp_ids
+        description: 'List of MSP IDs, e.g.: 1,2,3'
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_ids
+        description: 'List of organization IDs, e.g.: 4,5,6'
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: to
+        description: 'Report range upper limit. Date in ISO8601 format, e.g.: 2022-12-31'
+        required: true
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Invalid distributor or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+      description: 'Allows to fetch covered users information by organization for the given
+
+        date range.
+
+
+        Maximum days in date range is limited to 31.
+
+
+        NOTE: This endpoint supports the read-only pre-shared secret key.'
+      summary: Get user info by date
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: reports_covered_users_summary_by_organization
+  /v1/distributors/skus_available:
+    get:
+      tags:
+      - Distributors
+      operationId: V1_Distributors-skus_available
+      parameters: []
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  skus:
+                    type: array
+                    items:
+                      type: string
+      description: Returns the list of SKUs available to the distributor's customers.
+      summary: SKUs
+      security:
+      - header_authorization: []
+      x-controller: v1/distributors
+      x-action: skus_available
+components:
+  schemas:
+    DistributorUpdate:
+      type: object
+      properties:
+        support_email:
+          type: string
+        support_phone:
+          type: string
+        support_url:
+          type: string
+        support_description:
+          type: string
+        show_support_info:
+          type: boolean
+      description: Distributor update request parameters
+    Membership:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        user_id:
+          type: integer
+          description: User resource ID
+        role:
+          type: string
+          enum:
+          - administrator
+          - read_only
+          - network_administrator
+          - network_support
+          - support
+          description: Role
+      description: Membership resource
+    OrganizationDistributorUpdateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      required:
+      - msp
+    MspDistributor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        name:
+          type: string
+          description: MSP name
+        total_roaming_clients:
+          type: integer
+          description: Total Roaming Clients registered for the MSP
+        allow_site_creation:
+          type: boolean
+          description: 'Allows MSP customers to create sites on their own. (default: true)'
+        prevent_sub_org_creation:
+          type: boolean
+          description: 'Prevents the MSP on creating customers, the MSP has to rely on the distributor to do that (default: false)'
+        parent_organization:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      description: MSP Distributor resource
+    UserDistributorCreateSpec:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserDistributor'
+        membership:
+          $ref: '#/components/schemas/Membership'
+        send_reset_password_email:
+          type: boolean
+        return-reset_password_url:
+          type: boolean
+      required:
+      - user
+      - membership
+    DistributorUpdateSpec:
+      type: object
+      properties:
+        distributor:
+          $ref: '#/components/schemas/DistributorUpdate'
+      required:
+      - distributor
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    MspDistributorCreateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/MspDistributor'
+      required:
+      - msp
+    UserDistributor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        email:
+          type: string
+          description: 'Email address.
+
+            It is lowercased on DNSFilter side.'
+        name:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        distributor_guid:
+          type: string
+          description: 'User ID on distributor systems.
+
+            It is lowercased on DNSFilter side.
+
+            This value should be unique across all distributor users if specified.'
+        created_at_epoch_utc:
+          type: integer
+        created_at:
+          type: integer
+        transferred_at:
+          type: integer
+        memberships:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserMembershipDistributor'
+      description: User Distributor resource
+    Distributor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        name:
+          type: string
+        support_email:
+          type: string
+        support_phone:
+          type: string
+        support_url:
+          type: string
+        support_description:
+          type: string
+        show_support_info:
+          type: boolean
+        parent_organization:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      description: Distributor resource
+    OrganizationDistributorCreateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      required:
+      - msp
+    MspDistributorUpdateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/MspDistributor'
+      required:
+      - msp
+    OrganizationDistributor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        name:
+          type: string
+          description: Organization name
+        external_id:
+          type: string
+          description: Organization ID on customer systems
+        status:
+          type: string
+          enum:
+          - active
+          - canceled
+          - trial
+        distributor_id:
+          type: string
+          description: 'Organization ID on distributor systems.
+
+            It is lowercased on DNSFilter side.
+
+            This value should be unique across all distributor organizations if specified.'
+        distributor_status:
+          type: string
+          description: 'Organization status on distributor systems.
+
+            DNSFilter does nothing with this'
+        distributor_skus:
+          type: array
+          items:
+            type: string
+          description: Organization product SKUs
+        distributor_stated_user_count:
+          type: integer
+          description: 'Stated user count (defult: 0)'
+        distributor_nfr_user_count:
+          type: integer
+          description: 'Not for resale (NFR) stated user count (default: 0)
+
+            Only valid for MSPs parent organizations, it will be always 0 for MSPs customers.'
+        distributor_stated_wifi_count:
+          type: integer
+        gdpr:
+          type: boolean
+          description: 'GDPR enabled (default: false)'
+        user_agents_auto_update:
+          type: boolean
+          description: 'Roaming clients auto-update enabled (default: false)'
+        sync_tools_auto_update:
+          type: boolean
+          description: 'Active directory sync tools auto-update enabled (default: false)'
+        summary_email_enabled:
+          type: boolean
+          description: 'Weekly traffic summary email enabled (default: false)'
+        managed_by_msp_id:
+          type: integer
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        canceled_at:
+          type: integer
+        transferred_at:
+          type: integer
+      description: OrganizationDistributor resource
+    UserMembershipDistributorSpec:
+      type: object
+      properties:
+        membership:
+          $ref: '#/components/schemas/UserMembershipDistributor'
+      required:
+      - membership
+    UserMembershipDistributor:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - owner
+          - super_administrator
+          - administrator
+          - read_only
+          - technical
+          - accountant
+          - policies_only
+          description: 'Note: An user could only be an owner of a single organization.
+
+            Note: An organization can only have one owner user'
+        organization_id:
+          type: integer
+          description: Organization ID for which the membership is going to be tied to
+        is_include_only_list:
+          type: boolean
+          description: 'Defines if the user is going to have access or restricted access to the organization list defined on the organization_permission_ids param:
+
+            true: user ONLY has access to the organizations/sub-organizations defined
+
+            on the organization_permission_ids param.
+
+            false: user has access to all MSP sub-organizations (or even the MSP parent
+
+            organization) EXCEPT to the ones defined on the organization_permission_ids
+
+            param.
+
+            Only valid if organization_id is an MSP parent organization, it will be always false otherwise'
+        organization_permission_ids:
+          type: array
+          items:
+            type: integer
+          description: 'List of organization/sub-organization IDs the user is going to have access/restricted access
+
+            Only valid if organization_id is an MSP parent organization, it will be always empty otherwise'
+      description: User Membership Distributor resource
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

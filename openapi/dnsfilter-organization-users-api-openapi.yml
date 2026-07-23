@@ -1,0 +1,375 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Organization Users API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Organization Users
+  description: ''
+paths:
+  /v1/organizations/{organization_id}/users:
+    get:
+      tags:
+      - Organization Users
+      operationId: V1_Organization_Users-index
+      parameters:
+      - name: include_auth_providers
+        description: 'Return user''s authentication providers if true (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_id
+        description: The ID of the organization to search
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User and permission details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrganizationUser'
+      description: Gets the users for the specified organization.
+      summary: Get
+    post:
+      tags:
+      - Organization Users
+      operationId: V1_Organization_Users-create
+      parameters:
+      - name: organization_id
+        description: The ID of the organization
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update user with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: The new user and role information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/OrganizationUser'
+      description: 'Adds a new or existing user with the specified email to the specified
+
+        organization.'
+      summary: Create
+      requestBody:
+        description: User information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationUserCreateSpec'
+  /v1/organizations/{organization_id}/users/{id}:
+    get:
+      tags:
+      - Organization Users
+      operationId: V1_Organization_Users-show
+      parameters:
+      - name: id
+        description: The ID of the user to return
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: include_auth_providers
+        description: 'Return user''s authentication providers if true (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_id
+        description: The ID of the organization to search
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User and permission details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/OrganizationUser'
+      description: Gets the user details and permissions for the specified organization.
+      summary: Show user
+    patch:
+      tags:
+      - Organization Users
+      operationId: V1_Organization_Users-update
+      parameters:
+      - name: id
+        description: The OrganizationUser ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: organization_id
+        description: The ID of the organization to search
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update user with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated user and role information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/OrganizationUser'
+      description: Updates a user or permissions with the specified data.
+      summary: Update
+      requestBody:
+        description: User information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationUserCreateSpec'
+    delete:
+      tags:
+      - Organization Users
+      operationId: V1_Organization_Users-destroy
+      parameters:
+      - name: id
+        description: Network ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: organization_id
+        description: The ID of the organization to search
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: 'Removes a user from the organization. This will not actually delete the
+
+        user account.'
+      summary: Delete
+  /v1/organizations/{organization_id}/users/{id}/resend_invite:
+    post:
+      tags:
+      - Organization Users
+      operationId: V1_Organization_Users-resend_invite
+      parameters:
+      - name: id
+        description: The ID of the user
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: organization_id
+        description: The ID of the organization
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Resends the user invite for the specified user and organization.
+      summary: Resend Invite
+components:
+  schemas:
+    OrganizationUserCreateSpec:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/OrganizationUserCreate'
+      required:
+      - user
+      description: OrganizationUser creation request parameters
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    OrganizationUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Email address
+        email:
+          type: string
+          description: Email address
+        auth0_sub:
+          type: string
+          description: The Auth0 ID of the user
+        first_name:
+          type: string
+          description: First name
+        last_name:
+          type: string
+          description: Last name
+        phone:
+          type: string
+          description: Phone number
+        email_verified:
+          type: boolean
+          description: True if the email has been verified. Null if the status is unknown. This value is readonly. (may be null)
+        role:
+          type: string
+          description: One of "administrator", "read_only"
+        organization_permission_ids:
+          type: array
+          items:
+            type: integer
+          description: The organization ids to either add or remove permissions for.
+        is_include_only_list:
+          type: boolean
+          description: If true the user will only have access to organization_permission_ids. If false, it will prevent access to the organizations in organization_permission_ids.
+        mfa_enabled:
+          type: boolean
+          description: MFA is enabled for the user
+      description: OrganizationUser resource
+    OrganizationUserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address
+        first_name:
+          type: string
+          description: First name
+        last_name:
+          type: string
+          description: Last name
+        phone:
+          type: string
+          description: Phone number
+        role:
+          type: string
+          description: One of "administrator", "read_only"
+        organization_permission_ids:
+          type: array
+          items:
+            type: integer
+          description: The organization ids to either add or remove permissions for.
+        is_include_only_list:
+          type: boolean
+          description: If true the user will only have access to organization_permission_ids. If false, it will prevent access to the organizations in organization_permission_ids.
+      description: OrganizationUser create request parameters
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

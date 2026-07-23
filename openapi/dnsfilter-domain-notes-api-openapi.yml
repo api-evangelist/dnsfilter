@@ -1,0 +1,417 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Domain Notes API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Domain Notes
+  description: ''
+paths:
+  /v1/notes/{resource}/{id}/{domain}:
+    get:
+      tags:
+      - Domain Notes
+      operationId: V1_Domain_Notes-show
+      parameters:
+      - name: domain
+        description: domain
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: id
+        description: Resource ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: resource
+        description: 'Valid resources: policies, msps or organizations'
+        required: true
+        in: path
+        schema:
+          type: string
+          enum:
+          - policies
+          - msps
+          - organizations
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Resource notes information
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DomainNotesSpec'
+      description: Gets associated notes from a specific resource.
+      summary: Show
+      security:
+      - header_authorization: []
+      x-controller: v1/domain_notes
+      x-action: show
+    patch:
+      tags:
+      - Domain Notes
+      operationId: V1_Domain_Notes-update
+      parameters:
+      - name: domain
+        description: domain
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: id
+        description: Resource ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: resource
+        description: 'Valid resources: policies, msps or organizations'
+        required: true
+        in: path
+        schema:
+          type: string
+          enum:
+          - policies
+          - msps
+          - organizations
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update resource notes with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Resource notes information
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DomainNotesSpec'
+      description: Updates notes for a resource with the specified data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/domain_notes
+      x-action: update
+      requestBody:
+        description: Resource notes information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainNotesCreateSpec'
+  /v1/notes/{resource}/{id}/batch_update:
+    patch:
+      tags:
+      - Domain Notes
+      operationId: V1_Domain_Notes-batch_update
+      parameters:
+      - name: append
+        description: true/false if the domains and notes are appended or updated, false by default.
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: id
+        description: Resource ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: notes
+        description: 'Array with domain and notes information. ie: notes: [domain: ''google.com'', note: ''google notes'']'
+        required: true
+        in: query
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              domain:
+                type: string
+              note:
+                type: string
+        explode: true
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: resource
+        description: 'Valid resources: policies, msps or organizations'
+        required: true
+        in: path
+        schema:
+          type: string
+          enum:
+          - policies
+          - msps
+          - organizations
+      - name: single_note
+        description: a note applied for all provided domains
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: type
+        description: Type of list allowlist/blocklist (allow, block), defaults to allow
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - allow
+          - block
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update resource notes with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Resource notes information
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DomainNotesSpec'
+      description: Updates notes for a resource with the specified data.
+      summary: Bulk update
+      security:
+      - header_authorization: []
+      x-controller: v1/domain_notes
+      x-action: batch_update
+  /v1/notes/{resource}/{id}/notes/{domain}:
+    delete:
+      tags:
+      - Domain Notes
+      operationId: V1_Domain_Notes-destroy
+      parameters:
+      - name: domain
+        description: domain
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: id
+        description: Resource ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: resource
+        description: 'Valid resources: policies, msps or organizations'
+        required: true
+        in: path
+        schema:
+          type: string
+          enum:
+          - policies
+          - msps
+          - organizations
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not delete resource notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Resource notes information
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DomainNotesSpec'
+      description: Deletes notes for a resource.
+      summary: Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/domain_notes
+      x-action: destroy
+  /v1/notes/{resource}/{id}/notes/batch_destroy:
+    delete:
+      tags:
+      - Domain Notes
+      operationId: V1_Domain_Notes-batch_destroy
+      parameters:
+      - name: domains
+        description: Comma separated list of domains.
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: id
+        description: Resource ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: resource
+        description: 'Valid resources: policies, msps or organizations'
+        required: true
+        in: path
+        schema:
+          type: string
+          enum:
+          - policies
+          - msps
+          - organizations
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not delete resource notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Resource notes information
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DomainNotesSpec'
+      description: Deletes notes for a resource.
+      summary: Batch destroy
+      security:
+      - header_authorization: []
+      x-controller: v1/domain_notes
+      x-action: batch_destroy
+components:
+  schemas:
+    DomainNotesCreateSpec:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - allow
+          - block
+          description: Type of notes (allow, block), defaults to allow
+        domain:
+          type: string
+          description: Allow/block list domain
+        note:
+          type: string
+          description: Notes for domain
+      required:
+      - type
+      - domain
+      description: Ressource Notes creation request parameters
+    DomainNotesSpec:
+      type: object
+      properties:
+        allow_notes:
+          type: object
+          description: Notes for allowed domains
+        block_notes:
+          type: object
+          description: Notes for blocked domains
+      description: Domain notes response
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

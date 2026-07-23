@@ -1,0 +1,403 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes User Agent Bulk Deletes API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: User Agent Bulk Deletes
+  description: ''
+paths:
+  /v1/user_agent_bulk_deletes:
+    post:
+      tags:
+      - User Agent Bulk Deletes
+      operationId: V1_User_Agent_Bulk_Deletes-create
+      parameters:
+      - name: agent_state
+        description: filter by agent state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - protected
+          - unprotected
+          - bypassed
+          - uninstalled
+      - name: agent_version
+        description: Filter user agents by agent version.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: block_page_id
+        description: Filter user agents by block page ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name_search
+        description: A search term to search client name fields (i.e. hostname and friendly_name)
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: network_ids
+        description: Networks IDs, defaults to all
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_id
+        description: Organization ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: organization_ids
+        description: Organization IDs
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: policy_id
+        description: Filter user agents by policy ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: policy_schedule
+        description: Filter user agents by policy/schedule name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: queue_uninstall
+        description: either soft delete or uninstall based on this value
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: release_channels
+        description: 'Filter user agents by release channel. Valid values: stable, beta, preview'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+      - name: scheduled_policy_id
+        description: Filter user agents by scheduled_policy ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: search
+        description: 'User agent list by keyword(s) (space delimited), this could be: hostname, friendly name'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: state
+        description: filter by user agent online/offline state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+      - name: status
+        description: 'filter by user agent status, valid attributes: active, disabled, uninstalled'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: tags
+        description: User agent list by tags
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: traffic_received_last_15_mins
+        description: filter by agents that have received traffic in last 15 minutes
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: type
+        description: User agent type, defaults to non-proxy/no-relays user agents
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - proxy
+          - agents
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User agent bulk delete
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserAgentBulkDelete'
+      description: Create a user agent bulk delete.
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agent_bulk_deletes
+      x-action: create
+      requestBody:
+        description: User agent bulk delete information, ids overrides filters, exclude_ids removes agents from filtered set
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAgentBulkDeleteCreate'
+  /v1/user_agent_bulk_deletes/{id}:
+    get:
+      tags:
+      - User Agent Bulk Deletes
+      operationId: V1_User_Agent_Bulk_Deletes-show
+      parameters:
+      - name: id
+        description: Id of user agent bulk delete
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User agent bulk delete
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserAgentBulkDelete'
+      description: Gets a user agent bulk delete by id.
+      summary: Show
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agent_bulk_deletes
+      x-action: show
+  /v1/user_agent_bulk_deletes/counts:
+    get:
+      tags:
+      - User Agent Bulk Deletes
+      operationId: V1_User_Agent_Bulk_Deletes-counts
+      parameters:
+      - name: agent_state
+        description: filter by agent state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - protected
+          - unprotected
+          - bypassed
+          - uninstalled
+      - name: name_search
+        description: A search term to search client name fields (i.e. hostname and friendly_name)
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: network_ids
+        description: Networks IDs, defaults to all
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_id
+        description: Organization ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: search
+        description: 'User agent list by keyword(s) (space delimited), this could be: hostname, friendly name'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: state
+        description: filter by user agent online/offline state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+      - name: status
+        description: 'filter by user agent status, valid attributes: active, disabled, uninstalled'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: tags
+        description: User agent list by tags
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: traffic_received_last_15_mins
+        description: filter by agents that have received traffic in last 15 minutes
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: type
+        description: User agent type, defaults to non-proxy/no-relays user agents
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - proxy
+          - agents
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User agent counts information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAgentBulkDeleteCounts'
+      description: Gets a user agent bulk delete counts by id.
+      summary: Counts
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agent_bulk_deletes
+      x-action: counts
+components:
+  schemas:
+    UserAgentBulkDelete:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        completed:
+          type: boolean
+          description: true if bulk delete is completed
+        count:
+          type: integer
+          description: count of affected user agents
+        queue_uninstall:
+          type: boolean
+          description: true if action was bulk delete and uninstall
+      description: User agent bulk delete
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    UserAgentBulkDeleteCreate:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+          description: Ids of user agents to delete. Overrides any lookups based on filters
+        exclude_ids:
+          type: array
+          items:
+            type: string
+          description: Ids of user agents to remove from delete when using filters
+      description: User agent bulk delete
+    UserAgentBulkDeleteCounts:
+      type: object
+      properties:
+        uninstall_and_delete:
+          type: integer
+          description: the count of user agents that can bed uninstalled and deleted
+        delete:
+          type: integer
+          description: the count of unsupported user agents that can be deleted
+      description: User agent counts by remote uninstall support
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

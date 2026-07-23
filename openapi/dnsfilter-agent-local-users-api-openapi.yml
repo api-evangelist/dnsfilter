@@ -1,0 +1,622 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Agent Local Users API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Agent Local Users
+  description: ''
+paths:
+  /v1/agent_local_users:
+    get:
+      tags:
+      - Agent Local Users
+      operationId: V1_Agent_Local_Users-index
+      parameters:
+      - name: block_page
+        description: Filter by block page name
+        required: false
+        in: query
+        schema:
+          $ref: '#/components/schemas/StringContainsOp'
+      - name: collection_id
+        description: Filter by collection
+        required: false
+        in: query
+        schema:
+          $ref: '#/components/schemas/ArrayIntegerIsOp'
+      - name: cybersight_enabled
+        description: 'When true, use OpenSearch for activity in the time window: without user_agent_uuids, return extant ALUs seen on any Cybersight-eligible roaming client in the org(s); with user_agent_uuids, return ALUs seen on those roaming clients. When false, use Postgres only (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: end_at
+        description: ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: friendly_name
+        description: Filter by friendly name
+        required: false
+        in: query
+        schema:
+          $ref: '#/components/schemas/StringContainsOp'
+      - name: ids
+        description: Filter to users whose IDs are in the specified list of values
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: in_a_collection
+        description: filter by agent local users in a collection
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: msp_id
+        description: MSP ID. When provided, returns agent local users across all organizations belonging to this MSP.
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name
+        description: filter by name. If friendly_name not found, will search by user_name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: policy_schedule
+        description: Filter by policy or scheduled policy name
+        required: false
+        in: query
+        schema:
+          $ref: '#/components/schemas/StringContainsOp'
+      - name: search
+        description: Filter by name or user_login
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: sort
+        description: 'Sort options, valid attributes: name, first_seen, last_seen. Prefix with - for descending (e.g. -first_seen)'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: start_at
+        description: ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: user_agent_uuids
+        description: Filter to users associated with these roaming clients. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG).
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: user_login
+        description: Filter by user login
+        required: false
+        in: query
+        schema:
+          $ref: '#/components/schemas/StringContainsOp'
+      - name: user_name
+        description: Filter by username
+        required: false
+        in: query
+        schema:
+          $ref: '#/components/schemas/StringContainsOp'
+      - name: user_policy_override
+        description: When true, return only users with a policy or scheduled policy directly assigned. When false, return only users without a direct policy or scheduled policy assignment.
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Agent local users basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AgentLocalUserSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets the agent local users associated to an organization with basic information.
+      summary: Gets extant users
+      security:
+      - header_authorization: []
+      x-controller: v1/agent_local_users
+      x-action: index
+  /v1/agent_local_users/all:
+    get:
+      tags:
+      - Agent Local Users
+      operationId: V1_Agent_Local_Users-all
+      parameters:
+      - name: cybersight_enabled
+        description: 'When true, use OpenSearch for activity in the time window: without user_agent_uuids, return ALUs seen on any Cybersight-eligible roaming client in scope; with user_agent_uuids, return ALUs seen on those roaming clients. When false, use Postgres only (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: end_at
+        description: ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: in_a_collection
+        description: filter by agent local users in a collection
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: name
+        description: filter by name. If friendly_name not found, will search by user_name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: sort
+        description: 'Sort options, valid attributes: name'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: start_at
+        description: ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: user_agent_uuids
+        description: Filter to users associated with these roaming clients. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG).
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: user_policy_override
+        description: When true, return only users with a policy or scheduled policy directly assigned. When false, return only users without a direct policy or scheduled policy assignment.
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Agent local users basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AgentLocalUserSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets ALL agent local users associated to an user organization with basic information.
+      summary: Gets ALL users
+      security:
+      - header_authorization: []
+      x-controller: v1/agent_local_users
+      x-action: all
+  /v1/agent_local_users/{id}:
+    get:
+      tags:
+      - Agent Local Users
+      operationId: V1_Agent_Local_Users-show
+      parameters:
+      - name: id
+        description: Agent local user ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Agent local user basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AgentLocalUserSpec'
+      description: Gets basic information of the specified agent local user.
+      summary: Show extant user
+      security:
+      - header_authorization: []
+      x-controller: v1/agent_local_users
+      x-action: show
+    patch:
+      tags:
+      - Agent Local Users
+      operationId: V1_Agent_Local_Users-update
+      parameters:
+      - name: id
+        description: Agent local user ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update agent local user with the specified data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Updated agent local user basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AgentLocalUserSpec'
+      description: Updates an agent local user with the specified data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/agent_local_users
+      x-action: update
+      requestBody:
+        description: Agent local user information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentLocalUserUpdateSpec'
+    delete:
+      tags:
+      - Agent Local Users
+      operationId: V1_Agent_Local_Users-destroy
+      parameters:
+      - name: id
+        description: Agent local user ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not delete agent local user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Deletes a agent local user.
+      summary: Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/agent_local_users
+      x-action: destroy
+  /v2/agent_local_users/counts:
+    get:
+      tags:
+      - Agent Local Users
+      operationId: V2_Agent_Local_Users-counts
+      parameters:
+      - name: msp_id
+        description: MSP ID. When provided, returns counts across all organizations belonging to this MSP.
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name
+        description: filter by name. If friendly_name not found, will search by user_name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: search
+        description: Filter by name or user_login
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Agent local user counts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  all:
+                    type: integer
+                  user_policy_override:
+                    type: integer
+                  inherited_policy:
+                    type: integer
+      description: Gets counts of agent local users by policy assignment status.
+      summary: Count users
+      security:
+      - header_authorization: []
+      x-controller: v2/agent_local_users
+      x-action: counts
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    AgentLocalUser:
+      type: object
+      properties:
+        friendly_name:
+          type: string
+          description: User friendly name (may be null)
+        user_login:
+          type: string
+          description: User remote login
+        user_name:
+          type: string
+          description: User remote name (may be null)
+        user_remote_id:
+          type: string
+          description: User remote ID (may be null)
+        first_seen:
+          type: string
+          format: date
+          description: First time the user was seen
+        last_seen:
+          type: string
+          format: date
+          description: Last time the user was seen
+      description: Agent local user resource
+    StringContainsOp:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - contains
+          - doesnotcontain
+        value:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    ArrayIntegerIsOp:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - is
+          - isnot
+        value:
+          oneOf:
+          - type: array
+            items:
+              type: integer
+          - type: string
+    AgentLocalUserUpdate:
+      type: object
+      properties:
+        friendly_name:
+          type: string
+          description: Agent local user friendly name
+        policy_id:
+          type: integer
+          description: 'Agent local user custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
+        scheduled_policy_id:
+          type: integer
+          description: Agent local user custom scheduled policy ID
+        block_page_id:
+          type: integer
+          description: Agent local user custom block page ID
+      description: Agent local user update request parameters
+    AgentLocalUserUpdateSpec:
+      type: object
+      properties:
+        agent_local_user:
+          $ref: '#/components/schemas/AgentLocalUserUpdate'
+      required:
+      - agent_local_user
+      description: Agent local user update request parameters
+    AgentLocalUserSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AgentLocalUser'
+          relationships:
+            type: object
+            properties:
+              organization:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: Agent local user associated objects
+      description: Agent local user specification
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

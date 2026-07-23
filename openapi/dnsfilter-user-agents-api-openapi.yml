@@ -1,0 +1,1350 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes User Agents API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: User Agents
+  description: ''
+paths:
+  /v1/user_agents:
+    get:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-index
+      parameters:
+      - name: agent_local_user_uuids
+        description: Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG).
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: agent_state
+        description: filter by agent state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - protected
+          - unprotected
+          - bypassed
+          - pending_uninstall
+          - uninstalled
+          - offline
+      - name: agent_type
+        description: 'Filter user agents by agent type. Valid values: windows, macos, ios, android, chrome. Valid operators: is, isnot'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: agent_version
+        description: 'Filter user agents by agent version. Valid operators: startswith, equals, doesnotequal, contains, doesnotcontain, endswith'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: auto_update
+        description: Filter user agents by their organization's auto update value
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: block_page_id
+        description: Filter user agents by block page ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: browser_extension_status
+        description: 'Filter by browser extension status (chrome or edge). Valid values: installed, not_responding, not_installed. Valid operators: is, isnot'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: cybersight_enabled
+        description: 'When true, use OpenSearch for Cybersight activity in the time window: with agent_local_user_uuids, filter to roaming clients linked to those users; without, filter to roaming clients with activity on Cybersight-eligible agents in scope. When false, use Postgres only (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: cybersight_status
+        description: 'Filter by CyberSight service status. Valid values: active, inactive, disabled, not_available. Valid operators: is, isnot'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: end_at
+        description: ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: msp_id
+        description: MSP ID, set scope to all sub-orgs
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name_search
+        description: 'Filter user agent by client name fields (i.e. hostname and friendly_name). Valid operators: contains, doesnotcontain'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: network_ids
+        description: Networks IDs, defaults to all
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: new_agent_states
+        description: 'assign user agents new agent states: Protected, Unprotected, Offline'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: policy_id
+        description: Filter user agents by policy ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: policy_schedule
+        description: Filter user agents by policy/schedule name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: release_channels
+        description: 'Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: scheduled_policy_id
+        description: Filter user agents by scheduled_policy ID
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: search
+        description: 'User agent list by keyword(s) (space delimited), this could be: status, hostname, friendly name, current logged in user'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: sort
+        description: 'Sort options, valid attributes: hostname, friendly_name, agent_version, last_sync, agent_state, vpn_status, private_network (connected, not_connected, disabled)'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: start_at
+        description: ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: state
+        description: filter by user agent online/offline state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+      - name: status
+        description: 'filter by user agent status, valid attributes: active, disabled, uninstalled, uninstall_queued, uninstalling'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: tags
+        description: User agent list by tags
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: traffic_received_last_15_mins
+        description: filter by agents that have received traffic in last 15 minutes
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: type
+        description: User agent type, defaults to non-proxy/no-relays user agents
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - proxy
+          - agents
+      - name: vpn_mode
+        description: 'Filter by VPN mode (agent-level overrides org-level). Valid values: manual, always_on. Valid operators: is, isnot'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: vpn_status
+        description: 'Filter by VPN connectivity status. Valid values: connected, not_connected, disabled. Valid operators: is, isnot'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User agents basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserAgentSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  meta:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/components/schemas/UserAgentCount'
+      description: Gets a list of user agents with basic information.
+      summary: Get extant agents
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: index
+  /v1/user_agents/all:
+    get:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-all
+      parameters:
+      - name: agent_local_user_uuids
+        description: Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG).
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: cybersight_enabled
+        description: 'When true, use OpenSearch for Cybersight activity in the time window: with agent_local_user_uuids, filter to roaming clients linked to those users; without, filter to roaming clients with activity on Cybersight-eligible agents in scope. When false, use Postgres only (default: false)'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: end_at
+        description: ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: network_ids
+        description: Networks IDs, defaults to all
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_id
+        description: Organization ID to scope agents
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: search
+        description: 'User agent list by keyword(s) (space delimited), this could be: status, hostname, friendly name, current logged in user'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: sort
+        description: 'Sort options, valid attributes: hostname, friendly_name, agent_version, last_sync'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: start_at
+        description: ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: state
+        description: filter by user agent state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+      - name: status
+        description: 'filter by user agent status, valid attributes: active, disabled, uninstalled, uninstall_queued, uninstalling'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: tags
+        description: User agent list by tags
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: type
+        description: User agent type, defaults to non-proxy/no-relays user agents
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - proxy
+          - agents
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User agents basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserAgentSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets a list of ALL user agents with basic information.
+      summary: Get all agents
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: all
+  /v1/user_agents/counts:
+    get:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-counts
+      parameters:
+      - name: msp_id
+        description: MSP ID, set scope to all sub-orgs
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name_search
+        description: A search term to search client name fields (i.e. hostname and friendly_name)
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: network_ids
+        description: Networks IDs, defaults to all
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: new_agent_states
+        description: 'Get counts for new agent states: Protected, Unprotected, Offline'
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: release_channels
+        description: 'Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot'
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            operator:
+              type: string
+      - name: search
+        description: 'User agent list by keyword(s) (space delimited), this could be: tags, status, hostname, friendly name, current logged in user'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: state
+        description: filter by user agent online/offline state
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+      - name: status
+        description: 'filter by user agent status, valid attributes: active, disabled, uninstalled'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: tags
+        description: User agent list by tags
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+      - name: type
+        description: User agent type, defaults to non-proxy/no-relays user agents
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - proxy
+          - agents
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User agent counts information (legacy agent states)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegacyUserAgentCounts'
+      description: Gets counts of user agents for each status.
+      summary: Counts
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: counts
+  /v1/user_agents/{id}:
+    get:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-show
+      parameters:
+      - name: id
+        description: User agent UUID
+        required: true
+        in: path
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: User agent basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserAgentSpec'
+      description: Gets the specified user agent with basic information.
+      summary: Show agent
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: show
+    patch:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-update
+      parameters:
+      - name: id
+        description: User agent UUID
+        required: true
+        in: path
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update user agent with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated user agent basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserAgentSpec'
+      description: Updates an user agent with the specified data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: update
+      requestBody:
+        description: User agent information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAgentPatchSpec'
+    delete:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-destroy
+      parameters:
+      - name: clear_registry
+        description: Clear registry when uninstalling user agent
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: id
+        description: User agent UUID
+        required: true
+        in: path
+        schema:
+          type: string
+          format: uuid
+      - name: queue_uninstall
+        description: Uninstall user agent
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not delete user agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Soft deletes an user agent.
+      summary: Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: destroy
+  /v1/user_agents/tags:
+    get:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-tags
+      parameters:
+      - name: include_used_only
+        description: Filters out tags that aren't current used on any user agents
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: msp_id
+        description: MSP ID, set scope to all sub-orgs
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: network_ids
+        description: Networks IDs, defaults to all
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Tags array
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      tags:
+                        type: array
+                        items:
+                          type: string
+      description: Gets ALL tags used by user agents on a network or organization.
+      summary: Get tags
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: tags
+  /v1/user_agents/dequeue_uninstall:
+    post:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-dequeue_uninstall
+      parameters:
+      - name: id
+        description: User agent ID
+        required: true
+        in: query
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not remove user agent from queue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: A +success+ flag indicating if the agent was updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+      description: Removes user agent from uninstall queue.
+      summary: Remove queue
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: dequeue_uninstall
+  /v1/user_agents/csv:
+    get:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-csv
+      parameters:
+      - name: include_suborgs
+        description: Include suborgs when organization_id is msp owner org, defaults to false
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      - name: timezone
+        description: The timezone string (e.g. America/New_York) for localizing the filename, defaults to "UTC"
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A csv document
+          content:
+            application/json:
+              schema:
+                type: string
+      description: Gets CSV of organization's user agents.
+      summary: CSV Export
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: csv
+  /v1/user_agents/uninstall_pin:
+    get:
+      tags:
+      - User Agents
+      operationId: V1_User_Agents-uninstall_pin
+      parameters:
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Organization's user agent uninstall pin
+          content:
+            application/json:
+              schema:
+                type: string
+      description: Gets Uninstall pin for organization's user agents.
+      summary: PIN
+      security:
+      - header_authorization: []
+      x-controller: v1/user_agents
+      x-action: uninstall_pin
+  /v2/user_agents/{id}/update_settings:
+    patch:
+      tags:
+      - User Agents
+      operationId: V2_User_Agents-update_settings
+      parameters:
+      - name: id
+        description: User agent UUID
+        required: true
+        in: path
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update user agent with the specified data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Updated user agent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+      description: Updates both device settings and filtering client settings for a user agent.
+      summary: Update settings
+      security:
+      - header_authorization: []
+      x-controller: v2/user_agents
+      x-action: update_settings
+      requestBody:
+        description: User agent information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_agent:
+                  $ref: '#/components/schemas/UserAgentSettingsBody'
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    UserAgent:
+      type: object
+      properties:
+        agent_type:
+          type: string
+          enum:
+          - proxy
+          - windows
+          - macos
+          - linux
+          - android
+          - ios
+          - embedded
+          - dnsmasq
+          - fingbox
+          description: Agent type
+        agent_version:
+          type: string
+          description: Agent current version
+        client_id:
+          type: string
+          description: Client generated GUID
+        hostname:
+          type: string
+          description: Hostname
+        status:
+          type: string
+          enum:
+          - active
+          - disabled
+          - uninstalled
+          - uninstalled_from_client
+          - created
+          description: Agent status
+        os_version:
+          type: string
+          description: Host OS version (may be null)
+        os_name:
+          type: string
+          description: Host OS name (may be null)
+        friendly_name:
+          type: string
+          description: Agent friendly name (may be null)
+        tags:
+          type: array
+          items:
+            type: string
+          description: Agent tags (may be null)
+        meta:
+          type: string
+          description: Agent meta data (JSON) (may be null)
+        created_at:
+          type: string
+          format: date
+          description: Creation date
+        updated_at:
+          type: string
+          format: date
+          description: Last update
+        uninstalled_at:
+          type: string
+          format: date
+          description: Date when the agent was uninstalled from the machine (may be null)
+        id_hex:
+          type: string
+          description: Agent UUID in hex representation
+        id_binary:
+          type: array
+          items:
+            type: integer
+          description: Agent UUID in binary representation
+        last_sync:
+          type: string
+          format: date
+          description: Last sync API received from user agent
+        agent_state:
+          type: string
+          enum:
+          - protected
+          - unprotected
+          - bypassed
+          - uninstalled
+          description: Agent state
+        cyber_sight_client:
+          type: object
+          properties:
+            service_state:
+              type: string
+              enum:
+              - not_installed
+              - operational
+              - disabled
+              - error
+            chrome_extension_status:
+              type: string
+              enum:
+              - not_installed
+              - operational
+              - disabled
+              - error
+              - outdated
+              - install_disabled
+              - browser_not_installed
+              - not_communicating
+            edge_extension_status:
+              type: string
+              enum:
+              - not_installed
+              - operational
+              - disabled
+              - error
+              - outdated
+              - install_disabled
+              - browser_not_installed
+              - not_communicating
+          description: Cyber sight client information
+        cyber_sight_client_setting:
+          type: object
+          properties:
+            enable_browser_extension:
+              type: boolean
+          description: Cyber sight client settings
+        device_setting:
+          type: object
+          properties:
+            auto_updates:
+              type: boolean
+            enable_cyber_sight:
+              type: boolean
+          description: Device settings
+        filtering_client_setting:
+          $ref: '#/components/schemas/UserAgentFilteringClientSetting'
+      description: User agent resource
+    UserAgentPatchSpec:
+      type: object
+      properties:
+        user_agent:
+          $ref: '#/components/schemas/UserAgentPatch'
+      required:
+      - user_agent
+      description: User agent update request parameters
+    LegacyUserAgentCounts:
+      type: object
+      properties:
+        all:
+          type: integer
+          description: the count of all user agents
+        protected:
+          type: integer
+          description: the count of protected user agents
+        unprotected:
+          type: integer
+          description: the count of unprotected user agents
+        bypassed:
+          type: integer
+          description: the count of bypassed user agents
+        pending_uninstall:
+          type: integer
+          description: the count of pending uninstall agents
+        uninstalled:
+          type: integer
+          description: the count of uninstalled user agents
+      description: User agent counts by state
+    FilteringClientSettingAttributes:
+      type: object
+      properties:
+        id:
+          type: string
+          description: '] Filtering client setting id'
+        connection_method:
+          type: string
+          enum:
+          - unknown
+          - transparent_proxy
+          - loopback
+          description: User agents connection method
+        filtering_method:
+          type: string
+          enum:
+          - unknown
+          - precheck
+          - dns_filtering
+          description: User agents filtering method
+        fail_over_method:
+          type: string
+          enum:
+          - unknown
+          - fail_open
+          - fail_close
+          description: User agents fail over method
+      description: Filtering client setting attributes
+    VpnSettingsUserAgentAttributes:
+      type: object
+      properties:
+        _destroy:
+          type: boolean
+          description: destroy record by setting to true
+        vpn_settings_state_type_id:
+          type: integer
+          description: id for vpn settings state type
+      description: VPN settings user agent attributes
+    DeviceSettingAttributes:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Device setting id
+        enable_cyber_sight:
+          type: boolean
+        enable_filtering_client:
+          type: boolean
+        diagnostics_level:
+          type: string
+          enum:
+          - unknown
+          - trace
+          - debug
+          - information
+          - warning
+          - error
+          - critical
+      description: Device setting attributes
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    UserAgentPatch:
+      type: object
+      properties:
+        friendly_name:
+          type: string
+          description: Agent friendly name
+        status:
+          type: string
+          enum:
+          - active
+          - disabled
+          - uninstalled
+          description: Agent status
+        network_id:
+          type: integer
+          description: User agent network/site ID, useful to change user agent between networks/sites
+        policy_id:
+          type: integer
+          description: 'Agent custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
+        scheduled_policy_id:
+          type: integer
+          description: Agent custom scheduled policy ID
+        block_page_id:
+          type: integer
+          description: Agent custom block page ID
+        tags:
+          type: array
+          items:
+            type: string
+          description: Agent tags
+        vpn_settings_user_agent_attributes:
+          $ref: '#/components/schemas/VpnSettingsUserAgentAttributes'
+      description: User agent creation request parameters
+    UserAgentSettingsBody:
+      type: object
+      properties:
+        device_setting_attributes:
+          $ref: '#/components/schemas/DeviceSettingAttributes'
+        filtering_client_setting_attributes:
+          $ref: '#/components/schemas/FilteringClientSettingAttributes'
+      description: Payload for user agent settings
+    UserAgentCount:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total user agents based on filters
+      description: User agents count
+    UserAgentSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/UserAgent'
+          relationships:
+            type: object
+            properties:
+              network:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              scheduled_policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: '] User agent associated objects'
+      description: User agent specification
+    UserAgentFilteringClientSetting:
+      type: object
+      properties:
+        auto_updates:
+          type: boolean
+          description: Auto updates setting
+        connection_method:
+          type: string
+          enum:
+          - inherit
+          - transparent_prox
+          - loopback
+          description: Configures connection type
+        filtering_method:
+          type: string
+          enum:
+          - inherit
+          - precheck
+          - dns_filtering
+          description: Configures filtering mode
+        fail_over_method:
+          type: string
+          enum:
+          - inherit
+          - fail_open
+          - fail_close
+          description: Configures fail over method
+      description: User agent filtering client setting
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

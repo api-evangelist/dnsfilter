@@ -1,0 +1,445 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Enterprise Connections API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Enterprise Connections
+  description: ''
+paths:
+  /v1/enterprise_connections:
+    get:
+      tags:
+      - Enterprise Connections
+      operationId: V1_Enterprise_Connections-index
+      parameters:
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Array of enterprise connections
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/EnterpriseConnection'
+      description: Gets information for all the enterprise connections for the given organization.
+      summary: Get extant
+      security:
+      - header_authorization: []
+      x-controller: v1/enterprise_connections
+      x-action: index
+    post:
+      tags:
+      - Enterprise Connections
+      operationId: V1_Enterprise_Connections-create
+      parameters: []
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unable to create connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Enterprise connection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/EnterpriseConnection'
+      description: 'Create an enterprise connection.
+
+
+        Note: To set your organization''s custom login url for enterprise
+
+        connections, you need to set the ''unique_id'' attribute on the
+
+        organization itself. See the PATCH /v1/organizations endpoint.'
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/enterprise_connections
+      x-action: create
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnterpriseConnectionCreatePayload'
+  /v1/enterprise_connections/{id}:
+    get:
+      tags:
+      - Enterprise Connections
+      operationId: V1_Enterprise_Connections-show
+      parameters:
+      - name: id
+        description: Enterprise connection ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Enterprise connection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/EnterpriseConnection'
+      description: Gets information for the specified enterprise connection.
+      summary: Show connection
+      security:
+      - header_authorization: []
+      x-controller: v1/enterprise_connections
+      x-action: show
+    patch:
+      tags:
+      - Enterprise Connections
+      operationId: V1_Enterprise_Connections-update
+      parameters:
+      - name: id
+        description: Enterprise connection ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unable to update connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Enterprise connection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/EnterpriseConnection'
+      description: 'Update an enterprise connection.
+
+
+        Note: To set your organization''s custom login url for enterprise
+
+        connections, you need to set the ''unique_id'' attribute on the
+
+        organization itself. See the PATCH /v1/organizations endpoint.'
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/enterprise_connections
+      x-action: update
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnterpriseConnectionUpdatePayload'
+    delete:
+      tags:
+      - Enterprise Connections
+      operationId: V1_Enterprise_Connections-destroy
+      parameters:
+      - name: id
+        description: Enterprise connection ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unable to delete connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Delete an enterprise connection.
+      summary: Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/enterprise_connections
+      x-action: destroy
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    EnterpriseConnectionRoleMap:
+      type: object
+      properties:
+        role:
+          type: string
+        group:
+          type: string
+    EnterpriseConnectionUpdatePayload:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        default_organization_id:
+          type: integer
+          description: Default organization ID
+        display_name:
+          type: string
+          description: The, UI visible, name of the connection.
+        role_default:
+          type: string
+          enum:
+          - administrator
+          - read_only
+          - owner
+          - technical
+          - accountant
+          - policies_only
+          - super_administrator
+          description: The default role.
+        role_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
+        options:
+          $ref: '#/components/schemas/EnterpriseConnectionOptions'
+        idp:
+          type: string
+          enum:
+          - openid
+          - okta
+          - azure
+          - google
+          description: The type of the enterprise connection's IDP.
+        authorized_domains:
+          type: array
+          items:
+            type: string
+          description: Domains that are authorized to connect.
+      required:
+      - options
+      description: 'Note: To set your organization''s custom login url for enterprise
+
+        connections, you need to set the ''unique_id'' attribute on the
+
+        organization itself. See the PATCH /v1/organizations endpoint.'
+    EnterpriseConnectionOptions:
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: 'Used by: oidc'
+        client_secret:
+          type: string
+          description: 'Used by: oidc'
+        discovery_url:
+          type: string
+          description: 'Used by: oidc'
+      description: 'The options are dependent upon the strategy for the enterprise connection
+
+        itself. Check the descriptions for each attribute to determine if it is
+
+        necessary.'
+    EnterpriseConnectionCreatePayload:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        default_organization_id:
+          type: integer
+          description: Default organization ID
+        strategy:
+          type: string
+          enum:
+          - oidc
+        display_name:
+          type: string
+          description: The, UI visible, name of the connection. If blank will default to strategy.
+        role_default:
+          type: string
+          enum:
+          - administrator
+          - read_only
+          - owner
+          - technical
+          - accountant
+          - policies_only
+          - super_administrator
+          description: The default role. If blank, defaults to read_only.
+        role_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
+        options:
+          $ref: '#/components/schemas/EnterpriseConnectionOptions'
+        idp:
+          type: string
+          enum:
+          - openid
+          - okta
+          - azure
+          - google
+          description: The type of the enterprise connection's IDP.
+        authorized_domains:
+          type: array
+          items:
+            type: string
+          description: Domains that are authorized to connect.
+      required:
+      - organization_id
+      - strategy
+      - options
+      description: 'Note: To set your organization''s custom login url for enterprise
+
+        connections, you need to set the ''unique_id'' attribute on the
+
+        organization itself. See the PATCH /v1/organizations endpoint.'
+    EnterpriseConnection:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        organization_id:
+          type: integer
+          description: Organization ID
+        default_organization_id:
+          type: integer
+          description: Default organization ID
+        name:
+          type: string
+          description: Name
+        display_name:
+          type: string
+          description: Display Name
+        role_default:
+          type: integer
+          description: Default role
+        role_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
+          description: Role map
+        sub_prefix:
+          type: string
+        conn_id:
+          type: string
+        idp:
+          type: string
+          enum:
+          - openid
+          - okta
+          - azure
+          - google
+          description: The type of the enterprise connection's IDP.
+        authorized_domains:
+          type: array
+          items:
+            type: string
+          description: Domains that are authorized to connect.
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

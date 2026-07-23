@@ -1,0 +1,1503 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Networks API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Networks
+  description: ''
+paths:
+  /v1/networks:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-index
+      parameters:
+      - name: basic_info
+        description: Return most basic Network Info only. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: count_network_ips
+        description: Return count of IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: force_truncate_ips
+        description: Return Network info without IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: protected
+        description: Filter networks with assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: search
+        description: Search for the given value among the network name, hostname, ip address, etc.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: unprotected
+        description: Filter networks without assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Networks basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NetworkSpec'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IpAddressSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets user's associated networks with basic information.
+      summary: Get extant
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: index
+    post:
+      tags:
+      - Networks
+      operationId: V1_Networks-create
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not create network with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '201':
+          description: Created network basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NetworkSpec'
+      description: Creates a new network with the specified data.
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: create
+      requestBody:
+        description: Network information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkCreateSpec'
+  /v1/networks/all:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-all
+      parameters:
+      - name: basic_info
+        description: Return most basic Network Info only. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: count_network_ips
+        description: Return count of IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: force_truncate_ips
+        description: Return Network info without IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: protected
+        description: Filter networks with assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: search
+        description: Search for the given value among the network name, hostname, ip address, etc.
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: unprotected
+        description: Filter networks without assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Networks basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NetworkSpec'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IpAddressSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets ALL networks associated to the user with its basic information.
+      summary: Get all
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: all
+  /v1/networks/counts:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-counts
+      parameters:
+      - name: msp_id
+        description: MSP ID, will get info for all suborgs
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: organization_ids
+        description: Organization IDs, defaults to user organization ID
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Network counts information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkCounts'
+      description: Gets counts of networks for each network status.
+      summary: Counts
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: counts
+  /v1/networks/msp:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-msp
+      parameters:
+      - name: basic_info
+        description: Return most basic Network Info only. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: count_network_ips
+        description: Return count of IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: force_truncate_ips
+        description: Return Network info without IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: protected
+        description: Filter networks with assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: unprotected
+        description: Filter networks without assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Networks basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NetworkSpec'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IpAddressSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets MSP user associated networks with basic information.
+      summary: Get extant MSP
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: msp
+  /v1/networks/msp/all:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-msp_all
+      parameters:
+      - name: count_network_ips
+        description: Return count of IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: force_truncate_ips
+        description: Return Network info without IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: organization_id
+        description: Organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: protected
+        description: Filter networks with assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: unprotected
+        description: Filter networks without assigned policy
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Networks basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NetworkSpec'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IpAddressSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets ALL networks associated to the MSP user with its basic information.
+      summary: Get all MSP
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: msp_all
+  /v1/networks/geo:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-geo
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Networks geo information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NetworkGeo'
+      description: Gets user's associated networks with geo information only.
+      summary: Get Geo
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: geo
+  /v1/networks/lookup:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-lookup
+      parameters:
+      - name: requesting_ip_address
+        description: IP address to lookup
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Lookup network basic information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkLookup'
+      description: Gets basic information of a network based on its associated IP addresses.
+      summary: Get by IP
+      security: []
+      x-controller: v1/networks
+      x-action: lookup
+  /v1/networks/{id}:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-show
+      parameters:
+      - name: count_network_ips
+        description: Return count of IP Addresses. Defaults to False
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: id
+        description: Network ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Networks basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NetworkSpec'
+      description: Gets basic information of the specified network.
+      summary: Show network
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: show
+    patch:
+      tags:
+      - Networks
+      operationId: V1_Networks-update
+      parameters:
+      - name: id
+        description: Network ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update network with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated network basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NetworkSpec'
+      description: Updates a network with the specified data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: update
+      requestBody:
+        description: Network information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkUpdateSpec'
+    delete:
+      tags:
+      - Networks
+      operationId: V1_Networks-destroy
+      parameters:
+      - name: id
+        description: Network ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Network has active user agents or LAN proxies associated and cannot be deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not delete network
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Deletes a network.
+      summary: Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: destroy
+  /v1/networks/bulk_create:
+    post:
+      tags:
+      - Networks
+      operationId: V1_Networks-bulk_create
+      parameters:
+      - name: Network
+        description: information
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            networks:
+              type: array
+              items:
+                $ref: '#/components/schemas/NetworkCreateSpec'
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failed to create networks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+      description: Bulk create multiple networks with the specified data.
+      summary: Bulk create
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: bulk_create
+  /v1/networks/bulk_create/{id}:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-bulk_create_status
+      parameters:
+      - name: id
+        description: The ID of the bulk create job to check status on
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  successful:
+                    type: integer
+                  failed:
+                    type: integer
+                  skipped:
+                    type: integer
+                  failed_ids:
+                    type: string
+                  skipped_ids:
+                    type: string
+                  done:
+                    type: boolean
+      description: Bulk create status.
+      summary: Bulk create status
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: bulk_create_status
+  /v1/networks/bulk_update:
+    post:
+      tags:
+      - Networks
+      operationId: V1_Networks-bulk_update
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failed to update networks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+      description: Bulk update multiple networks with the specified data.
+      summary: Bulk update
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: bulk_update
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkBulkUpdateSpec'
+  /v1/networks/bulk_update/{id}:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-bulk_update_status
+      parameters:
+      - name: id
+        description: The ID of the bulk update job to check status on
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  successful:
+                    type: integer
+                  failed:
+                    type: integer
+                  skipped:
+                    type: integer
+                  failed_ids:
+                    type: string
+                  skipped_ids:
+                    type: string
+                  done:
+                    type: boolean
+      summary: Bulk update status
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: bulk_update_status
+  /v1/networks/bulk_destroy:
+    delete:
+      tags:
+      - Networks
+      operationId: V1_Networks-bulk_destroy
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+      description: Bulk destroy multiple networks.
+      summary: Bulk Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: bulk_destroy
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkBulkDestroySpec'
+  /v1/networks/bulk_destroy/{id}:
+    get:
+      tags:
+      - Networks
+      operationId: V1_Networks-bulk_destroy_status
+      parameters:
+      - name: id
+        description: The ID of the bulk update job to check status on
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  successful:
+                    type: integer
+                  failed:
+                    type: integer
+                  skipped:
+                    type: integer
+                  failed_ids:
+                    type: string
+                  skipped_ids:
+                    type: string
+                  done:
+                    type: boolean
+      description: Bulk destroy status.
+      summary: Bulk delete status
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: bulk_destroy_status
+  /v1/networks/{id}/secret_key:
+    post:
+      tags:
+      - Networks
+      operationId: V1_Networks-generate_secret_key
+      parameters:
+      - name: id
+        description: Network ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not create secret key
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated network basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NetworkSpec'
+      description: Creates a new network secret key to be used by agents.
+      summary: Create Key
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: generate_secret_key
+    delete:
+      tags:
+      - Networks
+      operationId: V1_Networks-revoke_secret_key
+      parameters:
+      - name: id
+        description: Network ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not revoke secret key
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated network basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NetworkSpec'
+      description: Revokes a network secret key.
+      summary: Delete Key
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: revoke_secret_key
+    patch:
+      tags:
+      - Networks
+      operationId: V1_Networks-rotate_secret_key
+      parameters:
+      - name: id
+        description: Network ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not create secret key
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated network basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NetworkSpec'
+      description: Rotates (renew) a network secret key to be used by agents.
+      summary: Rotate key
+      security:
+      - header_authorization: []
+      x-controller: v1/networks
+      x-action: rotate_secret_key
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    IpAddress:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP
+        address:
+          type: string
+          description: IP address
+        network_id:
+          type: integer
+          description: Network ID
+        organization_id:
+          type: integer
+          description: Organization ID
+      description: IpAddress resource
+    NetworkBulkDestroySpec:
+      type: object
+      properties:
+        ids:
+          type: string
+          description: Comma delimited Network IDs or keyword 'all'
+        organization_id:
+          type: integer
+          description: Organization ID. Required if ids is 'all'
+      required:
+      - ids
+      description: Network bulk destroy request parameters
+    Network:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Network name
+        physical_address:
+          type: string
+          description: Network physical address (may be null)
+        latitude:
+          type: number
+          format: double
+          description: Network reported latitude
+        longitude:
+          type: number
+          format: double
+          description: Network reported longitude
+        block_default_appearance:
+          type: boolean
+          description: Default page appearance for blocked pages
+        block_org_name:
+          type: string
+          description: Blocked page organization name (may be null)
+        block_email_addr:
+          type: string
+          description: Blocked page email address (may be null)
+        block_logo_uuid:
+          type: string
+          description: Blocked page custom logo (may be null)
+        allow_all_policies:
+          type: boolean
+          description: Allow all policies
+        billing_per_user:
+          type: boolean
+          description: Network usage billing per user
+        billing_user_count:
+          type: integer
+          description: User network usage count
+        network_type_units:
+          type: integer
+          description: User network usage count
+        block_page_id:
+          type: integer
+          description: Block page ID
+        scheduled_policy_id:
+          type: integer
+          description: Scheduled policy ID
+        secret_key:
+          type: string
+          description: Network secret key for user agents and LAN proxies
+        deleted_at:
+          type: string
+          format: date
+          description: Item deletion date (may be null)
+        external_id:
+          type: string
+          description: A unique identifier for external integrations
+        local_domains:
+          type: array
+          items:
+            type: string
+          description: Array of local domains or DNS suffixes that should bypass filtering
+        local_resolvers:
+          type: array
+          items:
+            type: string
+          description: Array of IP addresses of local DNS serviers that handle local domains
+      description: Network resource
+    NetworkLookup:
+      type: object
+      properties:
+        block_org_name:
+          type: string
+          description: Blocked page organization name (may be null)
+        block_email_addr:
+          type: string
+          description: Blocked page email address (may be null)
+        block_logo_uuid:
+          type: string
+          description: Blocked page custom logo (may be null)
+        block_default_appearance:
+          type: boolean
+          description: Default page appearance for blocked pages
+      description: Network lookup response
+    IpAddressSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/IpAddress'
+          relationships:
+            type: object
+            properties:
+              network:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: IP address associated network
+      description: IpAddress specification
+    NetworkGeo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Network ID
+        organization_id:
+          type: integer
+          description: Organization ID
+        name:
+          type: string
+          description: Network name
+        latitude:
+          type: number
+          format: double
+          description: Network reported latitude
+        longitude:
+          type: number
+          format: double
+          description: Network reported longitude
+        physical_address:
+          type: string
+          description: Network physical address (may be null)
+      description: NetworkGeo resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    NetworkCounts:
+      type: object
+      properties:
+        all:
+          type: integer
+        offline:
+          type: integer
+        protected:
+          type: object
+          properties:
+            count:
+              type: integer
+            network_ids:
+              type: array
+              items:
+                type: integer
+        unprotected:
+          type: object
+          properties:
+            count:
+              type: integer
+            network_ids:
+              type: array
+              items:
+                type: integer
+    NetworkBulkUpdateSpec:
+      type: object
+      properties:
+        ids:
+          type: string
+          description: Comma delimited Network IDs or keyword 'all'
+        organization_id:
+          type: integer
+          description: Organization ID. Required if ids is 'all'
+        policy_id:
+          type: integer
+          description: Policy ID
+        scheduled_policy_id:
+          type: integer
+          description: Scheduled Policy ID
+        block_page_id:
+          type: integer
+          description: Block Page ID
+        is_legacy_vpn_active:
+          type: boolean
+          description: Is Legacy VPN Active
+      required:
+      - ids
+      description: Network bulk update request parameters
+    NetworkUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Network name
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        block_page_id:
+          type: integer
+          description: Network custom block page ID
+        policy_ids:
+          type: array
+          items:
+            type: integer
+          description: Network policy IDs
+        external_id:
+          type: string
+          description: A unique identifier for external integrations
+        is_legacy_vpn_active:
+          type: boolean
+          description: Is Legacy VPN Active
+        physical_address:
+          type: string
+          description: Network physical address
+        ip_addresses_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              address:
+                type: string
+              key:
+                type: string
+                format: uuid
+          description: IP Address to add/update
+        local_domains:
+          type: array
+          items:
+            type: string
+          description: Array of local domains or DNS suffixes that should bypass filtering
+        local_resolvers:
+          type: array
+          items:
+            type: string
+          description: Array of IP addresses of local DNS serviers that handle local domains
+      required:
+      - name
+      - organization_id
+      description: Network update request parameters
+    NetworkCreateSpec:
+      type: object
+      properties:
+        network:
+          $ref: '#/components/schemas/NetworkCreate'
+      required:
+      - network
+      description: Network creation request parameters
+    NetworkSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Network'
+          relationships:
+            type: object
+            properties:
+              organization:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              ip_addresses:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+              policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              scheduled_policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              block_page:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              policies:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Network associated resources
+      description: Network specification
+    NetworkUpdateSpec:
+      type: object
+      properties:
+        network:
+          $ref: '#/components/schemas/NetworkUpdate'
+      required:
+      - network
+      description: Network update request parameters
+    NetworkCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Network name
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        block_page_id:
+          type: integer
+          description: Network custom block page ID
+        policy_ids:
+          type: array
+          items:
+            type: integer
+          description: Network policy IDs
+        external_id:
+          type: string
+          description: A unique identifier for external integrations
+        is_legacy_vpn_active:
+          type: boolean
+          description: Is Legacy VPN Active
+        physical_address:
+          type: string
+          description: Network physical address
+        ip_addresses_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+              key:
+                type: string
+                format: uuid
+          description: IP Address to add
+        local_domains:
+          type: array
+          items:
+            type: string
+          description: Array of local domains or DNS suffixes that should bypass filtering
+        local_resolvers:
+          type: array
+          items:
+            type: string
+          description: Array of IP addresses of local DNS serviers that handle local domains
+      required:
+      - name
+      - organization_id
+      description: Network creation request parameters
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

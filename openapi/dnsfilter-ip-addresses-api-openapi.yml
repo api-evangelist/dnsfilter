@@ -1,0 +1,471 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes IP Addresses API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: IP Addresses
+  description: ''
+paths:
+  /v1/ip_addresses:
+    get:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-index
+      parameters:
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: search
+        description: Search specific IP information
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: IP addresses basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IpAddressSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets user associated IP addresses basic information.
+      summary: Get extant
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: index
+    post:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-create
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not create IP address with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '201':
+          description: Created IP address basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IpAddressSpec'
+      description: Creates a new IP address with the specified data.
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: create
+      requestBody:
+        description: IP address information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IpAddressCreateSpec'
+  /v1/ip_addresses/all:
+    get:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-all
+      parameters:
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: IP addresses basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IpAddressSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets ALL user associated IP addresses basic information.
+      summary: Get all
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: all
+  /v1/ip_addresses/{id}:
+    get:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-show
+      parameters:
+      - name: id
+        description: IP address ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: IP address basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IpAddressSpec'
+      description: Gets basic information of the specified IP address.
+      summary: Show IP
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: show
+    patch:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-update
+      parameters:
+      - name: id
+        description: IP address ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update IP address with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated IP address basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IpAddressSpec'
+      description: Updates an IP address with the specified data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: update
+      requestBody:
+        description: IP address information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IpAddressCreateSpec'
+    delete:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-destroy
+      parameters:
+      - name: id
+        description: IP address ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Removed IP address basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IpAddressSpec'
+      description: Removes an IP address.
+      summary: Delete
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: destroy
+  /v1/ip_addresses/verify:
+    get:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-verify
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: JSON string that contains the non conflict confirmation message or IP address basic info if already exists in the system
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    status:
+                      type: string
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/IpAddressSpec'
+      description: Verification call to ensure IP address is not already in the system.
+      summary: Verify IP
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: verify
+      requestBody:
+        description: IP address information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IpAddressCreateSpec'
+  /v1/ip_addresses/myip:
+    get:
+      tags:
+      - IP Addresses
+      operationId: V1_IP_Addresses-myip
+      parameters: []
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: JSON string that contains the IP address
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  myip:
+                    type: string
+      description: Responds with the requester reported IP address.
+      summary: Get my IP
+      security:
+      - header_authorization: []
+      x-controller: v1/ip_addresses
+      x-action: myip
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    IpAddress:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP
+        address:
+          type: string
+          description: IP address
+        network_id:
+          type: integer
+          description: Network ID
+        organization_id:
+          type: integer
+          description: Organization ID
+      description: IpAddress resource
+    IpAddressCreateSpec:
+      type: object
+      properties:
+        ip_address:
+          $ref: '#/components/schemas/IpAddressCreate'
+      required:
+      - ip_address
+      description: IP address creation request parameters
+    IpAddressSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/IpAddress'
+          relationships:
+            type: object
+            properties:
+              network:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: IP address associated network
+      description: IpAddress specification
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    IpAddressCreate:
+      type: object
+      properties:
+        address:
+          type: string
+          description: IP address
+        organization_id:
+          type: integer
+          description: Organization ID that the IP address belongs to
+        network_id:
+          type: integer
+          description: Network ID that the IP address belongs to
+        dynamic_hostname:
+          type: string
+          description: Dynamic hostname of the IP address
+      required:
+      - address
+      - organization_id
+      - network_id
+      description: IP address creation request parameters
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

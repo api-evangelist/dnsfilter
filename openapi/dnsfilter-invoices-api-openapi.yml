@@ -1,0 +1,286 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Invoices API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Invoices
+  description: ''
+paths:
+  /v1/invoices/current:
+    get:
+      tags:
+      - Invoices
+      operationId: V1_Invoices-current
+      parameters: []
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: 'Estimated invoice for next month
+
+            `WARNING`: almost all invoice data are `null` values, take that into consideration when using this endpoint'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  month_to_date:
+                    $ref: '#/components/schemas/Invoice'
+                  estimated:
+                    $ref: '#/components/schemas/Invoice'
+      description: Gets user estimated invoice for next month.
+      summary: Get current invoice
+      security:
+      - header_authorization: []
+      x-controller: v1/invoices
+      x-action: current
+  /v1/invoices:
+    get:
+      tags:
+      - Invoices
+      operationId: V1_Invoices-index
+      parameters:
+      - name: organization_id
+        description: User organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Invoices basic information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invoice'
+      description: Gets user associated invoices, most recent first.
+      summary: Get invoices
+      security:
+      - header_authorization: []
+      x-controller: v1/invoices
+      x-action: index
+  /v1/invoices/{id}:
+    get:
+      tags:
+      - Invoices
+      operationId: V1_Invoices-show
+      parameters:
+      - name: id
+        description: Invoice ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: organization_id
+        description: User organization ID
+        required: true
+        in: query
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Invoice basic information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+      description: Gets basic information of the specified invoice.
+      summary: Get invoice
+      security:
+      - header_authorization: []
+      x-controller: v1/invoices
+      x-action: show
+components:
+  schemas:
+    InvoiceItemGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Invoice item group ID
+        invoice_id:
+          type: integer
+          description: Invoice ID
+        organization_name:
+          type: string
+          description: Organization name
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        subtotal_cents:
+          type: integer
+          description: Total amount (cents) for item group
+        created_at:
+          type: string
+          format: date
+          description: Item group creation date
+        updated_at:
+          type: string
+          format: date
+          description: Item group last update date
+        invoice_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+          description: Item group associated items
+      description: Invoice item group resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Invoice ID
+        start_date:
+          type: string
+          format: date
+          description: Billing start date
+        end_date:
+          type: string
+          format: date
+          description: Billing end date
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        created_at:
+          type: string
+          format: date
+          description: Invoice creation date
+        updated_at:
+          type: string
+          format: date
+          description: Invoice last update date
+        total_cents:
+          type: integer
+          description: Total invoice amount (cents)
+        stripe_id:
+          type: string
+          description: Invoice Stripe ID
+        requests:
+          type: integer
+          description: Total number of DNS requests
+        paid:
+          type: boolean
+          description: Invoice has been paid (may be null)
+        closed:
+          type: boolean
+          description: Invoice has been closed (may be null)
+        forgiven:
+          type: boolean
+          description: Invoice has been forgiven (may be null)
+        payment_attempts:
+          type: integer
+          description: Total number of payment attempts (may be null)
+        payment_first_attempt:
+          type: string
+          format: date
+          description: First payment attempt (may be null)
+        payment_last_attempt:
+          type: string
+          format: date
+          description: Last payment attempt (may be null)
+        payment_date:
+          type: string
+          format: date
+          description: Payment date (may be null)
+        payment_receipt_number:
+          type: string
+          description: Receipt number (may be null)
+        organization_name:
+          type: string
+          description: Organization name
+        invoice_item_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItemGroup'
+          description: Invoice item groups
+        invoice_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+          description: Invoice items
+      description: Invoice resource
+    InvoiceItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Invoice item ID
+        invoice_id:
+          type: integer
+          description: Invoice ID
+        network_name:
+          type: string
+          description: Network name
+        network_id:
+          type: integer
+          description: Network ID
+        cents:
+          type: integer
+          description: Total amount (cents) for item
+        requests:
+          type: integer
+          description: Total number of DNS requests for item
+        created_at:
+          type: string
+          format: date
+          description: Item creation date
+        updated_at:
+          type: string
+          format: date
+          description: Item last update date
+        stripe_id:
+          type: string
+          description: Invoice Stripe ID
+        discounted:
+          type: boolean
+          description: Item discounted
+        invoice_item_group_id:
+          type: integer
+          description: Invoice item group ID
+      description: Invoice item resource
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header

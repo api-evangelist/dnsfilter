@@ -1,0 +1,902 @@
+openapi: 3.0.0
+info:
+  title: DNSFilter Agent Local User Bulk Deletes Organizations API
+  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  version: '2026-07-13'
+servers:
+- url: https://api.dnsfilter.com
+  description: Production
+tags:
+- name: Organizations
+  description: ''
+paths:
+  /v1/organizations:
+    get:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-index
+      parameters:
+      - name: basic_info
+        description: just return organizations basic info true/false, defaults to false
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: exclude_inherit_privacy_mode
+        description: Exclude organizations that have inherit privacy mode
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: managed_by_msp_id
+        description: MSPs sub-organizations whose MSP ID matches this value
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name
+        description: Filter by organization name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: owned_msp_id
+        description: Parent organizations whose MSP ID matches this value
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: pii_grid_search
+        description: Filter by organization name or privacy mode for pii grid search
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: type
+        description: Filter by organization type
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - normal
+          - msp
+          - sub_organization
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Organizations basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrganizationSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets user's associated organizations basic information.
+      summary: Get extant
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: index
+    post:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-create
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not create organization with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '201':
+          description: Created organization basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/OrganizationSpec'
+      description: Creates a new organization with the specified data.
+      summary: Create
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: create
+      requestBody:
+        description: Organization information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationCreateSpec'
+  /v1/organizations/all:
+    get:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-all
+      parameters:
+      - name: basic_info
+        description: just return organizations basic info true/false, defaults to false
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: managed_by_msp_id
+        description: MSPs sub-organizations whose MSP ID matches this value
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name
+        description: Filter by organization name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: owned_msp_id
+        description: Parent organizations whose MSP ID matches this value
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page number and size
+        required: false
+        in: query
+        schema:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+      - name: type
+        description: Filter by organization type
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - normal
+          - msp
+          - sub_organization
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Organizations basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrganizationSpec'
+                  links:
+                    $ref: '#/components/schemas/Links'
+      description: Gets all organizations basic information.
+      summary: Get all
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: all
+  /v1/organizations/{id}:
+    get:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-show
+      parameters:
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      - name: include_current_mrr
+        description: Optionally Include current MRR information
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Organization basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/OrganizationSpec'
+      description: Gets basic information of the specified organization.
+      summary: Show organization
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: show
+    patch:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-update
+      parameters:
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not update organization with the specified data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '200':
+          description: Updated organization basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/OrganizationSpec'
+      description: Updates an organization with the specified data.
+      summary: Update
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: update
+      requestBody:
+        description: Organization information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationCreateSpec'
+    delete:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-destroy
+      parameters:
+      - name: clear_subscription_info
+        description: Clears subscription information tied to the customer, defaults to false
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: id
+        description: MSP customer ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not delete the MSP customer or invalid customer ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Deletes an MSP customer.
+      summary: Delete MSP
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: destroy
+  /v1/organizations/settings:
+    get:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-settings
+      parameters:
+      - name: msp_id
+        description: MSP ID to set scope
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: name
+        description: Filter by organization name
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: organization_id
+        description: Organization ID to set scope
+        required: false
+        in: query
+        schema:
+          type: integer
+      - name: organization_ids
+        description: Multiple organization IDs to set scope
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Organization basic information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/OrganizationSpec'
+      description: Gets basic information of the specified organization.
+      summary: Get settings
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: settings
+  /v1/organizations/bulk_update:
+    patch:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-bulk_update
+      parameters: []
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Failed to update one or more organizations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: A +success+ flag indicating bulk update was successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+      description: Updates one or more organizations with the specified data.
+      summary: Bulk update
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: bulk_update
+      requestBody:
+        description: Organization information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationBulkUpdate'
+  /v1/organizations/{id}/cancel:
+    post:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-cancel
+      parameters:
+      - name: id
+        description: Organization ID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Can not cancel the organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '204':
+          description: No Content
+      description: Sets an organization as 'Canceled'.
+      summary: Cancel
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: cancel
+  /v1/organizations/promote_to_msp:
+    post:
+      tags:
+      - Organizations
+      operationId: V1_Organizations-promote_to_msp
+      parameters:
+      - name: plan
+        description: 'Plan name, valid attributes: manual, tier1, tier2, tier3, friendly_wifi'
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: zapier_params
+        description: 'info that are sent to zapier after promoting successfully a MSP. iex { querystring__org_id: 1111, querystring__user_id: 2222 }'
+        required: false
+        in: query
+        schema:
+          type: object
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: User owned organization is cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Organization info
+          content:
+            application/json:
+              schema:
+                type: object
+      description: Promote an organization to a MSP.
+      summary: Promote
+      security:
+      - header_authorization: []
+      x-controller: v1/organizations
+      x-action: promote_to_msp
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    OrganizationCreateSpec:
+      type: object
+      properties:
+        organization:
+          $ref: '#/components/schemas/OrganizationCreate'
+      required:
+      - organization
+      description: Organization creation request parameters
+    OrganizationBulkUpdate:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Organization IDs to update
+        msp_id:
+          type: integer
+          description: MSP ID, scope update to all accessable sub-orgs (overrides organization_ids)
+        exclude_organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Organization IDs to exclude
+        send_uninstall_notifications_to_admin_users:
+          type: boolean
+          description: True if uninstall notifications should be sent to admin users
+        user_agent_uninstall_notification:
+          type: boolean
+          description: True if user agents uninstalls should trigger notification
+        user_agent_uninstall_notification_recipient_emails:
+          type: array
+          items:
+            type: string
+          description: Recipients to receive uninstalled user agent notifications
+        user_agents_auto_update:
+          type: boolean
+          description: True if user agents will auto update
+        vpn_settings_organization_attributes:
+          type: object
+          properties:
+            vpn_settings_state_type_id:
+              type: integer
+          description: Vpn organization settings
+      description: Organization bulk update parameters
+    OrganizationCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Organization legal name
+        billing_contact_name:
+          type: string
+          description: Contact name
+        billing_contact_phone:
+          type: string
+          description: Contact phone
+        billing_contact_email:
+          type: string
+          description: Contact email
+        address:
+          type: string
+          description: Legal address
+        managed_by_msp_id:
+          type: integer
+          description: Organization is managed by the specified MSP
+        unique_id:
+          type: string
+          description: Used to determine custom login url for enterprise connections
+        sku:
+          type: string
+          description: SKU for plan type selected
+        quantity:
+          type: integer
+          description: Number of licenses to assign
+        vpn_settings_organization_attributes:
+          type: object
+          properties:
+            id:
+              type: integer
+            vpn_settings_state_type_id:
+              type: integer
+            _destroy:
+              type: boolean
+          description: Vpn organization settings
+        privacy_mode:
+          type: string
+          enum:
+          - inherit
+          - standard
+          - identify_devices
+          - maximum
+          description: Privacy mode for the organization, either
+        enable_cybersight:
+          type: boolean
+          description: This will only enable access if the organization is entitled to CyberSight
+      required:
+      - name
+      - managed_by_msp_id
+      description: Organization creation request parameters
+    Organization:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        address:
+          type: string
+          description: Organization legal address
+        allow_create_network:
+          type: boolean
+          description: Current user can create new networks in the organization
+        allowlist_updated_at:
+          type: string
+          format: date-time
+          description: The datetime the allow list was last updated
+        billing_address:
+          type: string
+          description: The organization's billing address
+        billing_contact_email:
+          type: string
+          description: Contact email
+        billing_contact_name:
+          type: string
+          description: Contact name
+        billing_contact_phone:
+          type: string
+          description: Contact phone
+        billing_manual:
+          type: boolean
+          description: Internal Use Only
+        blocklist_updated_at:
+          type: string
+          format: date-time
+          description: The datetime the block list was last updated
+        canceled:
+          type: boolean
+          description: True if the organization has been canceled
+        canceled_at:
+          type: string
+          format: date-time
+          description: The datetime the organization was canceled
+        external_id:
+          type: string
+          description: A unique identifier for external integrations
+        feature_flags:
+          type: array
+          items:
+            type: string
+          description: Allowed features in APP
+        fetched_onboard_details:
+          type: boolean
+          description: True if organization has provided onboarding details
+        first_traffic_sent:
+          type: string
+          format: date-time
+          description: The datetime the organizations first received DNS network traffic
+        industry:
+          type: string
+          description: Internal Use Only
+        managed_by_msp_id:
+          type: integer
+          description: Organization is managed by the specified MSP (may be null)
+        metadata:
+          type: string
+          description: Internal Use Only
+        msp_feature_flags:
+          type: array
+          items:
+            type: string
+          description: Allowed features in APP (defined for sub orgs only)
+        name:
+          type: string
+          description: Organization legal name
+        owned_msp_id:
+          type: integer
+          description: Organization is owned by an MSP (may be null)
+        plan_details:
+          type: string
+          description: Internal Use Only
+        release_channel:
+          type: string
+          description: Internal Use Only
+        role:
+          type: string
+          description: Role
+        send_uninstall_notifications_to_admin_users:
+          type: boolean
+          description: Notify admins of uninstall notifications
+        sso_enabled:
+          type: boolean
+          description: Organization's SSO status
+        stripe_customer_id:
+          type: string
+          description: Stripe ID
+        summary_email_address:
+          type: string
+          description: The email to send the weekly summary of activity email
+        summary_email_enabled:
+          type: boolean
+          description: True if the weekly summary of activity email should be sent
+        sync_tools_auto_update:
+          type: string
+          description: Internal Use Only
+        trial_days:
+          type: integer
+          description: Number of trial days (may be null)
+        unbounce_data:
+          type: string
+          description: Internal Use Only
+        unique_id:
+          type: string
+          description: A globally unique value among all organizations
+        update_payment:
+          type: boolean
+          description: Organization has a valid payment method associated
+        usage_alert_cents:
+          type: string
+          description: Internal Use Only
+        user_agent_uninstall_notification:
+          type: boolean
+          description: Notify recipients when user agent is uninstalled
+        user_agent_uninstall_notification_recipient_emails:
+          type: array
+          items:
+            type: string
+          description: Recipients to receive uninstalled user agent notifications
+        user_agents_auto_update:
+          type: boolean
+          description: True if user agents will auto update
+        will_cancel_at:
+          type: string
+          format: date-time
+          description: The datetime the organization will be canceled
+        active_psa_integration:
+          type: boolean
+          description: Organization has an active PSA integration
+        segment:
+          type: string
+          description: Internal Use Only
+        vpn_settings_organization:
+          type: object
+          properties:
+            vpn_settings_state_type_id:
+              type: integer
+          description: Vpn organization settings
+      description: Organization resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    OrganizationSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Organization'
+          relationships:
+            type: object
+            properties:
+              networks:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Network associated resources
+      description: Organization specification
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+  securitySchemes:
+    header_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
