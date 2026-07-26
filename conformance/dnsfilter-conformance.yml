@@ -1,0 +1,46 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dnsfilter-openapi-original.json + info.description
+notes: >-
+  Cross-cutting standards conformance derived from the OpenAPI and documented
+  conventions. No published compliance-program certifications (SOC 2, ISO 27001,
+  etc.) were confirmed from a fetched provider page, so no `Compliance` pointer
+  is emitted.
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: Spec is OpenAPI 3.0.0 with 280 operations, 524 schemas.
+  - id: oauth2
+    conforms: false
+    evidence: Only apiKey (Authorization header) security scheme is declared.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom { "error": ... } envelope, not
+      application/problem+json.
+  - id: json-api
+    conforms: partial
+    evidence: >-
+      Responses use a JSON:API-style data/type/attributes envelope and
+      nested page[number]/page[size] pagination, but full JSON:API conformance
+      is not claimed.
+  - id: ietf-ratelimit-headers
+    conforms: true
+    evidence: >-
+      Responses carry RateLimit, RateLimit-Policy, RateLimit-Limit,
+      RateLimit-Remaining, RateLimit-Reset (draft-ietf-httpapi-ratelimit-headers)
+      plus Retry-After.
+  - id: pagination
+    conforms: true
+    evidence: page[number]/page[size] page-based pagination on V1 endpoints.
+  - id: idempotency
+    conforms: false
+    evidence: No Idempotency-Key contract documented.
+  - id: fhir
+    conforms: false
+  - id: scim
+    conforms: false
+  - id: fapi
+    conforms: false

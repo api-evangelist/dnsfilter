@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/dnsfilter-openapi-original.json
+skills:
+  - file: dnsfilter-create-policy-and-assign-network.md
+    name: Create a filtering policy and assign it to a network
+    api: openapi/dnsfilter-openapi-original.json
+    operations: [V1_Organizations-index, V1_Policies-create, V1_Policies-show, V1_Networks-create, V1_Networks-update]
+  - file: dnsfilter-manage-api-keys.md
+    name: Manage DNSFilter API keys
+    api: openapi/dnsfilter-openapi-original.json
+    operations: [V1_Api_Keys-create, V1_Api_Keys-index, V1_Api_Keys-show, V1_Api_Keys-revoke, V1_Api_Keys-destroy]
+  - file: dnsfilter-pull-traffic-and-threat-reports.md
+    name: Pull DNSFilter traffic and threat reports
+    api: openapi/dnsfilter-openapi-original.json
+    operations: [V1_Organizations-index, V1_Traffic_Reports-total_requests, V1_Traffic_Reports-total_threats]

@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for DNSFilter API
+  version: 1.0.0
+extends: openapi/dnsfilter-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-18'
+      x-apievangelist-auth: apiKey (Authorization header, raw key, no Bearer prefix)
+      x-apievangelist-rate-limit: RateLimit-* headers + Retry-After; 429 on exceed
+      x-apievangelist-pagination: page[number]/page[size] (V1)
+      x-apievangelist-error-format: >-
+        custom { "error": ... } envelope (V1 string, V2 object); not RFC 9457
+      x-apievangelist-status-page: https://status.dnsfilter.com
+      x-apievangelist-artifacts:
+        authentication: authentication/dnsfilter-authentication.yml
+        conventions: conventions/dnsfilter-conventions.yml
+        errors: errors/dnsfilter-problem-types.yml
+        lifecycle: lifecycle/dnsfilter-lifecycle.yml
+        data_model: data-model/dnsfilter-data-model.yml

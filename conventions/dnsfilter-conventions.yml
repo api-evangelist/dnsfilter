@@ -1,0 +1,63 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  openapi/dnsfilter-openapi-original.json (info.description) +
+  https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits
+authentication:
+  style: api-key-header
+  header: Authorization
+  value: raw API key (no Bearer prefix)
+  cross_ref: authentication/dnsfilter-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    The DNSFilter API documents no Idempotency-Key header or idempotent-retry
+    contract; the OpenAPI declares no idempotency parameter. No `Idempotency`
+    pointer is emitted.
+pagination:
+  style: page-based
+  scheme: nested-json-object
+  params:
+    - "page[number]"
+    - "page[size]"
+  encoding: >-
+    Query-string encoded as page%5Bnumber%5D=1&page%5Bsize%5D=10. In the
+    OpenAPI, `page` is modeled as an object.
+  scope: V1 endpoints
+  response_fields: [data, meta]
+envelope:
+  success: >-
+    JSON:API-flavored: { "data": { "id", "type", "attributes": {...} } }.
+    Collection endpoints return a data array plus meta.
+  error_v1: '{ "error": "string", "type": "string(optional)" }'
+  error_v2: '{ "error": { "message": "string", "type": "string(optional)" } }'
+  cross_ref: errors/dnsfilter-problem-types.yml
+rate_limiting:
+  enabled: true
+  scope: all endpoints
+  exceeded_status: 429
+  headers:
+    - Retry-After
+    - RateLimit-Policy
+    - RateLimit
+    - RateLimit-Limit
+    - RateLimit-Remaining
+    - RateLimit-Reset
+  standard: >-
+    IETF draft-ietf-httpapi-ratelimit-headers (RateLimit-*) plus RFC 7231
+    Retry-After.
+  docs: https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits
+versioning:
+  style: uri-path
+  versions: [v1, v2]
+  current: v1 (primary), v2 (newer error envelope)
+  release_version: '2026-07-13'
+  scheme: date-stamped info.version
+  cross_ref: lifecycle/dnsfilter-lifecycle.yml
+request_tracing:
+  request_id_header: null
+  notes: No documented request-id/correlation header.
+metadata:
+  collection_meta: meta object on collection responses
+field_expansion:
+  supported: false

@@ -1,0 +1,65 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dnsfilter-openapi-original.json (components.schemas + id-reference fields)
+notes: >-
+  Entity-relationship graph derived from OpenAPI schema id-reference fields
+  (`*_id`) across the DNSFilter management API. Relationships reflect fields
+  observed on the resource schemas; cardinalities are inferred from field
+  naming and the REST collection structure.
+entities:
+  - name: Organization
+    id_field: id
+    description: Top-level account tenant that owns policies, networks, and users.
+  - name: Network
+    id_field: id
+    description: A deployment location / site that resolves DNS through DNSFilter.
+    relationships:
+      - type: belongs_to
+        target: Organization
+        via: organization_id
+      - type: has_one
+        target: BlockPage
+        via: block_page_id
+      - type: has_one
+        target: ScheduledPolicy
+        via: scheduled_policy_id
+  - name: Policy
+    id_field: id
+    description: Filtering policy (allow/block lists, categories, safe-search).
+    relationships:
+      - type: belongs_to
+        target: Organization
+        via: organization_id
+  - name: ScheduledPolicy
+    id_field: id
+    relationships:
+      - type: belongs_to
+        target: Policy
+        via: policy_id
+  - name: BlockPage
+    id_field: id
+    description: Custom interstitial/block page presented on blocked domains.
+  - name: Domain
+    id_field: host
+    description: A domain host used in allow/block lists and dictionary lookups.
+  - name: ApiKey
+    id_field: id
+    description: API key issued to a user for authenticating requests.
+    relationships:
+      - type: belongs_to
+        target: User
+        via: user_id
+  - name: User
+    id_field: id
+    description: A person with dashboard/API access to one or more organizations.
+  - name: Network
+    id_field: id
+  - name: TrafficReport
+    id_field: null
+    description: >-
+      Aggregated query/threat metrics, filterable by organization, network,
+      agent, user, or collection.
+    relationships:
+      - type: belongs_to
+        target: Organization
+        via: organization_id

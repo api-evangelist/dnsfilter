@@ -1,0 +1,673 @@
+# DNSFilter MCP server — DERIVED candidate (not provider-published)
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/dnsfilter-openapi-original.json
+notes: No official hosted/remote DNSFilter MCP server was found (checked docs, npm @modelcontextprotocol,
+  MCP registries). DERIVED candidate tool surface mapping marquee DNSFilter management API operations
+  to MCP tools, one tool per operationId. Not provider-published.
+server:
+  name: dnsfilter
+  transport: stdio
+  url: null
+tools:
+- name: api_keys_create
+  description: Create
+  method: POST
+  path: /v1/api_keys
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Api_Keys-create
+- name: api_keys_index
+  description: List
+  method: GET
+  path: /v1/api_keys
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Api_Keys-index
+- name: api_keys_show
+  description: Show
+  method: GET
+  path: /v1/api_keys/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Api_Keys-show
+- name: api_keys_destroy
+  description: Delete
+  method: DELETE
+  path: /v1/api_keys/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Api_Keys-destroy
+- name: api_keys_revoke
+  description: Revoke
+  method: POST
+  path: /v1/api_keys/{id}/revoke
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Api_Keys-revoke
+- name: applications_index
+  description: Get extant
+  method: GET
+  path: /v1/applications
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Applications-index
+- name: applications_all
+  description: Get all
+  method: GET
+  path: /v1/applications/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Applications-all
+- name: applications_show
+  description: Show
+  method: GET
+  path: /v1/applications/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Applications-show
+- name: block_pages_index
+  description: Get extant
+  method: GET
+  path: /v1/block_pages
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Block_Pages-index
+- name: block_pages_create
+  description: Create
+  method: POST
+  path: /v1/block_pages
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Block_Pages-create
+- name: block_pages_all
+  description: Get all
+  method: GET
+  path: /v1/block_pages/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Block_Pages-all
+- name: block_pages_show
+  description: Show page
+  method: GET
+  path: /v1/block_pages/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Block_Pages-show
+- name: block_pages_update
+  description: Update
+  method: PATCH
+  path: /v1/block_pages/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Block_Pages-update
+- name: block_pages_destroy
+  description: Delete
+  method: DELETE
+  path: /v1/block_pages/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Block_Pages-destroy
+- name: categories_index
+  description: Get extant
+  method: GET
+  path: /v1/categories
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Categories-index
+- name: categories_all
+  description: Get all
+  method: GET
+  path: /v1/categories/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Categories-all
+- name: categories_show
+  description: Show category
+  method: GET
+  path: /v1/categories/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Categories-show
+- name: domains_user_lookup
+  description: Lookup
+  method: GET
+  path: /v1/domains/user_lookup
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Domains-user_lookup
+- name: domains_bulk_lookup
+  description: Bulk lookup
+  method: GET
+  path: /v1/domains/bulk_lookup
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Domains-bulk_lookup
+- name: domains_suggest_threat
+  description: Suggest threat
+  method: POST
+  path: /v1/domains/suggest_threat
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Domains-suggest_threat
+- name: networks_index
+  description: Get extant
+  method: GET
+  path: /v1/networks
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-index
+- name: networks_create
+  description: Create
+  method: POST
+  path: /v1/networks
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-create
+- name: networks_all
+  description: Get all
+  method: GET
+  path: /v1/networks/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-all
+- name: networks_counts
+  description: Counts
+  method: GET
+  path: /v1/networks/counts
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-counts
+- name: networks_msp
+  description: Get extant MSP
+  method: GET
+  path: /v1/networks/msp
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-msp
+- name: networks_msp_all
+  description: Get all MSP
+  method: GET
+  path: /v1/networks/msp/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-msp_all
+- name: networks_geo
+  description: Get Geo
+  method: GET
+  path: /v1/networks/geo
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-geo
+- name: networks_lookup
+  description: Get by IP
+  method: GET
+  path: /v1/networks/lookup
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-lookup
+- name: networks_show
+  description: Show network
+  method: GET
+  path: /v1/networks/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-show
+- name: networks_update
+  description: Update
+  method: PATCH
+  path: /v1/networks/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-update
+- name: networks_destroy
+  description: Delete
+  method: DELETE
+  path: /v1/networks/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-destroy
+- name: networks_bulk_create
+  description: Bulk create
+  method: POST
+  path: /v1/networks/bulk_create
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-bulk_create
+- name: networks_bulk_create_status
+  description: Bulk create status
+  method: GET
+  path: /v1/networks/bulk_create/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-bulk_create_status
+- name: networks_bulk_update
+  description: Bulk update
+  method: POST
+  path: /v1/networks/bulk_update
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-bulk_update
+- name: networks_bulk_update_status
+  description: Bulk update status
+  method: GET
+  path: /v1/networks/bulk_update/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-bulk_update_status
+- name: networks_bulk_destroy
+  description: Bulk Delete
+  method: DELETE
+  path: /v1/networks/bulk_destroy
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-bulk_destroy
+- name: networks_bulk_destroy_status
+  description: Bulk delete status
+  method: GET
+  path: /v1/networks/bulk_destroy/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-bulk_destroy_status
+- name: networks_generate_secret_key
+  description: Create Key
+  method: POST
+  path: /v1/networks/{id}/secret_key
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-generate_secret_key
+- name: networks_revoke_secret_key
+  description: Delete Key
+  method: DELETE
+  path: /v1/networks/{id}/secret_key
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-revoke_secret_key
+- name: networks_rotate_secret_key
+  description: Rotate key
+  method: PATCH
+  path: /v1/networks/{id}/secret_key
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Networks-rotate_secret_key
+- name: organizations_index
+  description: Get extant
+  method: GET
+  path: /v1/organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-index
+- name: organizations_create
+  description: Create
+  method: POST
+  path: /v1/organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-create
+- name: organizations_all
+  description: Get all
+  method: GET
+  path: /v1/organizations/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-all
+- name: organizations_show
+  description: Show organization
+  method: GET
+  path: /v1/organizations/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-show
+- name: organizations_update
+  description: Update
+  method: PATCH
+  path: /v1/organizations/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-update
+- name: organizations_destroy
+  description: Delete MSP
+  method: DELETE
+  path: /v1/organizations/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-destroy
+- name: organizations_settings
+  description: Get settings
+  method: GET
+  path: /v1/organizations/settings
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-settings
+- name: organizations_bulk_update
+  description: Bulk update
+  method: PATCH
+  path: /v1/organizations/bulk_update
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-bulk_update
+- name: organizations_cancel
+  description: Cancel
+  method: POST
+  path: /v1/organizations/{id}/cancel
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-cancel
+- name: organizations_promote_to_msp
+  description: Promote
+  method: POST
+  path: /v1/organizations/promote_to_msp
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Organizations-promote_to_msp
+- name: policies_index
+  description: Get extant
+  method: GET
+  path: /v1/policies
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-index
+- name: policies_create
+  description: Create
+  method: POST
+  path: /v1/policies
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-create
+- name: policies_all
+  description: Get all
+  method: GET
+  path: /v1/policies/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-all
+- name: policies_show
+  description: Show policy
+  method: GET
+  path: /v1/policies/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-show
+- name: policies_update
+  description: Update
+  method: PATCH
+  path: /v1/policies/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-update
+- name: policies_destroy
+  description: Delete
+  method: DELETE
+  path: /v1/policies/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-destroy
+- name: policies_application
+  description: Get application
+  method: GET
+  path: /v1/policies/application
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-application
+- name: policies_application_update
+  description: Update application
+  method: POST
+  path: /v1/policies/application_update
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-application_update
+- name: policies_add_blacklist_domain
+  description: Add block domain
+  method: POST
+  path: /v1/policies/{id}/add_blacklist_domain
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-add_blacklist_domain
+- name: policies_remove_blacklist_domain
+  description: Remove block domain
+  method: POST
+  path: /v1/policies/{id}/remove_blacklist_domain
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-remove_blacklist_domain
+- name: policies_add_whitelist_domain
+  description: Add allow domain
+  method: POST
+  path: /v1/policies/{id}/add_whitelist_domain
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-add_whitelist_domain
+- name: policies_remove_whitelist_domain
+  description: Remove allow domain
+  method: POST
+  path: /v1/policies/{id}/remove_whitelist_domain
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-remove_whitelist_domain
+- name: policies_add_blacklist_category
+  description: Add block category
+  method: POST
+  path: /v1/policies/{id}/add_blacklist_category
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-add_blacklist_category
+- name: policies_remove_blacklist_category
+  description: Remove block category
+  method: POST
+  path: /v1/policies/{id}/remove_blacklist_category
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-remove_blacklist_category
+- name: policies_add_allowed_application
+  description: Add allow category
+  method: POST
+  path: /v1/policies/{id}/add_allowed_application
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-add_allowed_application
+- name: policies_remove_allowed_application
+  description: Remove allow category
+  method: POST
+  path: /v1/policies/{id}/remove_allowed_application
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-remove_allowed_application
+- name: policies_add_blocked_application
+  description: Add block application
+  method: POST
+  path: /v1/policies/{id}/add_blocked_application
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-add_blocked_application
+- name: policies_remove_blocked_application
+  description: Remove block application
+  method: POST
+  path: /v1/policies/{id}/remove_blocked_application
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-remove_blocked_application
+- name: policies_get_permissive_mode
+  description: Get permissive mode
+  method: GET
+  path: /v1/policies/{id}/permissive_mode
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-get_permissive_mode
+- name: policies_update_permissive_mode
+  description: Update permissive mode
+  method: POST
+  path: /v1/policies/{id}/permissive_mode
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Policies-update_permissive_mode
+- name: scheduled_reports_index
+  description: Get
+  method: GET
+  path: /v1/scheduled_reports
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Scheduled_Reports-index
+- name: scheduled_reports_create
+  description: Create
+  method: POST
+  path: /v1/scheduled_reports
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Scheduled_Reports-create
+- name: scheduled_reports_show
+  description: Show report
+  method: GET
+  path: /v1/scheduled_reports/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Scheduled_Reports-show
+- name: scheduled_reports_update
+  description: Update
+  method: PATCH
+  path: /v1/scheduled_reports/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Scheduled_Reports-update
+- name: scheduled_reports_destroy
+  description: Delete
+  method: DELETE
+  path: /v1/scheduled_reports/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Scheduled_Reports-destroy
+- name: traffic_reports_total_requests
+  description: Total requests/time
+  method: GET
+  path: /v1/traffic_reports/total_requests
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_requests
+- name: traffic_reports_total_requests_geo
+  description: Total requests geo
+  method: GET
+  path: /v1/traffic_reports/total_requests_geo
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_requests_geo
+- name: traffic_reports_total_requests_organizations
+  description: Total requests/organizations
+  method: GET
+  path: /v1/traffic_reports/total_requests_organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_requests_organizations
+- name: traffic_reports_total_requests_agents
+  description: Total requests clients
+  method: GET
+  path: /v1/traffic_reports/total_requests_agents
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_requests_agents
+- name: traffic_reports_total_requests_users
+  description: Total requests users
+  method: GET
+  path: /v1/traffic_reports/total_requests_users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_requests_users
+- name: traffic_reports_total_requests_collections
+  description: Total requests collections
+  method: GET
+  path: /v1/traffic_reports/total_requests_collections
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_requests_collections
+- name: traffic_reports_total_threats
+  description: Total threats/time
+  method: GET
+  path: /v1/traffic_reports/total_threats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_threats
+- name: traffic_reports_total_threats_organizations
+  description: Total threats organizations
+  method: GET
+  path: /v1/traffic_reports/total_threats_organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_threats_organizations
+- name: traffic_reports_total_threats_agents
+  description: Total threats clients
+  method: GET
+  path: /v1/traffic_reports/total_threats_agents
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_threats_agents
+- name: traffic_reports_total_threats_users
+  description: Total threats users
+  method: GET
+  path: /v1/traffic_reports/total_threats_users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_threats_users
+- name: traffic_reports_total_threats_collections
+  description: Total threats collections
+  method: GET
+  path: /v1/traffic_reports/total_threats_collections
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_threats_collections
+- name: traffic_reports_total_categories
+  description: Total category requests
+  method: GET
+  path: /v1/traffic_reports/total_categories
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_categories
+- name: traffic_reports_total_categories_organizations
+  description: Category reqs organizations
+  method: GET
+  path: /v1/traffic_reports/total_categories_organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_categories_organizations
+- name: traffic_reports_total_categories_agents
+  description: Category reqs clients
+  method: GET
+  path: /v1/traffic_reports/total_categories_agents
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_categories_agents
+- name: traffic_reports_total_categories_users
+  description: Category reqs users
+  method: GET
+  path: /v1/traffic_reports/total_categories_users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_categories_users
+- name: traffic_reports_total_categories_collections
+  description: Category reqs collections
+  method: GET
+  path: /v1/traffic_reports/total_categories_collections
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_categories_collections
+- name: traffic_reports_total_domains
+  description: Total domain reqs
+  method: GET
+  path: /v1/traffic_reports/total_domains
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_domains
+- name: traffic_reports_total_domains_organizations
+  description: Domain reqs organizations
+  method: GET
+  path: /v1/traffic_reports/total_domains_organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_domains_organizations
+- name: traffic_reports_total_domains_users
+  description: Domain reqs users
+  method: GET
+  path: /v1/traffic_reports/total_domains_users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_domains_users
+- name: traffic_reports_total_domains_collections
+  description: Domain reqs collections
+  method: GET
+  path: /v1/traffic_reports/total_domains_collections
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_domains_collections
+- name: traffic_reports_total_collections
+  description: Total collection reqs
+  method: GET
+  path: /v1/traffic_reports/total_collections
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_collections
+- name: traffic_reports_total_collections_organizations
+  description: Collection reqs orgs
+  method: GET
+  path: /v1/traffic_reports/total_collections_organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_collections_organizations
+- name: traffic_reports_total_collections_agents
+  description: Collection reqs clients
+  method: GET
+  path: /v1/traffic_reports/total_collections_agents
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_collections_agents
+- name: traffic_reports_total_collections_users
+  description: Collection reqs users
+  method: GET
+  path: /v1/traffic_reports/total_collections_users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_collections_users
+- name: traffic_reports_qps
+  description: Queries per second
+  method: GET
+  path: /v1/traffic_reports/qps
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-qps
+- name: traffic_reports_qps_active_organizations
+  description: QPS organizations
+  method: GET
+  path: /v1/traffic_reports/qps_active_organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-qps_active_organizations
+- name: traffic_reports_qps_active_agents
+  description: QPS clients
+  method: GET
+  path: /v1/traffic_reports/qps_active_agents
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-qps_active_agents
+- name: traffic_reports_qps_active_users
+  description: QPS users
+  method: GET
+  path: /v1/traffic_reports/qps_active_users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-qps_active_users
+- name: traffic_reports_qps_active_collections
+  description: QPS collections
+  method: GET
+  path: /v1/traffic_reports/qps_active_collections
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-qps_active_collections
+- name: traffic_reports_top_domains
+  description: Top domains
+  method: GET
+  path: /v1/traffic_reports/top_domains
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_domains
+- name: traffic_reports_top_categories
+  description: Top categories
+  method: GET
+  path: /v1/traffic_reports/top_categories
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_categories
+- name: traffic_reports_top_application_categories
+  description: Top application categories
+  method: GET
+  path: /v1/traffic_reports/top_application_categories
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_application_categories
+- name: traffic_reports_top_organizations
+  description: Top organizations
+  method: GET
+  path: /v1/traffic_reports/top_organizations
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_organizations
+- name: traffic_reports_top_networks
+  description: Top networks
+  method: GET
+  path: /v1/traffic_reports/top_networks
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_networks
+- name: traffic_reports_top_agents
+  description: Top agents
+  method: GET
+  path: /v1/traffic_reports/top_agents
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_agents
+- name: traffic_reports_top_users
+  description: Top users
+  method: GET
+  path: /v1/traffic_reports/top_users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_users
+- name: traffic_reports_top_collections
+  description: Top collections
+  method: GET
+  path: /v1/traffic_reports/top_collections
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_collections
+- name: traffic_reports_query_logs
+  description: Query Logs
+  method: GET
+  path: /v1/traffic_reports/query_logs
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-query_logs
+- name: traffic_reports_total_organizations_stats
+  description: Organization stats
+  method: GET
+  path: /v1/traffic_reports/total_organizations_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_organizations_stats
+- name: traffic_reports_total_domain_stats
+  description: Domain stats
+  method: GET
+  path: /v1/traffic_reports/total_domain_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_domain_stats
+- name: traffic_reports_total_category_stats
+  description: Category stats
+  method: GET
+  path: /v1/traffic_reports/total_category_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_category_stats
+- name: traffic_reports_total_organizations_requests
+  description: Total Org Requests
+  method: GET
+  path: /v1/traffic_reports/total_organizations_requests
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_organizations_requests
+- name: traffic_reports_total_domain_requests
+  description: Total Domain Requests
+  method: GET
+  path: /v1/traffic_reports/total_domain_requests
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_domain_requests
+- name: traffic_reports_top_organizations_requests
+  description: Top Organizations Requests
+  method: GET
+  path: /v1/traffic_reports/top_organizations_requests
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-top_organizations_requests
+- name: traffic_reports_total_client_stats
+  description: Total client stats
+  method: GET
+  path: /v1/traffic_reports/total_client_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_client_stats
+- name: traffic_reports_total_deployments
+  description: Deployments
+  method: GET
+  path: /v1/traffic_reports/total_deployments
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_deployments
+- name: traffic_reports_total_roaming_clients
+  description: Roaming clients
+  method: GET
+  path: /v1/traffic_reports/total_roaming_clients
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_roaming_clients
+- name: traffic_reports_total_applications_stats
+  description: Application requests
+  method: GET
+  path: /v1/traffic_reports/total_applications_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_applications_stats
+- name: traffic_reports_total_applications_organizations_stats
+  description: Application reqs org
+  method: GET
+  path: /v1/traffic_reports/total_applications_organizations_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_applications_organizations_stats
+- name: traffic_reports_total_applications_networks_stats
+  description: Applications reqs networks
+  method: GET
+  path: /v1/traffic_reports/total_applications_networks_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_applications_networks_stats
+- name: traffic_reports_total_applications_agents_stats
+  description: Application reqs clients
+  method: GET
+  path: /v1/traffic_reports/total_applications_agents_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_applications_agents_stats
+- name: traffic_reports_total_applications_users_stats
+  description: Application reqs users
+  method: GET
+  path: /v1/traffic_reports/total_applications_users_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_applications_users_stats
+- name: traffic_reports_total_applications_collections_stats
+  description: Application reqs collections
+  method: GET
+  path: /v1/traffic_reports/total_applications_collections_stats
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Traffic_Reports-total_applications_collections_stats
+- name: users_index
+  description: Get extant
+  method: GET
+  path: /v1/users
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Users-index
+- name: users_all
+  description: Get all
+  method: GET
+  path: /v1/users/all
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Users-all
+- name: users_show
+  description: Show user
+  method: GET
+  path: /v1/users/{id}
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Users-show
+- name: users_change_password
+  description: Change password
+  method: PATCH
+  path: /v1/users/change_password
+  source_operation: openapi/dnsfilter-openapi-original.json#V1_Users-change_password

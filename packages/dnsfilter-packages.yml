@@ -1,0 +1,37 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  npm/PyPI/RubyGems registry search + github.com/dnsfilter org
+notes: >-
+  DNSFilter publishes no first-party API client SDK on npm, PyPI, RubyGems,
+  Maven Central, NuGet, pkg.go.dev, Packagist, or crates.io. The REST API is
+  consumed directly over HTTPS with an Authorization header. The only
+  first-party published package is @dnsfilter/uikit (a front-end UI component
+  library, not an API client). Third-party integrations exist (n8n, Pipedream)
+  but are not first-party and are excluded. The archived
+  github.com/dnsfilter/webshrinker-sdk-python targets the legacy Web Shrinker
+  API, not the DNSFilter management API. No `SDKs` pointer is emitted because
+  no official API client library was found.
+packages:
+- language: javascript
+  registry: npm
+  name: "@dnsfilter/uikit"
+  url: https://www.npmjs.com/package/@dnsfilter/uikit
+  install: npm install @dnsfilter/uikit
+  official: true
+  kind: ui-component-library
+  version: 0.0.20
+  note: First-party front-end UI kit, not an API client SDK.
+third_party:
+- language: javascript
+  registry: npm
+  name: "@avantguardllc/n8n-nodes-dnsfilter"
+  url: https://www.npmjs.com/package/@avantguardllc/n8n-nodes-dnsfilter
+  official: false
+  note: Community n8n node for the DNSFilter API.
+- language: javascript
+  registry: npm
+  name: "@pipedream/dnsfilter"
+  url: https://www.npmjs.com/package/@pipedream/dnsfilter
+  official: false
+  note: Pipedream connector components for DNSFilter.

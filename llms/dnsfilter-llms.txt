@@ -1,0 +1,39 @@
+# DNSFilter
+
+> DNSFilter is an AI-powered DNS security and content-filtering platform that blocks malicious domains (phishing, malware, ransomware, botnet C2) and unwanted content across 40+ categories at the DNS layer, for SMBs, enterprises, MSPs, schools, and government. Its management REST API (api.dnsfilter.com) programmatically manages organizations, networks/sites, filtering policies, block pages, API keys, and traffic/threat reporting. Authentication is an API key passed in the Authorization header.
+
+## APIs
+- [DNSFilter API](https://api.dnsfilter.com): OpenAPI 3.0, 280 operations across organizations, policies, networks, domains, block pages, applications, categories, traffic reports, and users.
+- [OpenAPI (raw)](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/openapi/dnsfilter-openapi-original.json)
+
+## Docs
+- [API Documentation](https://apidocs.dnsfilter.com)
+- [Help Center](https://help.dnsfilter.com)
+- [API Tokens (KB)](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens)
+- [API Rate Limits (KB)](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits)
+
+## Conventions
+- Auth: `Authorization: <api-key>` header (raw key, no Bearer prefix).
+- Rate limiting: 429 on exceed; RateLimit, RateLimit-Policy, RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, Retry-After headers.
+- Pagination: page[number] / page[size] (V1, nested object).
+- Errors: V1 `{ "error": "string", "type": "..." }`; V2 `{ "error": { "message": "string", "type": "..." } }`. Not RFC 9457.
+- Versioning: URI-path (/v1, /v2).
+
+## Artifacts
+- [Authentication](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/authentication/dnsfilter-authentication.yml)
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/conventions/dnsfilter-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/errors/dnsfilter-problem-types.yml)
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/lifecycle/dnsfilter-lifecycle.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/data-model/dnsfilter-data-model.yml)
+- [MCP (candidate)](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/mcp/dnsfilter-mcp.yml)
+- [Agent skills](https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/skills/_index.yml)
+
+## Links
+- [Website](https://dnsfilter.com)
+- [Pricing](https://dnsfilter.com/pricing)
+- [Blog](https://dnsfilter.com/blog)
+- [Status](https://status.dnsfilter.com)
+- [Roadmap](https://dnsfilter.com/roadmap)
+- [GitHub](https://github.com/dnsfilter)
+- [Login](https://app.dnsfilter.com/login)
+- [Sign Up](https://app.dnsfilter.com/signup)

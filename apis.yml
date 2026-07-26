@@ -1,25 +1,755 @@
 aid: dnsfilter
 name: DNSFilter
-description: DNSFilter is a company surfaced as a portfolio company of techstars and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  DNSFilter is an AI-powered DNS security and content-filtering platform that
+  protects organizations from cyber threats and unwanted content at the DNS
+  layer. Its machine-learning engine blocks malicious domains — phishing,
+  malware, ransomware, and botnet command-and-control — often before they
+  appear in third-party threat feeds, and enforces content policies across 40+
+  categories with application-level (AppAware) controls, roaming clients for
+  off-network devices, and user-behavior analytics (CyberSight). DNSFilter
+  serves SMBs, enterprises, MSPs, schools, healthcare, and government over a
+  dual Anycast network with DNSSEC validation. The DNSFilter management REST API
+  (api.dnsfilter.com) programmatically manages organizations, networks/sites,
+  filtering policies, block pages, applications, categories, API keys, and
+  traffic/threat reporting — authenticated with an API key in the Authorization
+  header.
 url: https://raw.githubusercontent.com/api-evangelist/dnsfilter/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: real-openapi-and-artifacts
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://www.dnsfilter.com/hubfs/dnsfilterfeaturedimages1.webp
 tags:
 - Company
-apis: []
+- DNS
+- Security
+- Content Filtering
+- Threat Protection
+- Cybersecurity
+- Networking
+- MSP
+apis:
+- aid: dnsfilter:dnsfilter-agent-local-user-bulk-deletes-api
+  name: DNSFilter Agent Local User Bulk Deletes API
+  description: >-
+    The Agent Local User Bulk Deletes API from DNSFilter — 3 operation(s) for agent local user bulk deletes.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Agent Local User Bulk Deletes
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-agent-local-user-bulk-deletes-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-agent-local-users-api
+  name: DNSFilter Agent Local Users API
+  description: The Agent Local Users API from DNSFilter — 4 operation(s) for agent local users.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Agent Local Users
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-agent-local-users-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-agent-local-users-csv-export-api
+  name: DNSFilter Agent Local Users CSV Export API
+  description: >-
+    The Agent Local Users CSV Export API from DNSFilter — 2 operation(s) for agent local users csv export.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Agent Local Users CSV Export
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-agent-local-users-csv-export-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-api-keys-api
+  name: DNSFilter Api Keys API
+  description: The Api Keys API from DNSFilter — 3 operation(s) for api keys.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Api Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-api-keys-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-application-categories-api
+  name: DNSFilter Application Categories API
+  description: >-
+    The Application Categories API from DNSFilter — 2 operation(s) for application categories.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Application Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-application-categories-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-applications-api
+  name: DNSFilter Applications API
+  description: Get information about available applications for the allow and block lists.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-applications-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-billings-api
+  name: DNSFilter Billings API
+  description: The Billings API from DNSFilter — 2 operation(s) for billings.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Billings
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-billings-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-block-pages-api
+  name: DNSFilter Block Pages API
+  description: The Block Pages API from DNSFilter — 3 operation(s) for block pages.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Block Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-block-pages-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-categories-api
+  name: DNSFilter Categories API
+  description: The Categories API from DNSFilter — 3 operation(s) for categories.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-categories-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-collection-users-api
+  name: DNSFilter Collection Users API
+  description: The Collection Users API from DNSFilter — 2 operation(s) for collection users.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Collection Users
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-collection-users-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-cybersight-csv-exports-api
+  name: DNSFilter Cybersight CSV Exports API
+  description: >-
+    The Cybersight CSV Exports API from DNSFilter — 2 operation(s) for cybersight csv exports.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Cybersight CSV Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-cybersight-csv-exports-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-dictionary-lookups-api
+  name: DNSFilter Dictionary Lookups API
+  description: The Dictionary Lookups API from DNSFilter — 4 operation(s) for dictionary lookups.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Dictionary Lookups
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-dictionary-lookups-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-distributors-api
+  name: DNSFilter Distributors API
+  description: The Distributors API from DNSFilter — 23 operation(s) for distributors.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Distributors
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-distributors-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-domain-notes-api
+  name: DNSFilter Domain Notes API
+  description: The Domain Notes API from DNSFilter — 4 operation(s) for domain notes.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Domain Notes
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-domain-notes-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-domains-api
+  name: DNSFilter Domains API
+  description: The Domains API from DNSFilter — 3 operation(s) for domains.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-domains-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-enterprise-connections-api
+  name: DNSFilter Enterprise Connections API
+  description: >-
+    The Enterprise Connections API from DNSFilter — 2 operation(s) for enterprise connections.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Enterprise Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-enterprise-connections-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-invoices-api
+  name: DNSFilter Invoices API
+  description: The Invoices API from DNSFilter — 3 operation(s) for invoices.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-invoices-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-ip-addresses-api
+  name: DNSFilter IP Addresses API
+  description: The IP Addresses API from DNSFilter — 5 operation(s) for ip addresses.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - IP Addresses
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-ip-addresses-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-mac-addresses-api
+  name: DNSFilter MAC Addresses API
+  description: The MAC Addresses API from DNSFilter — 3 operation(s) for mac addresses.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - MAC Addresses
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-mac-addresses-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-metrics-api
+  name: DNSFilter Metrics API
+  description: The Metrics API from DNSFilter — 2 operation(s) for metrics.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-metrics-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-network-lan-ips-api
+  name: DNSFilter Network LAN IPs API
+  description: The Network LAN IPs API from DNSFilter — 2 operation(s) for network lan ips.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Network LAN IPs
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-network-lan-ips-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-network-subnets-api
+  name: DNSFilter Network Subnets API
+  description: The Network Subnets API from DNSFilter — 3 operation(s) for network subnets.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Network Subnets
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-network-subnets-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-networks-api
+  name: DNSFilter Networks API
+  description: The Networks API from DNSFilter — 15 operation(s) for networks.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Networks
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-networks-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-networks-csv-exports-api
+  name: DNSFilter Networks CSV Exports API
+  description: The Networks CSV Exports API from DNSFilter — 2 operation(s) for networks csv exports.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Networks CSV Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-networks-csv-exports-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-organization-users-api
+  name: DNSFilter Organization Users API
+  description: The Organization Users API from DNSFilter — 3 operation(s) for organization users.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Organization Users
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-organization-users-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-organizations-api
+  name: DNSFilter Organizations API
+  description: The Organizations API from DNSFilter — 7 operation(s) for organizations.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-organizations-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-policies-api
+  name: DNSFilter Policies API
+  description: The Policies API from DNSFilter — 16 operation(s) for policies.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-policies-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-policies-bulk-actions-api
+  name: DNSFilter Policies Bulk Actions API
+  description: The Policies Bulk Actions API from DNSFilter — 4 operation(s) for policies bulk actions.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Policies Bulk Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-policies-bulk-actions-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-policy-ips-api
+  name: DNSFilter Policy IPs API
+  description: The Policy IPs API from DNSFilter — 2 operation(s) for policy ips.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Policy IPs
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-policy-ips-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-psa-integrations-api
+  name: DNSFilter PSA Integrations API
+  description: The PSA Integrations API from DNSFilter — 1 operation(s) for psa integrations.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - PSA Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-psa-integrations-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-scheduled-policies-api
+  name: DNSFilter Scheduled Policies API
+  description: The Scheduled Policies API from DNSFilter — 3 operation(s) for scheduled policies.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Scheduled Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-scheduled-policies-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-scheduled-report-previews-api
+  name: DNSFilter Scheduled Report Previews API
+  description: >-
+    The Scheduled Report Previews API from DNSFilter — 2 operation(s) for scheduled report previews.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Scheduled Report Previews
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-scheduled-report-previews-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-scheduled-reports-api
+  name: DNSFilter Scheduled Reports API
+  description: The Scheduled Reports API from DNSFilter — 2 operation(s) for scheduled reports.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Scheduled Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-scheduled-reports-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-traffic-reports-api
+  name: DNSFilter Traffic Reports API
+  description: The Traffic Reports API from DNSFilter — 53 operation(s) for traffic reports.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Traffic Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-traffic-reports-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-trials-api
+  name: DNSFilter Trials API
+  description: The Trials API from DNSFilter — 1 operation(s) for trials.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Trials
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-trials-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-agent-bulk-deletes-api
+  name: DNSFilter User Agent Bulk Deletes API
+  description: >-
+    The User Agent Bulk Deletes API from DNSFilter — 3 operation(s) for user agent bulk deletes.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User Agent Bulk Deletes
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-agent-bulk-deletes-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-agent-bulk-updates-api
+  name: DNSFilter User Agent Bulk Updates API
+  description: >-
+    The User Agent Bulk Updates API from DNSFilter — 4 operation(s) for user agent bulk updates.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User Agent Bulk Updates
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-agent-bulk-updates-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-agent-cleanups-api
+  name: DNSFilter User Agent Cleanups API
+  description: The User Agent Cleanups API from DNSFilter — 2 operation(s) for user agent cleanups.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User Agent Cleanups
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-agent-cleanups-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-agent-csv-exports-api
+  name: DNSFilter User Agent CSV Exports API
+  description: >-
+    The User Agent CSV Exports API from DNSFilter — 2 operation(s) for user agent csv exports.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User Agent CSV Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-agent-csv-exports-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-agent-releases-api
+  name: DNSFilter User Agent Releases API
+  description: The User Agent Releases API from DNSFilter — 2 operation(s) for user agent releases.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User Agent Releases
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-agent-releases-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-agents-api
+  name: DNSFilter User Agents API
+  description: The User Agents API from DNSFilter — 9 operation(s) for user agents.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-agents-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-current-api
+  name: DNSFilter User (Current) API
+  description: The User (Current) API from DNSFilter — 1 operation(s) for user (current).
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User (Current)
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-current-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-organization-ui-settings-api
+  name: DNSFilter User Organization UI Settings API
+  description: Manage UI settings for the current user related to Organizations
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User Organization UI Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-organization-ui-settings-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-user-ui-settings-api
+  name: DNSFilter User UI Settings API
+  description: Manage UI settings for the current user.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - User UI Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-user-ui-settings-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
+- aid: dnsfilter:dnsfilter-users-api
+  name: DNSFilter Users API
+  description: The Users API from DNSFilter — 4 operation(s) for users.
+  humanURL: https://apidocs.dnsfilter.com
+  baseURL: https://api.dnsfilter.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/dnsfilter-users-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.dnsfilter.com
+  - type: Documentation
+    url: https://help.dnsfilter.com
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/dnsfilter-agentic-access.yml
+- type: Authentication
+  url: authentication/dnsfilter-authentication.yml
+- type: DomainSecurity
+  url: security/dnsfilter-domain-security.yml
+- type: OpenAPI
+  url: openapi/dnsfilter-openapi-original.json
+- type: Packages
+  url: packages/dnsfilter-packages.yml
+- type: MCPServer
+  url: mcp/dnsfilter-mcp.yml
+- type: LLMsTxt
+  url: llms/dnsfilter-llms.txt
+- type: Overlay
+  url: overlays/dnsfilter-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/dnsfilter-conformance.yml
+- type: ErrorCatalog
+  url: errors/dnsfilter-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/dnsfilter-lifecycle.yml
+- type: StatusPage
+  url: https://status.dnsfilter.com
+- type: Conventions
+  url: conventions/dnsfilter-conventions.yml
+- type: DataModel
+  url: data-model/dnsfilter-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DeveloperPortal
+  url: https://apidocs.dnsfilter.com
+- type: Documentation
+  url: https://help.dnsfilter.com
+- type: APIReference
+  url: https://apidocs.dnsfilter.com
+- type: Support
+  url: https://dnsfilter.com/contact
+- type: Blog
+  url: https://dnsfilter.com/blog
+- type: GitHubOrganization
+  url: https://github.com/dnsfilter
+- type: Roadmap
+  url: https://dnsfilter.com/roadmap
+- type: Pricing
+  url: https://dnsfilter.com/pricing
+- type: SignUp
+  url: https://app.dnsfilter.com/signup
+- type: Login
+  url: https://app.dnsfilter.com/login
+- type: TermsOfService
+  url: https://dnsfilter.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://dnsfilter.com/privacy-policy
 - type: Website
   url: https://dnsfilter.com/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

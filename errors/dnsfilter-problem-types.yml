@@ -1,0 +1,47 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dnsfilter-openapi-original.json (4xx/5xx responses) + info.description
+format: custom-error-envelope
+notes: >-
+  DNSFilter does NOT use RFC 9457 application/problem+json. Errors are returned
+  with standard HTTP status codes and a JSON body. V1 endpoints use
+  { "error": "string", "type": "string(optional)" }; V2 endpoints use
+  { "error": { "message": "string", "type": "string(optional)" } }. The
+  OpenAPI models the body as components/schemas/Error
+  ({ error: string }). The list below is the set of HTTP status codes actually
+  declared across the 280 operations, with occurrence counts.
+envelope:
+  v1: '{ "error": "string", "type": "string(optional)" }'
+  v2: '{ "error": { "message": "string", "type": "string(optional)" } }'
+  schema_ref: '#/components/schemas/Error'
+problems:
+  - status: 400
+    title: Bad Request
+    occurrences: 189
+    meaning: Malformed request, invalid parameters, or validation-level failure.
+  - status: 401
+    title: Unauthorized
+    occurrences: 253
+    meaning: Missing or invalid API key in the Authorization header.
+  - status: 404
+    title: Not Found
+    occurrences: 118
+    meaning: The referenced resource does not exist or is not visible to the key.
+  - status: 409
+    title: Conflict
+    occurrences: 1
+    meaning: Request conflicts with the current state of the resource.
+  - status: 422
+    title: Unprocessable Entity
+    occurrences: 89
+    meaning: Semantically invalid payload (business-rule / attribute validation).
+  - status: 429
+    title: Too Many Requests
+    occurrences: 1
+    meaning: >-
+      Rate limit exceeded. Honor Retry-After and the RateLimit-* headers.
+      See conventions/dnsfilter-conventions.yml.
+  - status: 500
+    title: Internal Server Error
+    occurrences: 29
+    meaning: Unexpected server-side failure.
