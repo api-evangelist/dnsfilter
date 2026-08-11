@@ -699,7 +699,7 @@ common:
 - type: DomainSecurity
   url: security/dnsfilter-domain-security.yml
 - type: OpenAPI
-  url: openapi/dnsfilter-openapi-original.json
+  url: openapi/_original/dnsfilter-openapi-original.json
 - type: Packages
   url: packages/dnsfilter-packages.yml
 - type: MCPServer
