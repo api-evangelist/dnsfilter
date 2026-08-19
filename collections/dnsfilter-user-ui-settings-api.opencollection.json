@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes User UI Settings API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User UI Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get UI Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v2/current_user/ui_settings",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the current user's UI settings."
+        },
+        {
+          "info": {
+            "name": "Update UI Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v2/current_user/ui_settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates current user's UI settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

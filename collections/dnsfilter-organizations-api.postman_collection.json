@@ -1,0 +1,3146 @@
+{
+  "item": [
+    {
+      "id": "cc5bd976-f65a-496a-abab-aaad4ca822d0",
+      "name": "Organizations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3c255bc-296c-4245-81e1-1a9adfbf1be8",
+          "name": "Get extant",
+          "request": {
+            "name": "Get extant",
+            "description": {
+              "content": "Gets user's associated organizations basic information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "basic_info",
+                  "value": "<boolean>",
+                  "description": "just return organizations basic info true/false, defaults to false"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_inherit_privacy_mode",
+                  "value": "<boolean>",
+                  "description": "Exclude organizations that have inherit privacy mode"
+                },
+                {
+                  "disabled": false,
+                  "key": "managed_by_msp_id",
+                  "value": "<integer>",
+                  "description": "MSPs sub-organizations whose MSP ID matches this value"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by organization name"
+                },
+                {
+                  "disabled": false,
+                  "key": "owned_msp_id",
+                  "value": "<integer>",
+                  "description": "Parent organizations whose MSP ID matches this value"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "pii_grid_search",
+                  "value": "<string>",
+                  "description": "Filter by organization name or privacy mode for pii grid search"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by organization type"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d4abcea9-b97f-4db6-be9e-abac2e876b1f",
+              "name": "Organizations basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "basic_info",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_inherit_privacy_mode",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "managed_by_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owned_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pii_grid_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"id\": 1481,\n        \"address\": \"string\",\n        \"allow_create_network\": true,\n        \"allowlist_updated_at\": \"1976-11-19T03:49:48.605Z\",\n        \"billing_address\": \"string\",\n        \"billing_contact_email\": \"string\",\n        \"billing_contact_name\": \"string\",\n        \"billing_contact_phone\": \"string\",\n        \"billing_manual\": true,\n        \"blocklist_updated_at\": \"1957-06-14T07:26:15.405Z\",\n        \"canceled\": false,\n        \"canceled_at\": \"2024-05-15T15:36:45.454Z\",\n        \"external_id\": \"string\",\n        \"feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"fetched_onboard_details\": true,\n        \"first_traffic_sent\": \"1995-07-15T23:17:40.851Z\",\n        \"industry\": \"string\",\n        \"managed_by_msp_id\": 9908,\n        \"metadata\": \"string\",\n        \"msp_feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"owned_msp_id\": 7959,\n        \"plan_details\": \"string\",\n        \"release_channel\": \"string\",\n        \"role\": \"string\",\n        \"send_uninstall_notifications_to_admin_users\": true,\n        \"sso_enabled\": true,\n        \"stripe_customer_id\": \"string\",\n        \"summary_email_address\": \"string\",\n        \"summary_email_enabled\": false,\n        \"sync_tools_auto_update\": \"string\",\n        \"trial_days\": 9177,\n        \"unbounce_data\": \"string\",\n        \"unique_id\": \"string\",\n        \"update_payment\": true,\n        \"usage_alert_cents\": \"string\",\n        \"user_agent_uninstall_notification\": true,\n        \"user_agent_uninstall_notification_recipient_emails\": [\n          \"string\",\n          \"string\"\n        ],\n        \"user_agents_auto_update\": false,\n        \"will_cancel_at\": \"1993-10-03T18:00:32.873Z\",\n        \"active_psa_integration\": false,\n        \"segment\": \"string\",\n        \"vpn_settings_organization\": {\n          \"vpn_settings_state_type_id\": 4322\n        }\n      },\n      \"relationships\": {\n        \"networks\": {\n          \"data\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"id\": 7842,\n        \"address\": \"string\",\n        \"allow_create_network\": false,\n        \"allowlist_updated_at\": \"1982-12-28T23:19:34.126Z\",\n        \"billing_address\": \"string\",\n        \"billing_contact_email\": \"string\",\n        \"billing_contact_name\": \"string\",\n        \"billing_contact_phone\": \"string\",\n        \"billing_manual\": true,\n        \"blocklist_updated_at\": \"1967-09-20T03:16:01.190Z\",\n        \"canceled\": true,\n        \"canceled_at\": \"2010-09-03T19:19:05.840Z\",\n        \"external_id\": \"string\",\n        \"feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"fetched_onboard_details\": false,\n        \"first_traffic_sent\": \"2015-01-20T22:46:23.693Z\",\n        \"industry\": \"string\",\n        \"managed_by_msp_id\": 3946,\n        \"metadata\": \"string\",\n        \"msp_feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"owned_msp_id\": 3342,\n        \"plan_details\": \"string\",\n        \"release_channel\": \"string\",\n        \"role\": \"string\",\n        \"send_uninstall_notifications_to_admin_users\": true,\n        \"sso_enabled\": true,\n        \"stripe_customer_id\": \"string\",\n        \"summary_email_address\": \"string\",\n        \"summary_email_enabled\": false,\n        \"sync_tools_auto_update\": \"string\",\n        \"trial_days\": 5655,\n        \"unbounce_data\": \"string\",\n        \"unique_id\": \"string\",\n        \"update_payment\": true,\n        \"usage_alert_cents\": \"string\",\n        \"user_agent_uninstall_notification\": false,\n        \"user_agent_uninstall_notification_recipient_emails\": [\n          \"string\",\n          \"string\"\n        ],\n        \"user_agents_auto_update\": true,\n        \"will_cancel_at\": \"1982-03-17T16:51:51.092Z\",\n        \"active_psa_integration\": false,\n        \"segment\": \"string\",\n        \"vpn_settings_organization\": {\n          \"vpn_settings_state_type_id\": 632\n        }\n      },\n      \"relationships\": {\n        \"networks\": {\n          \"data\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a72265a-a62d-4352-a8fc-9011e662a448",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "basic_info",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_inherit_privacy_mode",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "managed_by_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owned_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pii_grid_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d34aafa-957f-4adb-87e6-c1a65f07b308",
+          "name": "Create",
+          "request": {
+            "name": "Create",
+            "description": {
+              "content": "Creates a new organization with the specified data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cf4ffcb-6910-40f6-baff-f1847c67e70d",
+              "name": "Created organization basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"attributes\": {\n      \"id\": 697,\n      \"address\": \"string\",\n      \"allow_create_network\": false,\n      \"allowlist_updated_at\": \"2023-08-26T00:31:48.482Z\",\n      \"billing_address\": \"string\",\n      \"billing_contact_email\": \"string\",\n      \"billing_contact_name\": \"string\",\n      \"billing_contact_phone\": \"string\",\n      \"billing_manual\": true,\n      \"blocklist_updated_at\": \"1952-06-20T08:12:55.872Z\",\n      \"canceled\": true,\n      \"canceled_at\": \"1963-12-14T04:26:54.535Z\",\n      \"external_id\": \"string\",\n      \"feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"fetched_onboard_details\": false,\n      \"first_traffic_sent\": \"1954-02-08T21:50:23.141Z\",\n      \"industry\": \"string\",\n      \"managed_by_msp_id\": 1028,\n      \"metadata\": \"string\",\n      \"msp_feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"name\": \"string\",\n      \"owned_msp_id\": 9930,\n      \"plan_details\": \"string\",\n      \"release_channel\": \"string\",\n      \"role\": \"string\",\n      \"send_uninstall_notifications_to_admin_users\": false,\n      \"sso_enabled\": true,\n      \"stripe_customer_id\": \"string\",\n      \"summary_email_address\": \"string\",\n      \"summary_email_enabled\": false,\n      \"sync_tools_auto_update\": \"string\",\n      \"trial_days\": 2028,\n      \"unbounce_data\": \"string\",\n      \"unique_id\": \"string\",\n      \"update_payment\": false,\n      \"usage_alert_cents\": \"string\",\n      \"user_agent_uninstall_notification\": true,\n      \"user_agent_uninstall_notification_recipient_emails\": [\n        \"string\",\n        \"string\"\n      ],\n      \"user_agents_auto_update\": false,\n      \"will_cancel_at\": \"2016-01-26T06:17:00.817Z\",\n      \"active_psa_integration\": false,\n      \"segment\": \"string\",\n      \"vpn_settings_organization\": {\n        \"vpn_settings_state_type_id\": 5876\n      }\n    },\n    \"relationships\": {\n      \"networks\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cd54bb9-ad77-463b-a1e4-0d3bc6daacbe",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4edf2308-fc5e-4e7a-a7eb-8a3f9027d837",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89a0b644-e5c9-45f5-92a1-761cededb821",
+              "name": "Can not create organization with the specified data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4e4bf9e-c518-4283-8a5a-3387a1263a4b",
+          "name": "Get all",
+          "request": {
+            "name": "Get all",
+            "description": {
+              "content": "Gets all organizations basic information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "basic_info",
+                  "value": "<boolean>",
+                  "description": "just return organizations basic info true/false, defaults to false"
+                },
+                {
+                  "disabled": false,
+                  "key": "managed_by_msp_id",
+                  "value": "<integer>",
+                  "description": "MSPs sub-organizations whose MSP ID matches this value"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by organization name"
+                },
+                {
+                  "disabled": false,
+                  "key": "owned_msp_id",
+                  "value": "<integer>",
+                  "description": "Parent organizations whose MSP ID matches this value"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by organization type"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "893ba01f-6864-446a-8aa3-dd34f9be203d",
+              "name": "Organizations basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "basic_info",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "managed_by_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owned_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"id\": 2477,\n        \"address\": \"string\",\n        \"allow_create_network\": false,\n        \"allowlist_updated_at\": \"1964-12-19T02:48:00.998Z\",\n        \"billing_address\": \"string\",\n        \"billing_contact_email\": \"string\",\n        \"billing_contact_name\": \"string\",\n        \"billing_contact_phone\": \"string\",\n        \"billing_manual\": false,\n        \"blocklist_updated_at\": \"2001-10-17T20:54:06.982Z\",\n        \"canceled\": true,\n        \"canceled_at\": \"1965-02-01T13:13:17.028Z\",\n        \"external_id\": \"string\",\n        \"feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"fetched_onboard_details\": false,\n        \"first_traffic_sent\": \"1980-07-10T09:23:03.359Z\",\n        \"industry\": \"string\",\n        \"managed_by_msp_id\": 5391,\n        \"metadata\": \"string\",\n        \"msp_feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"owned_msp_id\": 5017,\n        \"plan_details\": \"string\",\n        \"release_channel\": \"string\",\n        \"role\": \"string\",\n        \"send_uninstall_notifications_to_admin_users\": true,\n        \"sso_enabled\": true,\n        \"stripe_customer_id\": \"string\",\n        \"summary_email_address\": \"string\",\n        \"summary_email_enabled\": true,\n        \"sync_tools_auto_update\": \"string\",\n        \"trial_days\": 1360,\n        \"unbounce_data\": \"string\",\n        \"unique_id\": \"string\",\n        \"update_payment\": true,\n        \"usage_alert_cents\": \"string\",\n        \"user_agent_uninstall_notification\": true,\n        \"user_agent_uninstall_notification_recipient_emails\": [\n          \"string\",\n          \"string\"\n        ],\n        \"user_agents_auto_update\": false,\n        \"will_cancel_at\": \"1984-05-07T14:37:02.027Z\",\n        \"active_psa_integration\": false,\n        \"segment\": \"string\",\n        \"vpn_settings_organization\": {\n          \"vpn_settings_state_type_id\": 4944\n        }\n      },\n      \"relationships\": {\n        \"networks\": {\n          \"data\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"id\": 4628,\n        \"address\": \"string\",\n        \"allow_create_network\": true,\n        \"allowlist_updated_at\": \"1959-01-27T13:21:55.312Z\",\n        \"billing_address\": \"string\",\n        \"billing_contact_email\": \"string\",\n        \"billing_contact_name\": \"string\",\n        \"billing_contact_phone\": \"string\",\n        \"billing_manual\": true,\n        \"blocklist_updated_at\": \"1965-01-03T23:29:06.704Z\",\n        \"canceled\": false,\n        \"canceled_at\": \"2008-02-03T22:48:41.212Z\",\n        \"external_id\": \"string\",\n        \"feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"fetched_onboard_details\": true,\n        \"first_traffic_sent\": \"1987-06-04T03:13:58.567Z\",\n        \"industry\": \"string\",\n        \"managed_by_msp_id\": 4176,\n        \"metadata\": \"string\",\n        \"msp_feature_flags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"owned_msp_id\": 2815,\n        \"plan_details\": \"string\",\n        \"release_channel\": \"string\",\n        \"role\": \"string\",\n        \"send_uninstall_notifications_to_admin_users\": true,\n        \"sso_enabled\": false,\n        \"stripe_customer_id\": \"string\",\n        \"summary_email_address\": \"string\",\n        \"summary_email_enabled\": false,\n        \"sync_tools_auto_update\": \"string\",\n        \"trial_days\": 8163,\n        \"unbounce_data\": \"string\",\n        \"unique_id\": \"string\",\n        \"update_payment\": true,\n        \"usage_alert_cents\": \"string\",\n        \"user_agent_uninstall_notification\": true,\n        \"user_agent_uninstall_notification_recipient_emails\": [\n          \"string\",\n          \"string\"\n        ],\n        \"user_agents_auto_update\": false,\n        \"will_cancel_at\": \"2018-01-11T07:25:03.383Z\",\n        \"active_psa_integration\": false,\n        \"segment\": \"string\",\n        \"vpn_settings_organization\": {\n          \"vpn_settings_state_type_id\": 4004\n        }\n      },\n      \"relationships\": {\n        \"networks\": {\n          \"data\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uuid\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1df20a76-d91c-4faa-b2a3-fa3e7adb280d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "basic_info",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "managed_by_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owned_msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88e9e0ad-02f1-428f-aa0e-bb06875ffda1",
+          "name": "Show organization",
+          "request": {
+            "name": "Show organization",
+            "description": {
+              "content": "Gets basic information of the specified organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_current_mrr",
+                  "value": "<boolean>",
+                  "description": "Optionally Include current MRR information"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Organization ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f276b808-ad53-4dcf-828d-ba4b7ff6a628",
+              "name": "Organization basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_current_mrr",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"attributes\": {\n      \"id\": 697,\n      \"address\": \"string\",\n      \"allow_create_network\": false,\n      \"allowlist_updated_at\": \"2023-08-26T00:31:48.482Z\",\n      \"billing_address\": \"string\",\n      \"billing_contact_email\": \"string\",\n      \"billing_contact_name\": \"string\",\n      \"billing_contact_phone\": \"string\",\n      \"billing_manual\": true,\n      \"blocklist_updated_at\": \"1952-06-20T08:12:55.872Z\",\n      \"canceled\": true,\n      \"canceled_at\": \"1963-12-14T04:26:54.535Z\",\n      \"external_id\": \"string\",\n      \"feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"fetched_onboard_details\": false,\n      \"first_traffic_sent\": \"1954-02-08T21:50:23.141Z\",\n      \"industry\": \"string\",\n      \"managed_by_msp_id\": 1028,\n      \"metadata\": \"string\",\n      \"msp_feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"name\": \"string\",\n      \"owned_msp_id\": 9930,\n      \"plan_details\": \"string\",\n      \"release_channel\": \"string\",\n      \"role\": \"string\",\n      \"send_uninstall_notifications_to_admin_users\": false,\n      \"sso_enabled\": true,\n      \"stripe_customer_id\": \"string\",\n      \"summary_email_address\": \"string\",\n      \"summary_email_enabled\": false,\n      \"sync_tools_auto_update\": \"string\",\n      \"trial_days\": 2028,\n      \"unbounce_data\": \"string\",\n      \"unique_id\": \"string\",\n      \"update_payment\": false,\n      \"usage_alert_cents\": \"string\",\n      \"user_agent_uninstall_notification\": true,\n      \"user_agent_uninstall_notification_recipient_emails\": [\n        \"string\",\n        \"string\"\n      ],\n      \"user_agents_auto_update\": false,\n      \"will_cancel_at\": \"2016-01-26T06:17:00.817Z\",\n      \"active_psa_integration\": false,\n      \"segment\": \"string\",\n      \"vpn_settings_organization\": {\n        \"vpn_settings_state_type_id\": 5876\n      }\n    },\n    \"relationships\": {\n      \"networks\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1017e025-2211-4008-971f-33c2f859a045",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_current_mrr",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5582960f-c20c-4bc2-8995-15ec4e3d41ea",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_current_mrr",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17d12ee8-2faf-4007-9018-8e5f3800694d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_current_mrr",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cd79500-4820-431b-b5bb-cc754aa8bb03",
+          "name": "Update",
+          "request": {
+            "name": "Update",
+            "description": {
+              "content": "Updates an organization with the specified data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Organization ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "531f7980-684b-4513-9741-76d63442514e",
+              "name": "Updated organization basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"attributes\": {\n      \"id\": 697,\n      \"address\": \"string\",\n      \"allow_create_network\": false,\n      \"allowlist_updated_at\": \"2023-08-26T00:31:48.482Z\",\n      \"billing_address\": \"string\",\n      \"billing_contact_email\": \"string\",\n      \"billing_contact_name\": \"string\",\n      \"billing_contact_phone\": \"string\",\n      \"billing_manual\": true,\n      \"blocklist_updated_at\": \"1952-06-20T08:12:55.872Z\",\n      \"canceled\": true,\n      \"canceled_at\": \"1963-12-14T04:26:54.535Z\",\n      \"external_id\": \"string\",\n      \"feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"fetched_onboard_details\": false,\n      \"first_traffic_sent\": \"1954-02-08T21:50:23.141Z\",\n      \"industry\": \"string\",\n      \"managed_by_msp_id\": 1028,\n      \"metadata\": \"string\",\n      \"msp_feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"name\": \"string\",\n      \"owned_msp_id\": 9930,\n      \"plan_details\": \"string\",\n      \"release_channel\": \"string\",\n      \"role\": \"string\",\n      \"send_uninstall_notifications_to_admin_users\": false,\n      \"sso_enabled\": true,\n      \"stripe_customer_id\": \"string\",\n      \"summary_email_address\": \"string\",\n      \"summary_email_enabled\": false,\n      \"sync_tools_auto_update\": \"string\",\n      \"trial_days\": 2028,\n      \"unbounce_data\": \"string\",\n      \"unique_id\": \"string\",\n      \"update_payment\": false,\n      \"usage_alert_cents\": \"string\",\n      \"user_agent_uninstall_notification\": true,\n      \"user_agent_uninstall_notification_recipient_emails\": [\n        \"string\",\n        \"string\"\n      ],\n      \"user_agents_auto_update\": false,\n      \"will_cancel_at\": \"2016-01-26T06:17:00.817Z\",\n      \"active_psa_integration\": false,\n      \"segment\": \"string\",\n      \"vpn_settings_organization\": {\n        \"vpn_settings_state_type_id\": 5876\n      }\n    },\n    \"relationships\": {\n      \"networks\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41a9c051-03c7-4705-9ca1-9ef00e8ff3b1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2f43a18-f45d-4494-8f73-6d40d96087e1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad789aa2-c438-4ee3-bbcc-0667e3fe9992",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89bd7909-9ef2-46bf-8df8-e62297796981",
+              "name": "Can not update organization with the specified data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"name\": \"<string>\",\n    \"managed_by_msp_id\": \"<integer>\",\n    \"billing_contact_name\": \"<string>\",\n    \"billing_contact_phone\": \"<string>\",\n    \"billing_contact_email\": \"<string>\",\n    \"address\": \"<string>\",\n    \"unique_id\": \"<string>\",\n    \"sku\": \"<string>\",\n    \"quantity\": \"<integer>\",\n    \"vpn_settings_organization_attributes\": {\n      \"id\": \"<integer>\",\n      \"vpn_settings_state_type_id\": \"<integer>\",\n      \"_destroy\": \"<boolean>\"\n    },\n    \"privacy_mode\": \"<string>\",\n    \"enable_cybersight\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d662277-cb3a-4e73-8719-7f8d85220380",
+          "name": "Delete MSP",
+          "request": {
+            "name": "Delete MSP",
+            "description": {
+              "content": "Deletes an MSP customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "clear_subscription_info",
+                  "value": "<boolean>",
+                  "description": "Clears subscription information tied to the customer, defaults to false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) MSP customer ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "abfe1267-1bc6-4a8a-9082-422bbe8c73a1",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_subscription_info",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) MSP customer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c4a4f8e-ce3e-4eeb-91d5-9f6f6ecf9549",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_subscription_info",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) MSP customer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "417b6cbf-4057-417c-8f9f-452b9ed5df42",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_subscription_info",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) MSP customer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca42ee0a-44a6-496c-98ca-c446f8242c9d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_subscription_info",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) MSP customer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cd620d2-a4c4-41fd-bc51-97a83b16963d",
+              "name": "Can not delete the MSP customer or invalid customer ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_subscription_info",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) MSP customer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1dff2cb-358d-48b1-8b44-fd86b2fe94d5",
+          "name": "Get settings",
+          "request": {
+            "name": "Get settings",
+            "description": {
+              "content": "Gets basic information of the specified organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "msp_id",
+                  "value": "<integer>",
+                  "description": "MSP ID to set scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by organization name"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "Organization ID to set scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<string>",
+                  "description": "Multiple organization IDs to set scope"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "58943321-8b22-4d0f-9299-7594a80967f5",
+              "name": "Organization basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"attributes\": {\n      \"id\": 697,\n      \"address\": \"string\",\n      \"allow_create_network\": false,\n      \"allowlist_updated_at\": \"2023-08-26T00:31:48.482Z\",\n      \"billing_address\": \"string\",\n      \"billing_contact_email\": \"string\",\n      \"billing_contact_name\": \"string\",\n      \"billing_contact_phone\": \"string\",\n      \"billing_manual\": true,\n      \"blocklist_updated_at\": \"1952-06-20T08:12:55.872Z\",\n      \"canceled\": true,\n      \"canceled_at\": \"1963-12-14T04:26:54.535Z\",\n      \"external_id\": \"string\",\n      \"feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"fetched_onboard_details\": false,\n      \"first_traffic_sent\": \"1954-02-08T21:50:23.141Z\",\n      \"industry\": \"string\",\n      \"managed_by_msp_id\": 1028,\n      \"metadata\": \"string\",\n      \"msp_feature_flags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"name\": \"string\",\n      \"owned_msp_id\": 9930,\n      \"plan_details\": \"string\",\n      \"release_channel\": \"string\",\n      \"role\": \"string\",\n      \"send_uninstall_notifications_to_admin_users\": false,\n      \"sso_enabled\": true,\n      \"stripe_customer_id\": \"string\",\n      \"summary_email_address\": \"string\",\n      \"summary_email_enabled\": false,\n      \"sync_tools_auto_update\": \"string\",\n      \"trial_days\": 2028,\n      \"unbounce_data\": \"string\",\n      \"unique_id\": \"string\",\n      \"update_payment\": false,\n      \"usage_alert_cents\": \"string\",\n      \"user_agent_uninstall_notification\": true,\n      \"user_agent_uninstall_notification_recipient_emails\": [\n        \"string\",\n        \"string\"\n      ],\n      \"user_agents_auto_update\": false,\n      \"will_cancel_at\": \"2016-01-26T06:17:00.817Z\",\n      \"active_psa_integration\": false,\n      \"segment\": \"string\",\n      \"vpn_settings_organization\": {\n        \"vpn_settings_state_type_id\": 5876\n      }\n    },\n    \"relationships\": {\n      \"networks\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee10de39-5d1c-4a8f-aea9-be1520fecdca",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "907ebe3d-0876-43cf-97dd-788d19727195",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f743bf58-9bfb-403b-9b09-a5f15b4a06aa",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6fa0f1f-441e-4143-9d53-ccdb51a694a7",
+          "name": "Bulk update",
+          "request": {
+            "name": "Bulk update",
+            "description": {
+              "content": "Updates one or more organizations with the specified data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                "bulk_update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"msp_id\": \"<integer>\",\n  \"exclude_organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"send_uninstall_notifications_to_admin_users\": \"<boolean>\",\n  \"user_agent_uninstall_notification\": \"<boolean>\",\n  \"user_agent_uninstall_notification_recipient_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_agents_auto_update\": \"<boolean>\",\n  \"vpn_settings_organization_attributes\": {\n    \"vpn_settings_state_type_id\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87923abc-8ed7-433b-ad0f-8cfa6c6c40d8",
+              "name": "A +success+ flag indicating bulk update was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"msp_id\": \"<integer>\",\n  \"exclude_organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"send_uninstall_notifications_to_admin_users\": \"<boolean>\",\n  \"user_agent_uninstall_notification\": \"<boolean>\",\n  \"user_agent_uninstall_notification_recipient_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_agents_auto_update\": \"<boolean>\",\n  \"vpn_settings_organization_attributes\": {\n    \"vpn_settings_state_type_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0aab702-894d-458f-a0b6-af9830edbf7e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"msp_id\": \"<integer>\",\n  \"exclude_organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"send_uninstall_notifications_to_admin_users\": \"<boolean>\",\n  \"user_agent_uninstall_notification\": \"<boolean>\",\n  \"user_agent_uninstall_notification_recipient_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_agents_auto_update\": \"<boolean>\",\n  \"vpn_settings_organization_attributes\": {\n    \"vpn_settings_state_type_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e75abc0-8b51-45e8-b923-1ef7e8af85fc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"msp_id\": \"<integer>\",\n  \"exclude_organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"send_uninstall_notifications_to_admin_users\": \"<boolean>\",\n  \"user_agent_uninstall_notification\": \"<boolean>\",\n  \"user_agent_uninstall_notification_recipient_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_agents_auto_update\": \"<boolean>\",\n  \"vpn_settings_organization_attributes\": {\n    \"vpn_settings_state_type_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdaab66d-8e4b-4263-b184-dc414a75bd9a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"msp_id\": \"<integer>\",\n  \"exclude_organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"send_uninstall_notifications_to_admin_users\": \"<boolean>\",\n  \"user_agent_uninstall_notification\": \"<boolean>\",\n  \"user_agent_uninstall_notification_recipient_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_agents_auto_update\": \"<boolean>\",\n  \"vpn_settings_organization_attributes\": {\n    \"vpn_settings_state_type_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d159f102-ab4a-40da-862e-0f46d44c65b0",
+              "name": "Failed to update one or more organizations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"msp_id\": \"<integer>\",\n  \"exclude_organization_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"send_uninstall_notifications_to_admin_users\": \"<boolean>\",\n  \"user_agent_uninstall_notification\": \"<boolean>\",\n  \"user_agent_uninstall_notification_recipient_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_agents_auto_update\": \"<boolean>\",\n  \"vpn_settings_organization_attributes\": {\n    \"vpn_settings_state_type_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88c5221d-8bc2-4b62-ad15-00e6aac418d6",
+          "name": "Cancel",
+          "request": {
+            "name": "Cancel",
+            "description": {
+              "content": "Sets an organization as 'Canceled'.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Organization ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "10ba604b-63bb-4a6d-a2c2-b6da1be6bdb0",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3c26f851-98a6-4b04-a0c1-28f905b1ec28",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20e28473-29fe-4865-97e8-984474abb493",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8153dad-3e6e-4131-937c-29527db70baf",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc1da1d1-bb0f-4bf2-9d59-3b4fc304a15c",
+              "name": "Can not cancel the organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab40828e-5950-4f8a-8461-bf48ce2443b7",
+          "name": "Promote",
+          "request": {
+            "name": "Promote",
+            "description": {
+              "content": "Promote an organization to a MSP.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                "promote_to_msp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "plan",
+                  "value": "<string>",
+                  "description": "Plan name, valid attributes: manual, tier1, tier2, tier3, friendly_wifi"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a372eadf-f06c-4209-9bad-5b38d5b3bc05",
+              "name": "Organization info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "promote_to_msp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42512cfd-a655-4773-92ca-3e3074736c87",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "promote_to_msp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7bf22f73-5742-4de8-91c8-5182593e1833",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "promote_to_msp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40d81dac-cc0c-4d53-a934-23bbe5b6d68f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "promote_to_msp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c6581ef-8441-4e50-8a9a-ef729ef1e46f",
+              "name": "User owned organization is cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "promote_to_msp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dnsfilter.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6440e383-9d1f-4ea8-b1c9-b0a4b8232742",
+    "name": "DNSFilter Agent Local User Bulk Deletes Organizations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

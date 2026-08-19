@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Categories API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get extant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/categories",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              }
+            ]
+          },
+          "docs": "List categories basic information."
+        },
+        {
+          "info": {
+            "name": "Get all",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/categories/all",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              }
+            ]
+          },
+          "docs": "List all categories including internal categories."
+        },
+        {
+          "info": {
+            "name": "Show category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Category ID"
+              }
+            ]
+          },
+          "docs": "Gets basic information of a specific category."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,354 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes User Agent Bulk Updates API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Agent Bulk Updates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/user_agent_bulk_updates",
+            "params": [
+              {
+                "name": "agent_state",
+                "value": "",
+                "type": "query",
+                "description": "filter by agent state"
+              },
+              {
+                "name": "agent_version",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by agent version."
+              },
+              {
+                "name": "block_page_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by block page ID"
+              },
+              {
+                "name": "name_search",
+                "value": "",
+                "type": "query",
+                "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+              },
+              {
+                "name": "network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Networks IDs, defaults to all"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Organization IDs"
+              },
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by policy ID"
+              },
+              {
+                "name": "policy_schedule",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by policy/schedule name"
+              },
+              {
+                "name": "release_channels",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by release channel. Valid values: stable, beta, preview"
+              },
+              {
+                "name": "scheduled_policy_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by scheduled_policy ID"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by keyword(s) (space delimited), this could be: hostname, friendly name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent online/offline state"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by tags"
+              },
+              {
+                "name": "traffic_received_last_15_mins",
+                "value": "",
+                "type": "query",
+                "description": "filter by agents that have received traffic in last 15 minutes"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "User agent type, defaults to non-proxy/no-relays user agents"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a user agent bulk update."
+        },
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agent_bulk_updates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of user agent bulk update"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a user agent bulk update by id."
+        },
+        {
+          "info": {
+            "name": "Check agent values",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/user_agent_bulk_updates/has_mixed",
+            "params": [
+              {
+                "name": "agent_state",
+                "value": "",
+                "type": "query",
+                "description": "filter by agent state"
+              },
+              {
+                "name": "name_search",
+                "value": "",
+                "type": "query",
+                "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+              },
+              {
+                "name": "network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Networks IDs, defaults to all"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Organization IDs, defaults to user organization ID"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by keyword(s) (space delimited), this could be: hostname, friendly name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent online/offline state"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by tags"
+              },
+              {
+                "name": "traffic_received_last_15_mins",
+                "value": "",
+                "type": "query",
+                "description": "filter by agents that have received traffic in last 15 minutes"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "User agent type, defaults to non-proxy/no-relays user agents"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the value of whether each of the attributes of the elected user agents are mixed."
+        },
+        {
+          "info": {
+            "name": "Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agent_bulk_updates/counts",
+            "params": [
+              {
+                "name": "agent_state",
+                "value": "",
+                "type": "query",
+                "description": "filter by agent state"
+              },
+              {
+                "name": "block_page_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by block page ID"
+              },
+              {
+                "name": "name_search",
+                "value": "",
+                "type": "query",
+                "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+              },
+              {
+                "name": "network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Networks IDs, defaults to all"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID"
+              },
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by policy ID"
+              },
+              {
+                "name": "release_channels",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by release channel. Valid values: stable, beta, preview"
+              },
+              {
+                "name": "scheduled_policy_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by scheduled_policy ID"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by keyword(s) (space delimited), this could be: hostname, friendly name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent online/offline state"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by tags"
+              },
+              {
+                "name": "traffic_received_last_15_mins",
+                "value": "",
+                "type": "query",
+                "description": "filter by agents that have received traffic in last 15 minutes"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "User agent type, defaults to non-proxy/no-relays user agents"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a user agent bulk delete counts by id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

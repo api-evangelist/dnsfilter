@@ -1,0 +1,649 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes User Agents API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get extant agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agents",
+            "params": [
+              {
+                "name": "agent_local_user_uuids",
+                "value": "",
+                "type": "query",
+                "description": "Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG)."
+              },
+              {
+                "name": "agent_state",
+                "value": "",
+                "type": "query",
+                "description": "filter by agent state"
+              },
+              {
+                "name": "agent_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by agent type. Valid values: windows, macos, ios, android, chrome. Valid operators: is, isnot"
+              },
+              {
+                "name": "agent_version",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by agent version. Valid operators: startswith, equals, doesnotequal, contains, doesnotcontain, endswith"
+              },
+              {
+                "name": "auto_update",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by their organization's auto update value"
+              },
+              {
+                "name": "block_page_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by block page ID"
+              },
+              {
+                "name": "browser_extension_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by browser extension status (chrome or edge). Valid values: installed, not_responding, not_installed. Valid operators: is, isnot"
+              },
+              {
+                "name": "cybersight_enabled",
+                "value": "",
+                "type": "query",
+                "description": "When true, use OpenSearch for Cybersight activity in the time window: with agent_local_user_uuids, filter to roaming clients linked to those users; without, filter to roaming clients with activity on Cybersight-eligible agents in scope. When false, use Postgres only (default: false)"
+              },
+              {
+                "name": "cybersight_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by CyberSight service status. Valid values: active, inactive, disabled, not_available. Valid operators: is, isnot"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true."
+              },
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "query",
+                "description": "MSP ID, set scope to all sub-orgs"
+              },
+              {
+                "name": "name_search",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agent by client name fields (i.e. hostname and friendly_name). Valid operators: contains, doesnotcontain"
+              },
+              {
+                "name": "network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Networks IDs, defaults to all"
+              },
+              {
+                "name": "new_agent_states",
+                "value": "",
+                "type": "query",
+                "description": "assign user agents new agent states: Protected, Unprotected, Offline"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Organization IDs, defaults to user organization ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by policy ID"
+              },
+              {
+                "name": "policy_schedule",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by policy/schedule name"
+              },
+              {
+                "name": "release_channels",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot"
+              },
+              {
+                "name": "scheduled_policy_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by scheduled_policy ID"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by keyword(s) (space delimited), this could be: status, hostname, friendly name, current logged in user"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort options, valid attributes: hostname, friendly_name, agent_version, last_sync, agent_state, vpn_status, private_network (connected, not_connected, disabled)"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent online/offline state"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent status, valid attributes: active, disabled, uninstalled, uninstall_queued, uninstalling"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by tags"
+              },
+              {
+                "name": "traffic_received_last_15_mins",
+                "value": "",
+                "type": "query",
+                "description": "filter by agents that have received traffic in last 15 minutes"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "User agent type, defaults to non-proxy/no-relays user agents"
+              },
+              {
+                "name": "vpn_mode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by VPN mode (agent-level overrides org-level). Valid values: manual, always_on. Valid operators: is, isnot"
+              },
+              {
+                "name": "vpn_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by VPN connectivity status. Valid values: connected, not_connected, disabled. Valid operators: is, isnot"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a list of user agents with basic information."
+        },
+        {
+          "info": {
+            "name": "Get all agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agents/all",
+            "params": [
+              {
+                "name": "agent_local_user_uuids",
+                "value": "",
+                "type": "query",
+                "description": "Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG)."
+              },
+              {
+                "name": "cybersight_enabled",
+                "value": "",
+                "type": "query",
+                "description": "When true, use OpenSearch for Cybersight activity in the time window: with agent_local_user_uuids, filter to roaming clients linked to those users; without, filter to roaming clients with activity on Cybersight-eligible agents in scope. When false, use Postgres only (default: false)"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true."
+              },
+              {
+                "name": "network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Networks IDs, defaults to all"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to scope agents"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by keyword(s) (space delimited), this could be: status, hostname, friendly name, current logged in user"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort options, valid attributes: hostname, friendly_name, agent_version, last_sync"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent state"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent status, valid attributes: active, disabled, uninstalled, uninstall_queued, uninstalling"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by tags"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "User agent type, defaults to non-proxy/no-relays user agents"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a list of ALL user agents with basic information."
+        },
+        {
+          "info": {
+            "name": "Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agents/counts",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "query",
+                "description": "MSP ID, set scope to all sub-orgs"
+              },
+              {
+                "name": "name_search",
+                "value": "",
+                "type": "query",
+                "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+              },
+              {
+                "name": "network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Networks IDs, defaults to all"
+              },
+              {
+                "name": "new_agent_states",
+                "value": "",
+                "type": "query",
+                "description": "Get counts for new agent states: Protected, Unprotected, Offline"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Organization IDs, defaults to user organization ID"
+              },
+              {
+                "name": "release_channels",
+                "value": "",
+                "type": "query",
+                "description": "Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by keyword(s) (space delimited), this could be: tags, status, hostname, friendly name, current logged in user"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent online/offline state"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "User agent list by tags"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "User agent type, defaults to non-proxy/no-relays user agents"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets counts of user agents for each status."
+        },
+        {
+          "info": {
+            "name": "Show agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User agent UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the specified user agent with basic information."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/user_agents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User agent UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates an user agent with the specified data."
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dnsfilter.com/v1/user_agents/:id",
+            "params": [
+              {
+                "name": "clear_registry",
+                "value": "",
+                "type": "query",
+                "description": "Clear registry when uninstalling user agent"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User agent UUID"
+              },
+              {
+                "name": "queue_uninstall",
+                "value": "",
+                "type": "query",
+                "description": "Uninstall user agent"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Soft deletes an user agent."
+        },
+        {
+          "info": {
+            "name": "Get tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agents/tags",
+            "params": [
+              {
+                "name": "include_used_only",
+                "value": "",
+                "type": "query",
+                "description": "Filters out tags that aren't current used on any user agents"
+              },
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "query",
+                "description": "MSP ID, set scope to all sub-orgs"
+              },
+              {
+                "name": "network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Networks IDs, defaults to all"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Organization IDs, defaults to user organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets ALL tags used by user agents on a network or organization."
+        },
+        {
+          "info": {
+            "name": "Remove queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/user_agents/dequeue_uninstall",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "User agent ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes user agent from uninstall queue."
+        },
+        {
+          "info": {
+            "name": "CSV Export",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agents/csv",
+            "params": [
+              {
+                "name": "include_suborgs",
+                "value": "",
+                "type": "query",
+                "description": "Include suborgs when organization_id is msp owner org, defaults to false"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "The timezone string (e.g. America/New_York) for localizing the filename, defaults to \"UTC\""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets CSV of organization's user agents."
+        },
+        {
+          "info": {
+            "name": "PIN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/user_agents/uninstall_pin",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets Uninstall pin for organization's user agents."
+        },
+        {
+          "info": {
+            "name": "Update settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v2/user_agents/:id/update_settings",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User agent UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates both device settings and filtering client settings for a user agent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

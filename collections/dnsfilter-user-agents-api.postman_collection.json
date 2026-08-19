@@ -1,0 +1,4848 @@
+{
+  "item": [
+    {
+      "id": "474b57f8-4a87-4537-b038-06096aea37c9",
+      "name": "User Agents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4821ea9f-2cde-41d1-9a7c-c6c1549c9442",
+          "name": "Get extant agents",
+          "request": {
+            "name": "Get extant agents",
+            "description": {
+              "content": "Gets a list of user agents with basic information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_local_user_uuids",
+                  "value": "<string>",
+                  "description": "Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG)."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_local_user_uuids",
+                  "value": "<string>",
+                  "description": "Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG)."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_state",
+                  "value": "<string>",
+                  "description": "filter by agent state"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter user agents by agent type. Valid values: windows, macos, ios, android, chrome. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter user agents by agent type. Valid values: windows, macos, ios, android, chrome. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter user agents by agent version. Valid operators: startswith, equals, doesnotequal, contains, doesnotcontain, endswith"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter user agents by agent version. Valid operators: startswith, equals, doesnotequal, contains, doesnotcontain, endswith"
+                },
+                {
+                  "disabled": false,
+                  "key": "auto_update",
+                  "value": "<boolean>",
+                  "description": "Filter user agents by their organization's auto update value"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_page_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by block page ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter by browser extension status (chrome or edge). Valid values: installed, not_responding, not_installed. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter by browser extension status (chrome or edge). Valid values: installed, not_responding, not_installed. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "cybersight_enabled",
+                  "value": "<boolean>",
+                  "description": "When true, use OpenSearch for Cybersight activity in the time window: with agent_local_user_uuids, filter to roaming clients linked to those users; without, filter to roaming clients with activity on Cybersight-eligible agents in scope. When false, use Postgres only (default: false)"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter by CyberSight service status. Valid values: active, inactive, disabled, not_available. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter by CyberSight service status. Valid values: active, inactive, disabled, not_available. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_at",
+                  "value": "<string>",
+                  "description": "ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true."
+                },
+                {
+                  "disabled": false,
+                  "key": "msp_id",
+                  "value": "<integer>",
+                  "description": "MSP ID, set scope to all sub-orgs"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter user agent by client name fields (i.e. hostname and friendly_name). Valid operators: contains, doesnotcontain"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter user agent by client name fields (i.e. hostname and friendly_name). Valid operators: contains, doesnotcontain"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "new_agent_states",
+                  "value": "<boolean>",
+                  "description": "assign user agents new agent states: Protected, Unprotected, Offline"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "policy_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by policy ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "policy_schedule",
+                  "value": "<string>",
+                  "description": "Filter user agents by policy/schedule name"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "scheduled_policy_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by scheduled_policy ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "User agent list by keyword(s) (space delimited), this could be: status, hostname, friendly name, current logged in user"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort options, valid attributes: hostname, friendly_name, agent_version, last_sync, agent_state, vpn_status, private_network (connected, not_connected, disabled)"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_at",
+                  "value": "<string>",
+                  "description": "ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "filter by user agent online/offline state"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "filter by user agent status, valid attributes: active, disabled, uninstalled, uninstall_queued, uninstalling"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "traffic_received_last_15_mins",
+                  "value": "<boolean>",
+                  "description": "filter by agents that have received traffic in last 15 minutes"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "User agent type, defaults to non-proxy/no-relays user agents"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter by VPN mode (agent-level overrides org-level). Valid values: manual, always_on. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter by VPN mode (agent-level overrides org-level). Valid values: manual, always_on. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter by VPN connectivity status. Valid values: connected, not_connected, disabled. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter by VPN connectivity status. Valid values: connected, not_connected, disabled. Valid operators: is, isnot"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "14bfc2b0-db47-41d6-b863-06f4ec741f5e",
+              "name": "User agents basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auto_update",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"agent_type\": \"ios\",\n        \"agent_version\": \"string\",\n        \"client_id\": \"string\",\n        \"hostname\": \"string\",\n        \"status\": \"uninstalled\",\n        \"os_version\": \"string\",\n        \"os_name\": \"string\",\n        \"friendly_name\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"meta\": \"string\",\n        \"created_at\": \"2018-02-01\",\n        \"updated_at\": \"1955-04-30\",\n        \"uninstalled_at\": \"1985-04-19\",\n        \"id_hex\": \"string\",\n        \"id_binary\": [\n          2480,\n          9528\n        ],\n        \"last_sync\": \"1965-11-30\",\n        \"agent_state\": \"uninstalled\",\n        \"cyber_sight_client\": {\n          \"service_state\": \"operational\",\n          \"chrome_extension_status\": \"error\",\n          \"edge_extension_status\": \"disabled\"\n        },\n        \"cyber_sight_client_setting\": {\n          \"enable_browser_extension\": false\n        },\n        \"device_setting\": {\n          \"auto_updates\": true,\n          \"enable_cyber_sight\": true\n        },\n        \"filtering_client_setting\": {\n          \"auto_updates\": true,\n          \"connection_method\": \"transparent_prox\",\n          \"filtering_method\": \"precheck\",\n          \"fail_over_method\": \"fail_open\"\n        }\n      },\n      \"relationships\": {\n        \"network\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"scheduled_policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"agent_type\": \"ios\",\n        \"agent_version\": \"string\",\n        \"client_id\": \"string\",\n        \"hostname\": \"string\",\n        \"status\": \"created\",\n        \"os_version\": \"string\",\n        \"os_name\": \"string\",\n        \"friendly_name\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"meta\": \"string\",\n        \"created_at\": \"1954-05-31\",\n        \"updated_at\": \"1999-12-04\",\n        \"uninstalled_at\": \"1989-01-28\",\n        \"id_hex\": \"string\",\n        \"id_binary\": [\n          2955,\n          2580\n        ],\n        \"last_sync\": \"2017-09-29\",\n        \"agent_state\": \"unprotected\",\n        \"cyber_sight_client\": {\n          \"service_state\": \"error\",\n          \"chrome_extension_status\": \"browser_not_installed\",\n          \"edge_extension_status\": \"outdated\"\n        },\n        \"cyber_sight_client_setting\": {\n          \"enable_browser_extension\": true\n        },\n        \"device_setting\": {\n          \"auto_updates\": false,\n          \"enable_cyber_sight\": true\n        },\n        \"filtering_client_setting\": {\n          \"auto_updates\": true,\n          \"connection_method\": \"inherit\",\n          \"filtering_method\": \"precheck\",\n          \"fail_over_method\": \"fail_open\"\n        }\n      },\n      \"relationships\": {\n        \"network\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"scheduled_policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  },\n  \"meta\": {\n    \"key_0\": {\n      \"count\": 4407\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dacedbad-aa2c-455d-9129-47754413ab2b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auto_update",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ce898c9-138f-4690-b18c-d579c96aef7c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auto_update",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b3dbd0a-52de-4e1f-a1c5-2acada9cc656",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auto_update",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba4fb96d-7052-4025-b5b8-d4d265a225a8",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auto_update",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6712e971-78d6-4615-85af-34f017430f5d",
+          "name": "Get all agents",
+          "request": {
+            "name": "Get all agents",
+            "description": {
+              "content": "Gets a list of ALL user agents with basic information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_local_user_uuids",
+                  "value": "<string>",
+                  "description": "Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG)."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_local_user_uuids",
+                  "value": "<string>",
+                  "description": "Filter to roaming clients associated with these users. When cybersight_enabled=true uses Cybersight activity (OpenSearch); otherwise uses current user on device (PG)."
+                },
+                {
+                  "disabled": false,
+                  "key": "cybersight_enabled",
+                  "value": "<boolean>",
+                  "description": "When true, use OpenSearch for Cybersight activity in the time window: with agent_local_user_uuids, filter to roaming clients linked to those users; without, filter to roaming clients with activity on Cybersight-eligible agents in scope. When false, use Postgres only (default: false)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_at",
+                  "value": "<string>",
+                  "description": "ISO8601 end of activity window. Optional; only used with start_at when cybersight_enabled=true."
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "Organization ID to scope agents"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Page number and size"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "User agent list by keyword(s) (space delimited), this could be: status, hostname, friendly name, current logged in user"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort options, valid attributes: hostname, friendly_name, agent_version, last_sync"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_at",
+                  "value": "<string>",
+                  "description": "ISO8601 start of activity window. Optional; only used when cybersight_enabled=true. Omitted => last 91 days unless paired with end_at."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "filter by user agent state"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "filter by user agent status, valid attributes: active, disabled, uninstalled, uninstall_queued, uninstalling"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "User agent type, defaults to non-proxy/no-relays user agents"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0cae974e-840b-4343-86a7-a08a910be5a0",
+              "name": "User agents basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"agent_type\": \"fingbox\",\n        \"agent_version\": \"string\",\n        \"client_id\": \"string\",\n        \"hostname\": \"string\",\n        \"status\": \"uninstalled\",\n        \"os_version\": \"string\",\n        \"os_name\": \"string\",\n        \"friendly_name\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"meta\": \"string\",\n        \"created_at\": \"1993-09-25\",\n        \"updated_at\": \"1993-12-19\",\n        \"uninstalled_at\": \"1983-06-29\",\n        \"id_hex\": \"string\",\n        \"id_binary\": [\n          1378,\n          6939\n        ],\n        \"last_sync\": \"1994-09-09\",\n        \"agent_state\": \"uninstalled\",\n        \"cyber_sight_client\": {\n          \"service_state\": \"operational\",\n          \"chrome_extension_status\": \"browser_not_installed\",\n          \"edge_extension_status\": \"not_installed\"\n        },\n        \"cyber_sight_client_setting\": {\n          \"enable_browser_extension\": true\n        },\n        \"device_setting\": {\n          \"auto_updates\": true,\n          \"enable_cyber_sight\": false\n        },\n        \"filtering_client_setting\": {\n          \"auto_updates\": true,\n          \"connection_method\": \"transparent_prox\",\n          \"filtering_method\": \"dns_filtering\",\n          \"fail_over_method\": \"fail_close\"\n        }\n      },\n      \"relationships\": {\n        \"network\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"scheduled_policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"uuid\": \"string\",\n      \"attributes\": {\n        \"agent_type\": \"embedded\",\n        \"agent_version\": \"string\",\n        \"client_id\": \"string\",\n        \"hostname\": \"string\",\n        \"status\": \"uninstalled_from_client\",\n        \"os_version\": \"string\",\n        \"os_name\": \"string\",\n        \"friendly_name\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"meta\": \"string\",\n        \"created_at\": \"1948-11-08\",\n        \"updated_at\": \"2012-01-11\",\n        \"uninstalled_at\": \"1994-08-20\",\n        \"id_hex\": \"string\",\n        \"id_binary\": [\n          1424,\n          9552\n        ],\n        \"last_sync\": \"1953-03-27\",\n        \"agent_state\": \"unprotected\",\n        \"cyber_sight_client\": {\n          \"service_state\": \"not_installed\",\n          \"chrome_extension_status\": \"install_disabled\",\n          \"edge_extension_status\": \"browser_not_installed\"\n        },\n        \"cyber_sight_client_setting\": {\n          \"enable_browser_extension\": false\n        },\n        \"device_setting\": {\n          \"auto_updates\": true,\n          \"enable_cyber_sight\": false\n        },\n        \"filtering_client_setting\": {\n          \"auto_updates\": true,\n          \"connection_method\": \"transparent_prox\",\n          \"filtering_method\": \"inherit\",\n          \"fail_over_method\": \"inherit\"\n        }\n      },\n      \"relationships\": {\n        \"network\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        },\n        \"scheduled_policy\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\",\n            \"uuid\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dff6d40-dba2-405b-b714-1fc4140dd1b6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cd91d15-73cd-464c-aca8-60da8cf6891b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6f77f4c-6228-4c28-b7ec-1a9fac8e5db9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_local_user_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cybersight_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f44f5696-96ba-4134-bfe5-38b744e31943",
+          "name": "Counts",
+          "request": {
+            "name": "Counts",
+            "description": {
+              "content": "Gets counts of user agents for each status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                "counts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "msp_id",
+                  "value": "<integer>",
+                  "description": "MSP ID, set scope to all sub-orgs"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_search",
+                  "value": "<string>",
+                  "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "new_agent_states",
+                  "value": "<boolean>",
+                  "description": "Get counts for new agent states: Protected, Unprotected, Offline"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "operator",
+                  "value": "<string>",
+                  "description": "Filter user agents by release channel. Valid values: stable, beta, preview. Valid operators: is, isnot"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "User agent list by keyword(s) (space delimited), this could be: tags, status, hostname, friendly name, current logged in user"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "filter by user agent online/offline state"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "User agent type, defaults to non-proxy/no-relays user agents"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "66aa2449-e148-4738-99d4-4d40a354c776",
+              "name": "User agent counts information (legacy agent states)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"all\": 9300,\n  \"protected\": 7255,\n  \"unprotected\": 6133,\n  \"bypassed\": 9241,\n  \"pending_uninstall\": 9302,\n  \"uninstalled\": 7849\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb2a197e-3188-4165-9f9b-def2aa6859c1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2368c884-6df5-44af-8370-650aed805be9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4ca6ed9-ee7c-4d35-b18e-4733f1f00550",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "new_agent_states",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04110720-fda4-4088-8430-2016d49a5cb7",
+          "name": "Show agent",
+          "request": {
+            "name": "Show agent",
+            "description": {
+              "content": "Gets the specified user agent with basic information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) User agent UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "002c97c7-8c91-40dc-bd53-a853a8711b93",
+              "name": "User agent basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"attributes\": {\n      \"agent_type\": \"windows\",\n      \"agent_version\": \"string\",\n      \"client_id\": \"string\",\n      \"hostname\": \"string\",\n      \"status\": \"created\",\n      \"os_version\": \"string\",\n      \"os_name\": \"string\",\n      \"friendly_name\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"meta\": \"string\",\n      \"created_at\": \"1952-03-10\",\n      \"updated_at\": \"2003-12-28\",\n      \"uninstalled_at\": \"1963-10-05\",\n      \"id_hex\": \"string\",\n      \"id_binary\": [\n        7405,\n        9357\n      ],\n      \"last_sync\": \"1950-06-28\",\n      \"agent_state\": \"uninstalled\",\n      \"cyber_sight_client\": {\n        \"service_state\": \"operational\",\n        \"chrome_extension_status\": \"disabled\",\n        \"edge_extension_status\": \"install_disabled\"\n      },\n      \"cyber_sight_client_setting\": {\n        \"enable_browser_extension\": false\n      },\n      \"device_setting\": {\n        \"auto_updates\": false,\n        \"enable_cyber_sight\": false\n      },\n      \"filtering_client_setting\": {\n        \"auto_updates\": true,\n        \"connection_method\": \"inherit\",\n        \"filtering_method\": \"inherit\",\n        \"fail_over_method\": \"fail_open\"\n      }\n    },\n    \"relationships\": {\n      \"network\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\",\n          \"uuid\": \"string\"\n        }\n      },\n      \"policy\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\",\n          \"uuid\": \"string\"\n        }\n      },\n      \"scheduled_policy\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\",\n          \"uuid\": \"string\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58bc8f13-3a23-427c-aaaa-de6a3e15a511",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de564041-38ee-4a1b-a23c-32a22642bd75",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "292b63c2-f593-474e-a356-522274ede231",
+          "name": "Update",
+          "request": {
+            "name": "Update",
+            "description": {
+              "content": "Updates an user agent with the specified data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) User agent UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_agent\": {\n    \"friendly_name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"vpn_settings_user_agent_attributes\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d86e210-9f22-4b57-981a-4b490853180c",
+              "name": "Updated user agent basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"friendly_name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"vpn_settings_user_agent_attributes\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"attributes\": {\n      \"agent_type\": \"windows\",\n      \"agent_version\": \"string\",\n      \"client_id\": \"string\",\n      \"hostname\": \"string\",\n      \"status\": \"created\",\n      \"os_version\": \"string\",\n      \"os_name\": \"string\",\n      \"friendly_name\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"meta\": \"string\",\n      \"created_at\": \"1952-03-10\",\n      \"updated_at\": \"2003-12-28\",\n      \"uninstalled_at\": \"1963-10-05\",\n      \"id_hex\": \"string\",\n      \"id_binary\": [\n        7405,\n        9357\n      ],\n      \"last_sync\": \"1950-06-28\",\n      \"agent_state\": \"uninstalled\",\n      \"cyber_sight_client\": {\n        \"service_state\": \"operational\",\n        \"chrome_extension_status\": \"disabled\",\n        \"edge_extension_status\": \"install_disabled\"\n      },\n      \"cyber_sight_client_setting\": {\n        \"enable_browser_extension\": false\n      },\n      \"device_setting\": {\n        \"auto_updates\": false,\n        \"enable_cyber_sight\": false\n      },\n      \"filtering_client_setting\": {\n        \"auto_updates\": true,\n        \"connection_method\": \"inherit\",\n        \"filtering_method\": \"inherit\",\n        \"fail_over_method\": \"fail_open\"\n      }\n    },\n    \"relationships\": {\n      \"network\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\",\n          \"uuid\": \"string\"\n        }\n      },\n      \"policy\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\",\n          \"uuid\": \"string\"\n        }\n      },\n      \"scheduled_policy\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\",\n          \"uuid\": \"string\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e5eaa5d-a9d1-49bd-9b16-34f42c464f5d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"friendly_name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"vpn_settings_user_agent_attributes\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08dcfe7b-7603-4cae-b4e7-9885e979fdc0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"friendly_name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"vpn_settings_user_agent_attributes\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c47ec75-9444-473f-8016-a136563bdafb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"friendly_name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"vpn_settings_user_agent_attributes\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "788e281d-f395-4145-ac00-9e18cad1ab15",
+              "name": "Can not update user agent with the specified data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"friendly_name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"vpn_settings_user_agent_attributes\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e62e7f8b-e7b0-428a-b592-2b7aa27c883f",
+          "name": "Delete",
+          "request": {
+            "name": "Delete",
+            "description": {
+              "content": "Soft deletes an user agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "clear_registry",
+                  "value": "<boolean>",
+                  "description": "Clear registry when uninstalling user agent"
+                },
+                {
+                  "disabled": false,
+                  "key": "queue_uninstall",
+                  "value": "<boolean>",
+                  "description": "Uninstall user agent"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) User agent UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9ff62915-a361-43d2-8c0b-3df294dab760",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_registry",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queue_uninstall",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6a6fb41-24e0-4c83-970c-d6fd60688279",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_registry",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queue_uninstall",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbda36f9-283d-4a07-9d88-c0e8f15f2318",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_registry",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queue_uninstall",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f5d184f-8383-45a9-b648-4b0fbeb7fe43",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_registry",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queue_uninstall",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a1f9de9-cfd9-412d-a7d2-25f0ba25be2c",
+              "name": "Can not delete user agent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "clear_registry",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queue_uninstall",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "476cfa36-4d61-4a1a-b526-d35375a4f39a",
+          "name": "Get tags",
+          "request": {
+            "name": "Get tags",
+            "description": {
+              "content": "Gets ALL tags used by user agents on a network or organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_used_only",
+                  "value": "<boolean>",
+                  "description": "Filters out tags that aren't current used on any user agents"
+                },
+                {
+                  "disabled": false,
+                  "key": "msp_id",
+                  "value": "<integer>",
+                  "description": "MSP ID, set scope to all sub-orgs"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c08fac6c-42e9-43c4-bdee-4e277a94ef39",
+              "name": "Tags array",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_used_only",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd71cdbc-4093-4e1d-8b66-05bd56e802fd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_used_only",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7d02fb0-beb7-4cef-8172-acb061a3550a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_used_only",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "msp_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fdced76-9f80-48b6-b3df-a7745fda0448",
+          "name": "Remove queue",
+          "request": {
+            "name": "Remove queue",
+            "description": {
+              "content": "Removes user agent from uninstall queue.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                "dequeue_uninstall"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<uuid>",
+                  "description": "(Required) User agent ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "efd24a0a-60f4-4bc6-8f4f-8480de89997c",
+              "name": "A +success+ flag indicating if the agent was updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "dequeue_uninstall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a965a9f7-c31d-4580-91cb-010046238079",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "dequeue_uninstall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55467860-3afe-49b8-a9c6-c4cdb0c21bc6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "dequeue_uninstall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e48efaee-67b0-4134-93e9-85b0423ef771",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "dequeue_uninstall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ae9621b-bf13-41da-a99a-8d87c24b168f",
+              "name": "Can not remove user agent from queue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "dequeue_uninstall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "465791e6-254d-47e4-b980-4fe9e828e00c",
+          "name": "CSV Export",
+          "request": {
+            "name": "CSV Export",
+            "description": {
+              "content": "Gets CSV of organization's user agents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                "csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_suborgs",
+                  "value": "<boolean>",
+                  "description": "Include suborgs when organization_id is msp owner org, defaults to false"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "(Required) Organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "The timezone string (e.g. America/New_York) for localizing the filename, defaults to \"UTC\""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d737f6cb-0eb5-4674-89fe-735f2c2078c8",
+              "name": "A csv document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_suborgs",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74cd02d8-cb66-4519-a865-ca7cefe05559",
+          "name": "PIN",
+          "request": {
+            "name": "PIN",
+            "description": {
+              "content": "Gets Uninstall pin for organization's user agents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agents",
+                "uninstall_pin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "(Required) Organization ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "abcc3bef-c5f4-4c68-84c5-410ec5feb55b",
+              "name": "Organization's user agent uninstall pin",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "uninstall_pin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59e6aa74-e5d1-4c16-83dd-5bce35ab5937",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "uninstall_pin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e55b7d2b-2c79-4a57-aa9c-43bdd40f881c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "uninstall_pin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c6a5331-f7ad-4264-b139-a41eadb600f1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agents",
+                    "uninstall_pin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9934cf27-2643-4722-928b-7cce8c80af00",
+          "name": "Update settings",
+          "request": {
+            "name": "Update settings",
+            "description": {
+              "content": "Updates both device settings and filtering client settings for a user agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "user_agents",
+                ":id",
+                "update_settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) User agent UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_agent\": {\n    \"device_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aad4b16c-f362-4f35-8ee2-df96a1fafdd1",
+              "name": "Updated user agent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user_agents",
+                    ":id",
+                    "update_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"device_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d75d6c8b-6ebc-416c-8a25-2335c6d837ba",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user_agents",
+                    ":id",
+                    "update_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"device_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a56be8d-f75d-43c1-bcda-f65367803260",
+              "name": "Can not update user agent with the specified data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user_agents",
+                    ":id",
+                    "update_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) User agent UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_agent\": {\n    \"device_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"id\": \"<string>\",\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dnsfilter.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "04c984e8-a230-44ed-a522-5f895007ec33",
+    "name": "DNSFilter Agent Local User Bulk Deletes User Agents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

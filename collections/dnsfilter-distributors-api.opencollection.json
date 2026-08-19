@@ -1,0 +1,1121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Distributors API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Distributors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/health",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows testing API reachability and validation of the authentication header.\n\nNOTE: This endpoint supports the read-only pre-shared secret key."
+        },
+        {
+          "info": {
+            "name": "Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/distributors",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch basic information about a Distributor and its parent organization."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/distributors/distributors",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified support Distributor information."
+        },
+        {
+          "info": {
+            "name": "MSP Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/msps",
+            "params": [
+              {
+                "name": "canceled_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _canceled_at_ time range lower limit (inclusive). Unix timestampNote: either_include_canceled_ or _only_canceled_ must be _true_ for this filter to work"
+              },
+              {
+                "name": "canceled_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _canceled_at_ time range upper limit (inclusive). Unix timestampNote: either_include_canceled_ or _only_canceled_ must be _true_ for this filter to work"
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _created_at_ time range lower limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _created_at_ time range upper limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "distributor_id",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _distributor_id_ filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "distributor_sku",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _distributor_skus_ filter. Case-sensitive exact match"
+              },
+              {
+                "name": "distributor_status",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _distributor_status_ filter. Case-sensitive exact match"
+              },
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _external_id_ filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "include_canceled",
+                "value": "",
+                "type": "query",
+                "description": "Include canceled MSPs. Ignored if _only_canceled_ is specified (default: false)"
+              },
+              {
+                "name": "msp_name",
+                "value": "",
+                "type": "query",
+                "description": "MSP _name_ filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "only_canceled",
+                "value": "",
+                "type": "query",
+                "description": "Filter by canceled MSPs only (default: false)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (defaults to 1) and size (defaults to 1500, maximum 1500)."
+              },
+              {
+                "name": "parent_organization_name",
+                "value": "",
+                "type": "query",
+                "description": "MSP parent organization _name_ filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "transferred_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _transferred_at_ time range lower limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "transferred_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _transferred_at_ time range upper limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "trial_end",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _trial_end_ filterExact match search. Date in ISO8601 format, e.g.: 2022-12-31"
+              },
+              {
+                "name": "updated_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _updated_at_ time range lower limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "updated_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Parent organization _updated_at_ time range upper limit (inclusive). Unix timestamp"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to get the list of MSPs that matches the search criteria.\n\nReturns all non-canceled ones by default if no search filters are\nspecified.\n\nNote: endpoint does pagination, be sure to fetch all available pages to\nget the full list."
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/msps",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates an MSP and its parent organization."
+        },
+        {
+          "info": {
+            "name": "Show MSP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/msps/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "MSP ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch basic information about an MSP and its parent organization."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/distributors/msps/:id",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "MSP ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified MSP and its parent organization data."
+        },
+        {
+          "info": {
+            "name": "Cancel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/msps/:id/cancel",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "MSP ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels the specified MSP parent organization and all of its sub-organizations."
+        },
+        {
+          "info": {
+            "name": "Reactivate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/msps/:id/reactivate",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "MSP ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reactivates the specified MSP parent organization and all of its sub-organization if specified."
+        },
+        {
+          "info": {
+            "name": "Organizations Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations",
+            "params": [
+              {
+                "name": "canceled_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Organization _canceled_at_ time range lower limit (inclusive). Unix timestamp. Note: either _include_canceled_ or _only_canceled_ must be _true_ for this filter to work"
+              },
+              {
+                "name": "canceled_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Organization _canceled_at_ time range upper limit (inclusive). Unix timestamp. Note: either _include_canceled_ or _only_canceled_ must be _true_ for this filter to work"
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Organization _created_at_ time range lower limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Organization _created_at_ time range upper limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "distributor_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization _distributor_id_ filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "distributor_sku",
+                "value": "",
+                "type": "query",
+                "description": "Organization _distributor_skus_ filter. Case-sensitive exact match"
+              },
+              {
+                "name": "distributor_status",
+                "value": "",
+                "type": "query",
+                "description": "Organization _distributor_status_ filter. Case-sensitive exact match"
+              },
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization _external_id_ filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "include_canceled",
+                "value": "",
+                "type": "query",
+                "description": "Include canceled organizationsIgnored if _only_canceled_ is specified (default: false)"
+              },
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization _msp_id/managed_by_msp_id_ filter. Exact match search. MSP parent organization is automatically excluded from the result with this filter."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Organization _name_ filter. Case-insensitive search pattern."
+              },
+              {
+                "name": "only_canceled",
+                "value": "",
+                "type": "query",
+                "description": "Filter by canceled organizations only (default: false)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (defaults to 1) and size (defaults to 1500, maximum 1500)."
+              },
+              {
+                "name": "transferred_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Organization _transferred_at_ time range lower limit(inclusive). Unix timestamp"
+              },
+              {
+                "name": "transferred_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Organization _transferred_at_ time range upper limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "trial_end",
+                "value": "",
+                "type": "query",
+                "description": "Organization _trial_end_ filter. Exact match search. Date in ISO8601 format, e.g.: 2022-12-31"
+              },
+              {
+                "name": "updated_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Organization _updated_at_ time range lower limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "updated_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Organization _updated_at_ time range upper limit (inclusive). Unix timestamp"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to get the list of organizations that matches the search criteria,\nreturns all non-canceled ones by default if no search filters are\nspecified. Note: endpoint does pagination, be sure to fetch all available\npages to get the full list."
+        },
+        {
+          "info": {
+            "name": "Create suborganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates an MSP sub-organization."
+        },
+        {
+          "info": {
+            "name": "Show Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Scope response to id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch basic information about an MSP parent organization or sub-organization."
+        },
+        {
+          "info": {
+            "name": "Update suborganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations/:id",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified MSP sub-organization data."
+        },
+        {
+          "info": {
+            "name": "Cancel suborganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations/:id/cancel",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels the specified MSP sub-organization.\n\nNote: See _Organization Cancellation_ for important details."
+        },
+        {
+          "info": {
+            "name": "Reactivate suborg",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations/:id/reactivate",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reactivates the specified MSP sub-organization.\n\nNote: See _Organization Cancellation_ for important details."
+        },
+        {
+          "info": {
+            "name": "Add Sku",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations/:id/add_sku",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Helper endpoint to add a single SKU to the specified MSP parent\norganization or sub-organization instead of doing a full update that\nshould contain all SKUs."
+        },
+        {
+          "info": {
+            "name": "Remove Sku",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/organizations/:id/remove_sku",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Helper endpoint to remove a single SKU to the specified MSP parent\norganization or sub-organization instead of doing a full update that\nshould contain all SKUs."
+        },
+        {
+          "info": {
+            "name": "Users Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/users",
+            "params": [
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "User created_at time range lower limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "User created_at time range upper limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "distributor_guid",
+                "value": "",
+                "type": "query",
+                "description": "User distributor_guid filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "User email filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "first_name",
+                "value": "",
+                "type": "query",
+                "description": "User first_name filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "last_name",
+                "value": "",
+                "type": "query",
+                "description": "User last_name filter. Case-insensitive search pattern"
+              },
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "query",
+                "description": "Users with a direct membership to the parent organization of the specified MSP ID. Exact match search."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (defaults to 1) and size (defaults to 1500, maximum 1500)."
+              },
+              {
+                "name": "transferred_at_from",
+                "value": "",
+                "type": "query",
+                "description": "User transferred_at time range lower limit (inclusive). Unix timestamp"
+              },
+              {
+                "name": "transferred_at_to",
+                "value": "",
+                "type": "query",
+                "description": "User transferred_at time range upper limit (inclusive). Unix timestamp"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to get the list of users that matches the search criteria. Note:\nendpoint does pagination, be sure to fetch all available pages to get the\nfull list."
+        },
+        {
+          "info": {
+            "name": "Create user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/users",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new user alongside a membership with an organization."
+        },
+        {
+          "info": {
+            "name": "Show User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Scope response to id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch basic information about an user."
+        },
+        {
+          "info": {
+            "name": "Add membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/users/:id/add_membership",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds/creates a new user membership with an organization."
+        },
+        {
+          "info": {
+            "name": "Update membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/users/:id/update_membership",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates an existing user membership with an organization."
+        },
+        {
+          "info": {
+            "name": "Remove membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/users/:id/remove_membership",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes/deletes an existing user membership with an organization."
+        },
+        {
+          "info": {
+            "name": "Reset password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/users/:id/send_reset_password_email",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Scope response to id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends a reset password email to the specified user."
+        },
+        {
+          "info": {
+            "name": "Reset password URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/distributors/users/:id/reset_password_url",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Scope response to id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new reset password URL for the specified user.\n\nThe URL is valid for 432000 seconds (5 days)."
+        },
+        {
+          "info": {
+            "name": "Get usage info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/reports/usage_by_organization",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Report date.  Date in ISO8601 format, e.g.: 2022-12-31"
+              },
+              {
+                "name": "include_in_trial",
+                "value": "",
+                "type": "query",
+                "description": "Includes organizations that were in trial in the result (default: false)"
+              },
+              {
+                "name": "include_parent_organization",
+                "value": "",
+                "type": "query",
+                "description": "Includes MSPs parent organizations in the result (default: false)"
+              },
+              {
+                "name": "msp_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of MSP IDs, e.g.: 1,2,3"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of organization IDs, e.g.: 4,5,6"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch user usage information per organization.\nNOTE: This endpoint supports the read-only pre-shared secret key."
+        },
+        {
+          "info": {
+            "name": "Get usage info by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/reports/usage_by_sku",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Report date.  Date in ISO8601 format, e.g.: 2022-12-31"
+              },
+              {
+                "name": "include_in_trial",
+                "value": "",
+                "type": "query",
+                "description": "Includes organizations that were in trial in the result (default: false)"
+              },
+              {
+                "name": "include_parent_organization",
+                "value": "",
+                "type": "query",
+                "description": "Includes MSPs parent organizations in the result (default: false)"
+              },
+              {
+                "name": "msp_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of MSP IDs, e.g.: 1,2,3"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of organization IDs, e.g.: 4,5,6"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch user usage information per SKU.\n\nNOTE: it might be possible that the covered_users and estimated_users\nvalues do not match the total_requests / 6000 math, since these values\nare the sum of already rounded up values of organizations with the given\nSKU.\n\nNOTE: This endpoint supports the read-only pre-shared secret key."
+        },
+        {
+          "info": {
+            "name": "Get user info by date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/reports/covered_users_summary_by_organization",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Report range lower limit. Date in ISO8601 format, e.g.: 2022-12-01"
+              },
+              {
+                "name": "include_in_trial",
+                "value": "",
+                "type": "query",
+                "description": "Includes organizations that were in trial in the result (default: false)"
+              },
+              {
+                "name": "include_parent_organization",
+                "value": "",
+                "type": "query",
+                "description": "Includes MSPs parent organizations in the result (default: false)"
+              },
+              {
+                "name": "msp_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of MSP IDs, e.g.: 1,2,3"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of organization IDs, e.g.: 4,5,6"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Report range upper limit. Date in ISO8601 format, e.g.: 2022-12-31"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch covered users information by organization for the given\ndate range.\n\nMaximum days in date range is limited to 31.\n\nNOTE: This endpoint supports the read-only pre-shared secret key."
+        },
+        {
+          "info": {
+            "name": "SKUs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/distributors/skus_available",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the list of SKUs available to the distributor's customers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes User Organization UI Settings API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Organization UI Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Suppresses license warning",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v2/current_user/suppress_license_warning",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query",
+                "description": "body"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the suppression date and relevant information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agent Local User Bulk Deletes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/agent_local_user_bulk_deletes",
+            "params": [
+              {
+                "name": "block_page",
+                "value": "",
+                "type": "query",
+                "description": "Filter by block page name"
+              },
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by collection"
+              },
+              {
+                "name": "friendly_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by friendly name"
+              },
+              {
+                "name": "name_search",
+                "value": "",
+                "type": "query",
+                "description": "Search by friendly_name, falls back to user_name when friendly_name is absent"
+              },
+              {
+                "name": "policy_schedule",
+                "value": "",
+                "type": "query",
+                "description": "Filter by policy or scheduled policy name"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name or user_login"
+              },
+              {
+                "name": "user_login",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user login"
+              },
+              {
+                "name": "user_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by username"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create an agent local user bulk delete."
+        },
+        {
+          "info": {
+            "name": "Show bulk delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/agent_local_user_bulk_deletes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of agent local user bulk delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets an agent local user bulk delete by id."
+        },
+        {
+          "info": {
+            "name": "Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/agent_local_user_bulk_deletes/counts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Id of agent local user bulk delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets an agent local user bulk delete count by bulk delete id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

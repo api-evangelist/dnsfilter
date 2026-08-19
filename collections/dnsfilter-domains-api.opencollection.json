@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Domains API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lookup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/domains/user_lookup",
+            "params": [
+              {
+                "name": "fqdn",
+                "value": "",
+                "type": "query",
+                "description": "FQDN to lookup"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets all the domains associated for a particular FQDN."
+        },
+        {
+          "info": {
+            "name": "Bulk lookup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/domains/bulk_lookup",
+            "params": [
+              {
+                "name": "fqdns",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of FQDNs to lookup"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the domains and categories associated for each FQDN of the specified list."
+        },
+        {
+          "info": {
+            "name": "Suggest threat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/domains/suggest_threat",
+            "params": [
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Suggested security categories, comma separated IDs"
+              },
+              {
+                "name": "fqdn",
+                "value": "",
+                "type": "query",
+                "description": "FQDN to verify"
+              },
+              {
+                "name": "notes",
+                "value": "",
+                "type": "query",
+                "description": "User notes about the threat suggestion/verification"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mark a FQDN to verify its threat categorization.\n\nRequest example: `/v1/domains/suggest_threat?fqdn=XXXX&notes&test-report&categories=1,222,989`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

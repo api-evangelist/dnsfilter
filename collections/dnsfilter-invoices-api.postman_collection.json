@@ -1,0 +1,632 @@
+{
+  "item": [
+    {
+      "id": "3e6949f4-4a0f-40a3-9030-a26abef01c2a",
+      "name": "Invoices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4f3d2f29-ff91-45a4-bcba-a0596ce84301",
+          "name": "Get current invoice",
+          "request": {
+            "name": "Get current invoice",
+            "description": {
+              "content": "Gets user estimated invoice for next month.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9202e5ae-dfa3-4313-a913-d46be7c790ff",
+              "name": "Estimated invoice for next month\n`WARNING`: almost all invoice data are `null` values, take that into consideration when using this endpoint",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"month_to_date\": {\n    \"id\": 3189,\n    \"start_date\": \"1978-08-25\",\n    \"end_date\": \"1986-03-03\",\n    \"organization_id\": 1530,\n    \"created_at\": \"2012-08-06\",\n    \"updated_at\": \"1994-05-07\",\n    \"total_cents\": 4975,\n    \"stripe_id\": \"string\",\n    \"requests\": 6023,\n    \"paid\": true,\n    \"closed\": true,\n    \"forgiven\": false,\n    \"payment_attempts\": 5319,\n    \"payment_first_attempt\": \"1987-02-20\",\n    \"payment_last_attempt\": \"2006-09-02\",\n    \"payment_date\": \"2002-10-17\",\n    \"payment_receipt_number\": \"string\",\n    \"organization_name\": \"string\",\n    \"invoice_item_groups\": [\n      {\n        \"id\": 7711,\n        \"invoice_id\": 5535,\n        \"organization_name\": \"string\",\n        \"organization_id\": 6962,\n        \"subtotal_cents\": 5197,\n        \"created_at\": \"2021-08-26\",\n        \"updated_at\": \"2002-09-08\",\n        \"invoice_items\": [\n          {\n            \"id\": 8796,\n            \"invoice_id\": 3836,\n            \"network_name\": \"string\",\n            \"network_id\": 8992,\n            \"cents\": 8724,\n            \"requests\": 7769,\n            \"created_at\": \"2009-09-24\",\n            \"updated_at\": \"2001-12-07\",\n            \"stripe_id\": \"string\",\n            \"discounted\": false,\n            \"invoice_item_group_id\": 3781\n          },\n          {\n            \"id\": 5183,\n            \"invoice_id\": 4936,\n            \"network_name\": \"string\",\n            \"network_id\": 4232,\n            \"cents\": 2087,\n            \"requests\": 4790,\n            \"created_at\": \"1971-09-10\",\n            \"updated_at\": \"2013-06-24\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 6237\n          }\n        ]\n      },\n      {\n        \"id\": 9046,\n        \"invoice_id\": 5863,\n        \"organization_name\": \"string\",\n        \"organization_id\": 7506,\n        \"subtotal_cents\": 5999,\n        \"created_at\": \"1955-06-22\",\n        \"updated_at\": \"2015-08-18\",\n        \"invoice_items\": [\n          {\n            \"id\": 8877,\n            \"invoice_id\": 7110,\n            \"network_name\": \"string\",\n            \"network_id\": 7069,\n            \"cents\": 8618,\n            \"requests\": 311,\n            \"created_at\": \"1984-04-16\",\n            \"updated_at\": \"1949-11-16\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 1230\n          },\n          {\n            \"id\": 2099,\n            \"invoice_id\": 650,\n            \"network_name\": \"string\",\n            \"network_id\": 5229,\n            \"cents\": 6158,\n            \"requests\": 1152,\n            \"created_at\": \"1985-10-23\",\n            \"updated_at\": \"1983-02-12\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 5021\n          }\n        ]\n      }\n    ],\n    \"invoice_items\": [\n      {\n        \"id\": 4478,\n        \"invoice_id\": 4210,\n        \"network_name\": \"string\",\n        \"network_id\": 9496,\n        \"cents\": 2098,\n        \"requests\": 1793,\n        \"created_at\": \"1955-10-03\",\n        \"updated_at\": \"1952-06-29\",\n        \"stripe_id\": \"string\",\n        \"discounted\": true,\n        \"invoice_item_group_id\": 9631\n      },\n      {\n        \"id\": 2276,\n        \"invoice_id\": 297,\n        \"network_name\": \"string\",\n        \"network_id\": 644,\n        \"cents\": 4677,\n        \"requests\": 6145,\n        \"created_at\": \"1947-12-28\",\n        \"updated_at\": \"1995-08-03\",\n        \"stripe_id\": \"string\",\n        \"discounted\": true,\n        \"invoice_item_group_id\": 9712\n      }\n    ]\n  },\n  \"estimated\": {\n    \"id\": 2707,\n    \"start_date\": \"2017-10-31\",\n    \"end_date\": \"2000-10-10\",\n    \"organization_id\": 666,\n    \"created_at\": \"1981-08-19\",\n    \"updated_at\": \"1947-07-24\",\n    \"total_cents\": 7090,\n    \"stripe_id\": \"string\",\n    \"requests\": 112,\n    \"paid\": true,\n    \"closed\": false,\n    \"forgiven\": true,\n    \"payment_attempts\": 2836,\n    \"payment_first_attempt\": \"2025-02-12\",\n    \"payment_last_attempt\": \"1965-05-26\",\n    \"payment_date\": \"1978-11-19\",\n    \"payment_receipt_number\": \"string\",\n    \"organization_name\": \"string\",\n    \"invoice_item_groups\": [\n      {\n        \"id\": 6794,\n        \"invoice_id\": 1402,\n        \"organization_name\": \"string\",\n        \"organization_id\": 4039,\n        \"subtotal_cents\": 24,\n        \"created_at\": \"1957-04-03\",\n        \"updated_at\": \"2000-03-20\",\n        \"invoice_items\": [\n          {\n            \"id\": 7368,\n            \"invoice_id\": 6960,\n            \"network_name\": \"string\",\n            \"network_id\": 7764,\n            \"cents\": 3732,\n            \"requests\": 6637,\n            \"created_at\": \"2016-07-06\",\n            \"updated_at\": \"1947-02-10\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 1365\n          },\n          {\n            \"id\": 6371,\n            \"invoice_id\": 8487,\n            \"network_name\": \"string\",\n            \"network_id\": 6988,\n            \"cents\": 8513,\n            \"requests\": 4021,\n            \"created_at\": \"1995-08-11\",\n            \"updated_at\": \"2006-10-31\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 6454\n          }\n        ]\n      },\n      {\n        \"id\": 3637,\n        \"invoice_id\": 1461,\n        \"organization_name\": \"string\",\n        \"organization_id\": 3992,\n        \"subtotal_cents\": 7652,\n        \"created_at\": \"2009-02-26\",\n        \"updated_at\": \"2016-05-18\",\n        \"invoice_items\": [\n          {\n            \"id\": 1295,\n            \"invoice_id\": 427,\n            \"network_name\": \"string\",\n            \"network_id\": 1693,\n            \"cents\": 5655,\n            \"requests\": 6003,\n            \"created_at\": \"1979-05-31\",\n            \"updated_at\": \"1976-11-03\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 291\n          },\n          {\n            \"id\": 2980,\n            \"invoice_id\": 9483,\n            \"network_name\": \"string\",\n            \"network_id\": 5130,\n            \"cents\": 1111,\n            \"requests\": 116,\n            \"created_at\": \"1996-02-05\",\n            \"updated_at\": \"1958-06-16\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 2656\n          }\n        ]\n      }\n    ],\n    \"invoice_items\": [\n      {\n        \"id\": 7816,\n        \"invoice_id\": 3080,\n        \"network_name\": \"string\",\n        \"network_id\": 2873,\n        \"cents\": 545,\n        \"requests\": 9469,\n        \"created_at\": \"2017-05-24\",\n        \"updated_at\": \"1974-07-22\",\n        \"stripe_id\": \"string\",\n        \"discounted\": false,\n        \"invoice_item_group_id\": 5761\n      },\n      {\n        \"id\": 1178,\n        \"invoice_id\": 223,\n        \"network_name\": \"string\",\n        \"network_id\": 8634,\n        \"cents\": 8226,\n        \"requests\": 4976,\n        \"created_at\": \"2025-12-03\",\n        \"updated_at\": \"1981-10-15\",\n        \"stripe_id\": \"string\",\n        \"discounted\": true,\n        \"invoice_item_group_id\": 4435\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cd4e259-5b7a-48bf-99f7-b025fc4e0fd4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83b413c5-8b05-46a2-820b-d00aa16f8d7e",
+          "name": "Get invoices",
+          "request": {
+            "name": "Get invoices",
+            "description": {
+              "content": "Gets user associated invoices, most recent first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "(Required) User organization ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d0e1df79-2639-498b-9b77-0df17567c250",
+              "name": "Invoices basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 6509,\n    \"start_date\": \"1948-03-26\",\n    \"end_date\": \"1962-04-20\",\n    \"organization_id\": 5831,\n    \"created_at\": \"1958-01-06\",\n    \"updated_at\": \"1956-09-10\",\n    \"total_cents\": 4671,\n    \"stripe_id\": \"string\",\n    \"requests\": 8088,\n    \"paid\": true,\n    \"closed\": true,\n    \"forgiven\": false,\n    \"payment_attempts\": 4495,\n    \"payment_first_attempt\": \"1961-01-03\",\n    \"payment_last_attempt\": \"2001-04-17\",\n    \"payment_date\": \"1983-06-11\",\n    \"payment_receipt_number\": \"string\",\n    \"organization_name\": \"string\",\n    \"invoice_item_groups\": [\n      {\n        \"id\": 5613,\n        \"invoice_id\": 6711,\n        \"organization_name\": \"string\",\n        \"organization_id\": 885,\n        \"subtotal_cents\": 6587,\n        \"created_at\": \"1972-01-31\",\n        \"updated_at\": \"2010-03-19\",\n        \"invoice_items\": [\n          {\n            \"id\": 8130,\n            \"invoice_id\": 687,\n            \"network_name\": \"string\",\n            \"network_id\": 182,\n            \"cents\": 2366,\n            \"requests\": 2594,\n            \"created_at\": \"1953-02-18\",\n            \"updated_at\": \"1962-12-17\",\n            \"stripe_id\": \"string\",\n            \"discounted\": false,\n            \"invoice_item_group_id\": 70\n          },\n          {\n            \"id\": 1146,\n            \"invoice_id\": 9849,\n            \"network_name\": \"string\",\n            \"network_id\": 7694,\n            \"cents\": 68,\n            \"requests\": 6202,\n            \"created_at\": \"1987-07-03\",\n            \"updated_at\": \"1965-07-23\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 2963\n          }\n        ]\n      },\n      {\n        \"id\": 6076,\n        \"invoice_id\": 2840,\n        \"organization_name\": \"string\",\n        \"organization_id\": 8491,\n        \"subtotal_cents\": 9246,\n        \"created_at\": \"2008-08-19\",\n        \"updated_at\": \"1998-08-03\",\n        \"invoice_items\": [\n          {\n            \"id\": 942,\n            \"invoice_id\": 4429,\n            \"network_name\": \"string\",\n            \"network_id\": 9298,\n            \"cents\": 2519,\n            \"requests\": 1673,\n            \"created_at\": \"1966-12-18\",\n            \"updated_at\": \"1975-07-16\",\n            \"stripe_id\": \"string\",\n            \"discounted\": false,\n            \"invoice_item_group_id\": 9621\n          },\n          {\n            \"id\": 5619,\n            \"invoice_id\": 2283,\n            \"network_name\": \"string\",\n            \"network_id\": 7803,\n            \"cents\": 9949,\n            \"requests\": 3927,\n            \"created_at\": \"1998-11-10\",\n            \"updated_at\": \"1956-01-23\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 3831\n          }\n        ]\n      }\n    ],\n    \"invoice_items\": [\n      {\n        \"id\": 6716,\n        \"invoice_id\": 8206,\n        \"network_name\": \"string\",\n        \"network_id\": 8977,\n        \"cents\": 1456,\n        \"requests\": 1752,\n        \"created_at\": \"1964-03-13\",\n        \"updated_at\": \"1972-01-30\",\n        \"stripe_id\": \"string\",\n        \"discounted\": true,\n        \"invoice_item_group_id\": 8436\n      },\n      {\n        \"id\": 8837,\n        \"invoice_id\": 6654,\n        \"network_name\": \"string\",\n        \"network_id\": 6031,\n        \"cents\": 4347,\n        \"requests\": 757,\n        \"created_at\": \"2002-12-11\",\n        \"updated_at\": \"2019-08-05\",\n        \"stripe_id\": \"string\",\n        \"discounted\": true,\n        \"invoice_item_group_id\": 1885\n      }\n    ]\n  },\n  {\n    \"id\": 9043,\n    \"start_date\": \"1995-07-17\",\n    \"end_date\": \"2016-07-21\",\n    \"organization_id\": 9673,\n    \"created_at\": \"1992-12-29\",\n    \"updated_at\": \"2021-11-02\",\n    \"total_cents\": 1609,\n    \"stripe_id\": \"string\",\n    \"requests\": 9496,\n    \"paid\": true,\n    \"closed\": false,\n    \"forgiven\": true,\n    \"payment_attempts\": 2351,\n    \"payment_first_attempt\": \"1955-03-14\",\n    \"payment_last_attempt\": \"2004-08-12\",\n    \"payment_date\": \"1978-04-29\",\n    \"payment_receipt_number\": \"string\",\n    \"organization_name\": \"string\",\n    \"invoice_item_groups\": [\n      {\n        \"id\": 5682,\n        \"invoice_id\": 1719,\n        \"organization_name\": \"string\",\n        \"organization_id\": 8704,\n        \"subtotal_cents\": 694,\n        \"created_at\": \"1960-04-21\",\n        \"updated_at\": \"2018-05-02\",\n        \"invoice_items\": [\n          {\n            \"id\": 2777,\n            \"invoice_id\": 5053,\n            \"network_name\": \"string\",\n            \"network_id\": 9663,\n            \"cents\": 9160,\n            \"requests\": 8959,\n            \"created_at\": \"1980-08-09\",\n            \"updated_at\": \"1987-11-19\",\n            \"stripe_id\": \"string\",\n            \"discounted\": false,\n            \"invoice_item_group_id\": 7173\n          },\n          {\n            \"id\": 1586,\n            \"invoice_id\": 5574,\n            \"network_name\": \"string\",\n            \"network_id\": 5881,\n            \"cents\": 1400,\n            \"requests\": 3721,\n            \"created_at\": \"2019-08-18\",\n            \"updated_at\": \"2021-01-25\",\n            \"stripe_id\": \"string\",\n            \"discounted\": false,\n            \"invoice_item_group_id\": 5831\n          }\n        ]\n      },\n      {\n        \"id\": 999,\n        \"invoice_id\": 2074,\n        \"organization_name\": \"string\",\n        \"organization_id\": 924,\n        \"subtotal_cents\": 6106,\n        \"created_at\": \"1962-02-08\",\n        \"updated_at\": \"1986-09-15\",\n        \"invoice_items\": [\n          {\n            \"id\": 9183,\n            \"invoice_id\": 7390,\n            \"network_name\": \"string\",\n            \"network_id\": 4592,\n            \"cents\": 3695,\n            \"requests\": 7042,\n            \"created_at\": \"2023-09-04\",\n            \"updated_at\": \"1985-12-29\",\n            \"stripe_id\": \"string\",\n            \"discounted\": true,\n            \"invoice_item_group_id\": 3969\n          },\n          {\n            \"id\": 5135,\n            \"invoice_id\": 204,\n            \"network_name\": \"string\",\n            \"network_id\": 159,\n            \"cents\": 1185,\n            \"requests\": 310,\n            \"created_at\": \"1951-02-25\",\n            \"updated_at\": \"2018-02-07\",\n            \"stripe_id\": \"string\",\n            \"discounted\": false,\n            \"invoice_item_group_id\": 8467\n          }\n        ]\n      }\n    ],\n    \"invoice_items\": [\n      {\n        \"id\": 3539,\n        \"invoice_id\": 3938,\n        \"network_name\": \"string\",\n        \"network_id\": 9482,\n        \"cents\": 8146,\n        \"requests\": 3209,\n        \"created_at\": \"1981-09-05\",\n        \"updated_at\": \"2019-03-02\",\n        \"stripe_id\": \"string\",\n        \"discounted\": true,\n        \"invoice_item_group_id\": 3479\n      },\n      {\n        \"id\": 7025,\n        \"invoice_id\": 8573,\n        \"network_name\": \"string\",\n        \"network_id\": 9633,\n        \"cents\": 1033,\n        \"requests\": 5021,\n        \"created_at\": \"1994-12-16\",\n        \"updated_at\": \"2008-08-31\",\n        \"stripe_id\": \"string\",\n        \"discounted\": false,\n        \"invoice_item_group_id\": 8600\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a5eaf98-97d8-4c32-8174-5f3bd118266e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58a69c04-12e1-4b4f-a687-6d8b2a794d95",
+          "name": "Get invoice",
+          "request": {
+            "name": "Get invoice",
+            "description": {
+              "content": "Gets basic information of the specified invoice.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "(Required) User organization ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a2363a13-035e-44cf-b0c2-151624563ab5",
+              "name": "Invoice basic information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8304,\n  \"start_date\": \"2021-06-25\",\n  \"end_date\": \"1997-06-22\",\n  \"organization_id\": 4426,\n  \"created_at\": \"1992-03-07\",\n  \"updated_at\": \"2010-11-21\",\n  \"total_cents\": 5844,\n  \"stripe_id\": \"string\",\n  \"requests\": 127,\n  \"paid\": true,\n  \"closed\": true,\n  \"forgiven\": false,\n  \"payment_attempts\": 3560,\n  \"payment_first_attempt\": \"2024-05-07\",\n  \"payment_last_attempt\": \"2003-09-07\",\n  \"payment_date\": \"1974-03-15\",\n  \"payment_receipt_number\": \"string\",\n  \"organization_name\": \"string\",\n  \"invoice_item_groups\": [\n    {\n      \"id\": 1065,\n      \"invoice_id\": 3340,\n      \"organization_name\": \"string\",\n      \"organization_id\": 8904,\n      \"subtotal_cents\": 3927,\n      \"created_at\": \"1989-04-03\",\n      \"updated_at\": \"1954-06-17\",\n      \"invoice_items\": [\n        {\n          \"id\": 9571,\n          \"invoice_id\": 3138,\n          \"network_name\": \"string\",\n          \"network_id\": 1447,\n          \"cents\": 6570,\n          \"requests\": 2490,\n          \"created_at\": \"1960-06-25\",\n          \"updated_at\": \"2013-04-21\",\n          \"stripe_id\": \"string\",\n          \"discounted\": false,\n          \"invoice_item_group_id\": 4123\n        },\n        {\n          \"id\": 7771,\n          \"invoice_id\": 1436,\n          \"network_name\": \"string\",\n          \"network_id\": 3123,\n          \"cents\": 174,\n          \"requests\": 8181,\n          \"created_at\": \"1952-05-16\",\n          \"updated_at\": \"2004-05-31\",\n          \"stripe_id\": \"string\",\n          \"discounted\": true,\n          \"invoice_item_group_id\": 7758\n        }\n      ]\n    },\n    {\n      \"id\": 736,\n      \"invoice_id\": 2910,\n      \"organization_name\": \"string\",\n      \"organization_id\": 650,\n      \"subtotal_cents\": 1235,\n      \"created_at\": \"2004-11-05\",\n      \"updated_at\": \"1995-01-16\",\n      \"invoice_items\": [\n        {\n          \"id\": 4283,\n          \"invoice_id\": 4495,\n          \"network_name\": \"string\",\n          \"network_id\": 6829,\n          \"cents\": 37,\n          \"requests\": 6297,\n          \"created_at\": \"1951-07-23\",\n          \"updated_at\": \"1956-04-03\",\n          \"stripe_id\": \"string\",\n          \"discounted\": false,\n          \"invoice_item_group_id\": 157\n        },\n        {\n          \"id\": 8222,\n          \"invoice_id\": 5894,\n          \"network_name\": \"string\",\n          \"network_id\": 9451,\n          \"cents\": 2197,\n          \"requests\": 1285,\n          \"created_at\": \"1961-12-15\",\n          \"updated_at\": \"1957-07-08\",\n          \"stripe_id\": \"string\",\n          \"discounted\": true,\n          \"invoice_item_group_id\": 1293\n        }\n      ]\n    }\n  ],\n  \"invoice_items\": [\n    {\n      \"id\": 5430,\n      \"invoice_id\": 7895,\n      \"network_name\": \"string\",\n      \"network_id\": 8359,\n      \"cents\": 1839,\n      \"requests\": 4018,\n      \"created_at\": \"1957-04-08\",\n      \"updated_at\": \"1961-09-18\",\n      \"stripe_id\": \"string\",\n      \"discounted\": false,\n      \"invoice_item_group_id\": 2624\n    },\n    {\n      \"id\": 429,\n      \"invoice_id\": 5136,\n      \"network_name\": \"string\",\n      \"network_id\": 1024,\n      \"cents\": 7280,\n      \"requests\": 7294,\n      \"created_at\": \"2008-09-04\",\n      \"updated_at\": \"1957-11-01\",\n      \"stripe_id\": \"string\",\n      \"discounted\": true,\n      \"invoice_item_group_id\": 94\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e841e84-5668-44d3-877f-29cf274eb223",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df6c253a-422c-45c6-b1cd-ee4085ec0b51",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "035af194-9a0e-4bff-8fa6-38aa0292a746",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dnsfilter.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7d3c7332-f012-40e9-9e5b-170ef68fde69",
+    "name": "DNSFilter Agent Local User Bulk Deletes Invoices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

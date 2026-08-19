@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Networks CSV Exports API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Networks CSV Exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v2/networks_csv_export",
+            "params": [
+              {
+                "name": "ip_search",
+                "value": "",
+                "type": "query",
+                "description": "Network ip/hostname search"
+              },
+              {
+                "name": "protected",
+                "value": "",
+                "type": "query",
+                "description": "Network status of protected"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Network name search"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Network status search (online/offline)"
+              },
+              {
+                "name": "unprotected",
+                "value": "",
+                "type": "query",
+                "description": "Network status of protected"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a networks csv export record to track export of networks."
+        },
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v2/networks_csv_export/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of Network csv export"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Shows a networks csv export."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

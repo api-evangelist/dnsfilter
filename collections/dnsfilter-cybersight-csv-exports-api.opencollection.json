@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Cybersight CSV Exports API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cybersight CSV Exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v2/cyber_sight/csv_exports/create",
+            "params": [
+              {
+                "name": "ai_tool",
+                "value": "",
+                "type": "query",
+                "description": "Required when report_type is top_ai_usage. Determines which AI activity view to export: \"web\" for AI websites, \"app\" for AI applications, \"all\" for a combined web+app row list, \"client\" for AI usage per roaming client."
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "format:iso8601 End date/time for the report query, required"
+              },
+              {
+                "name": "included_columns",
+                "value": "",
+                "type": "query",
+                "description": "Column keys to include; must be nested under cyber_sight_csv_export in the request body (e.g. cyber_sight_csv_export: { included_columns: [...] }). Invalid keys are ignored; order is preserved where applicable.\nFor activity_logs: see activity_logs filter list (e.g. organization_name, activity_type, web_host, app_name, etc).\nFor top_websites: organization_name, web_host, categories, unique user counts,\nactivity_count, focus times & percentages.\nFor top_applications: organization_name, application, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, application_focus_in_seconds, percent_time.\nFor top_categories: organization_name, category, user_agent_count_unique, agent_local_user_count_unique,\nactivity_count, category_focus_in_seconds, percent_time.\nFor top_streaming: organization_name, streaming_app_name, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, streaming_app_focus_in_seconds, percent_time.\nFor top_risky_users: organization_name, user_name, event_count, time_in_seconds,\npercent_company_time, percent_of_events.\nFor top_active_clients: organization_name, roaming_client, user_count,\ntime_in_seconds, percent_time.\nFor top_ai_usage (ai_tool=web): organization_name, web_host, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories.\nFor top_ai_usage (ai_tool=all): organization_name, ai_tool, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories\n(\"-\" for application rows; comma-joined web category names for website rows).\nFor top_ai_usage (ai_tool=app): organization_name, application, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time.\nFor top_ai_usage (ai_tool=client): organization_name, roaming_client, user_count,\ntime_in_seconds, percent_time."
+              },
+              {
+                "name": "report_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of CyberSight Report csv export, required."
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "format:iso8601 Start date/time for the report query, required"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a cybersight csv export record to track export of cybersight report info.\nInvalid report filters and invalid included_columns are ignored; the CSV is generated\nusing any valid filters and columns that remain.\n\nFilters (query/body) by report type:\n  activity_logs: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids, user_agent_uuids,\n    agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, activity_type_ids,\n    app_executable_path, app_name, app_win"
+        },
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v2/cyber_sight/csv_exports/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "uuid of CyberSight csv export"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Shows a CyberSight csv export."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

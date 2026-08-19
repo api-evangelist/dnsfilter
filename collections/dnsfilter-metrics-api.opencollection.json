@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Metrics API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/metrics/organization_usage/:id",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Date in IS08601 format, ex: \"2023-12-01\""
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Date in IS08601 format, ex: \"2023-12-01\"."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets usage information for the given Organization over the given date\nrange. Maximum date range is 365 days."
+        },
+        {
+          "info": {
+            "name": "Get usage detailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/metrics/organization_usage_detailed/:id",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Date in IS08601 format, ex: \"2023-12-01\""
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Date in IS08601 format, ex: \"2023-12-01\"."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets usage information for the given organization.\n\nThis differs from +organization_usage+ in the way +user_count+/+wifi_count+ are fetched from the DB,\nalso these endpoints returns a roaming client count."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

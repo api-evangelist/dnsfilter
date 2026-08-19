@@ -1,0 +1,730 @@
+{
+  "item": [
+    {
+      "id": "6e8cd101-030c-4b19-a3c3-08bf458b9fce",
+      "name": "Cybersight CSV Exports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a94a69f-9614-4064-87a9-5ac141e3d7c8",
+          "name": "Create",
+          "request": {
+            "name": "Create",
+            "description": {
+              "content": "Creates a cybersight csv export record to track export of cybersight report info.\nInvalid report filters and invalid included_columns are ignored; the CSV is generated\nusing any valid filters and columns that remain.\n\nFilters (query/body) by report type:\n  activity_logs: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids, user_agent_uuids,\n    agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, activity_type_ids,\n    app_executable_path, app_name, app_window_title, web_full_url, web_host.\n  top_websites: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids, user_agent_uuids,\n    agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, web_full_url, web_host.\n  top_applications: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, app_name,\n    app_executable_path, app_window_title.\n  top_categories: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, threats_only, web_categories.\n  top_streaming: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction, app_name.\n  top_risky_users: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction.\n  top_active_clients: start_at, end_at, org_uuids, msp_uuid, excluded_org_uuids, category_ids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction.\n  top_ai_usage: start_at, end_at, ai_tool (required), org_uuids, msp_uuid, excluded_org_uuids,\n    user_agent_uuids, agent_local_user_uuids, weekdays_only, search_id, size, sort_direction.\n    When ai_tool=web: web_full_url, web_host.\n    When ai_tool=app: app_name, app_executable_path, app_window_title.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "cyber_sight",
+                "csv_exports",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ai_tool",
+                  "value": "<string>",
+                  "description": "Required when report_type is top_ai_usage. Determines which AI activity view to export: \"web\" for AI websites, \"app\" for AI applications, \"all\" for a combined web+app row list, \"client\" for AI usage per roaming client."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_at",
+                  "value": "<string>",
+                  "description": "format:iso8601 End date/time for the report query, required"
+                },
+                {
+                  "disabled": false,
+                  "key": "included_columns",
+                  "value": "<string>",
+                  "description": "Column keys to include; must be nested under cyber_sight_csv_export in the request body (e.g. cyber_sight_csv_export: { included_columns: [...] }). Invalid keys are ignored; order is preserved where applicable.\nFor activity_logs: see activity_logs filter list (e.g. organization_name, activity_type, web_host, app_name, etc).\nFor top_websites: organization_name, web_host, categories, unique user counts,\nactivity_count, focus times & percentages.\nFor top_applications: organization_name, application, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, application_focus_in_seconds, percent_time.\nFor top_categories: organization_name, category, user_agent_count_unique, agent_local_user_count_unique,\nactivity_count, category_focus_in_seconds, percent_time.\nFor top_streaming: organization_name, streaming_app_name, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, streaming_app_focus_in_seconds, percent_time.\nFor top_risky_users: organization_name, user_name, event_count, time_in_seconds,\npercent_company_time, percent_of_events.\nFor top_active_clients: organization_name, roaming_client, user_count,\ntime_in_seconds, percent_time.\nFor top_ai_usage (ai_tool=web): organization_name, web_host, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories.\nFor top_ai_usage (ai_tool=all): organization_name, ai_tool, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories\n(\"-\" for application rows; comma-joined web category names for website rows).\nFor top_ai_usage (ai_tool=app): organization_name, application, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time.\nFor top_ai_usage (ai_tool=client): organization_name, roaming_client, user_count,\ntime_in_seconds, percent_time."
+                },
+                {
+                  "disabled": false,
+                  "key": "included_columns",
+                  "value": "<string>",
+                  "description": "Column keys to include; must be nested under cyber_sight_csv_export in the request body (e.g. cyber_sight_csv_export: { included_columns: [...] }). Invalid keys are ignored; order is preserved where applicable.\nFor activity_logs: see activity_logs filter list (e.g. organization_name, activity_type, web_host, app_name, etc).\nFor top_websites: organization_name, web_host, categories, unique user counts,\nactivity_count, focus times & percentages.\nFor top_applications: organization_name, application, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, application_focus_in_seconds, percent_time.\nFor top_categories: organization_name, category, user_agent_count_unique, agent_local_user_count_unique,\nactivity_count, category_focus_in_seconds, percent_time.\nFor top_streaming: organization_name, streaming_app_name, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, streaming_app_focus_in_seconds, percent_time.\nFor top_risky_users: organization_name, user_name, event_count, time_in_seconds,\npercent_company_time, percent_of_events.\nFor top_active_clients: organization_name, roaming_client, user_count,\ntime_in_seconds, percent_time.\nFor top_ai_usage (ai_tool=web): organization_name, web_host, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories.\nFor top_ai_usage (ai_tool=all): organization_name, ai_tool, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time, categories\n(\"-\" for application rows; comma-joined web category names for website rows).\nFor top_ai_usage (ai_tool=app): organization_name, application, user_agent_count_unique,\nagent_local_user_count_unique, activity_count, time_in_seconds, percent_time.\nFor top_ai_usage (ai_tool=client): organization_name, roaming_client, user_count,\ntime_in_seconds, percent_time."
+                },
+                {
+                  "disabled": false,
+                  "key": "report_type",
+                  "value": "<string>",
+                  "description": "Type of CyberSight Report csv export, required."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_at",
+                  "value": "<string>",
+                  "description": "format:iso8601 Start date/time for the report query, required"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"report_type\": \"<string>\",\n  \"start_at\": \"<string>\",\n  \"end_at\": \"<string>\",\n  \"cyber_sight_csv_export\": {\n    \"included_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"organization_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"ai_tool\": \"<string>\",\n  \"msp_uuid\": \"<string>\",\n  \"org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excluded_org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"category_ids\": \"<string>\",\n  \"user_agent_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"agent_local_user_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"weekdays_only\": \"<boolean>\",\n  \"search_id\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"activity_type_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"app_executable_path\": \"<string>\",\n  \"app_name\": \"<string>\",\n  \"app_window_title\": \"<string>\",\n  \"web_full_url\": \"<string>\",\n  \"web_host\": \"<string>\",\n  \"threats_only\": \"<boolean>\",\n  \"web_categories\": \"<string>\",\n  \"sort_by\": \"<string>\",\n  \"sort_direction\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c8ae14c2-d34d-40ec-8fe2-55f610ef70b1",
+              "name": "CyberSight csv export",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ai_tool",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "report_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_type\": \"<string>\",\n  \"start_at\": \"<string>\",\n  \"end_at\": \"<string>\",\n  \"cyber_sight_csv_export\": {\n    \"included_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"organization_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"ai_tool\": \"<string>\",\n  \"msp_uuid\": \"<string>\",\n  \"org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excluded_org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"category_ids\": \"<string>\",\n  \"user_agent_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"agent_local_user_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"weekdays_only\": \"<boolean>\",\n  \"search_id\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"activity_type_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"app_executable_path\": \"<string>\",\n  \"app_name\": \"<string>\",\n  \"app_window_title\": \"<string>\",\n  \"web_full_url\": \"<string>\",\n  \"web_host\": \"<string>\",\n  \"threats_only\": \"<boolean>\",\n  \"web_categories\": \"<string>\",\n  \"sort_by\": \"<string>\",\n  \"sort_direction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"uuid\": \"string\",\n    \"organization_ids\": [\n      2321,\n      7530\n    ],\n    \"url\": \"string\",\n    \"error\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f198d08-ea18-45d4-b06a-5c8f1b3a9c1b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ai_tool",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "report_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_type\": \"<string>\",\n  \"start_at\": \"<string>\",\n  \"end_at\": \"<string>\",\n  \"cyber_sight_csv_export\": {\n    \"included_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"organization_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"ai_tool\": \"<string>\",\n  \"msp_uuid\": \"<string>\",\n  \"org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excluded_org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"category_ids\": \"<string>\",\n  \"user_agent_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"agent_local_user_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"weekdays_only\": \"<boolean>\",\n  \"search_id\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"activity_type_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"app_executable_path\": \"<string>\",\n  \"app_name\": \"<string>\",\n  \"app_window_title\": \"<string>\",\n  \"web_full_url\": \"<string>\",\n  \"web_host\": \"<string>\",\n  \"threats_only\": \"<boolean>\",\n  \"web_categories\": \"<string>\",\n  \"sort_by\": \"<string>\",\n  \"sort_direction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77d09154-194a-41d7-b8e1-67ef853e5fb1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ai_tool",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "report_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_type\": \"<string>\",\n  \"start_at\": \"<string>\",\n  \"end_at\": \"<string>\",\n  \"cyber_sight_csv_export\": {\n    \"included_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"organization_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"ai_tool\": \"<string>\",\n  \"msp_uuid\": \"<string>\",\n  \"org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excluded_org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"category_ids\": \"<string>\",\n  \"user_agent_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"agent_local_user_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"weekdays_only\": \"<boolean>\",\n  \"search_id\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"activity_type_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"app_executable_path\": \"<string>\",\n  \"app_name\": \"<string>\",\n  \"app_window_title\": \"<string>\",\n  \"web_full_url\": \"<string>\",\n  \"web_host\": \"<string>\",\n  \"threats_only\": \"<boolean>\",\n  \"web_categories\": \"<string>\",\n  \"sort_by\": \"<string>\",\n  \"sort_direction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08a94e14-1562-4f38-87bf-8ee9743a46b5",
+              "name": "Unprocessable entity (e.g. unknown report_type)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ai_tool",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "included_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "report_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_type\": \"<string>\",\n  \"start_at\": \"<string>\",\n  \"end_at\": \"<string>\",\n  \"cyber_sight_csv_export\": {\n    \"included_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"organization_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"ai_tool\": \"<string>\",\n  \"msp_uuid\": \"<string>\",\n  \"org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excluded_org_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"category_ids\": \"<string>\",\n  \"user_agent_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"agent_local_user_uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"weekdays_only\": \"<boolean>\",\n  \"search_id\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"activity_type_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"app_executable_path\": \"<string>\",\n  \"app_name\": \"<string>\",\n  \"app_window_title\": \"<string>\",\n  \"web_full_url\": \"<string>\",\n  \"web_host\": \"<string>\",\n  \"threats_only\": \"<boolean>\",\n  \"web_categories\": \"<string>\",\n  \"sort_by\": \"<string>\",\n  \"sort_direction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2191d03c-a72e-4582-83f9-2e84722aa278",
+          "name": "Show",
+          "request": {
+            "name": "Show",
+            "description": {
+              "content": "Shows a CyberSight csv export.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "cyber_sight",
+                "csv_exports",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) uuid of CyberSight csv export"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dd84704b-5cb0-4391-8854-87350e509be7",
+              "name": "CyberSight csv export",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) uuid of CyberSight csv export"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"uuid\": \"string\",\n    \"organization_ids\": [\n      5496,\n      1663\n    ],\n    \"url\": \"string\",\n    \"error\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "556a4c5c-6d64-42be-923c-b3ccd68c6eac",
+              "name": "Export is still processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) uuid of CyberSight csv export"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"export\": {\n      \"uuid\": \"string\",\n      \"status\": \"string\"\n    },\n    \"export.uuid\": \"string\",\n    \"export.status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2105ad09-5422-4d71-b5e5-dde9fb5c82ac",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) uuid of CyberSight csv export"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41bffbaa-d2d5-437f-92ff-7e25dd2da105",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "cyber_sight",
+                    "csv_exports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) uuid of CyberSight csv export"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dnsfilter.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "119d679f-817f-4685-8c2f-12ba4838393d",
+    "name": "DNSFilter Agent Local User Bulk Deletes Cybersight CSV Exports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

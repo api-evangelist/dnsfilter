@@ -1,0 +1,231 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Domain Notes API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domain Notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/notes/:resource/:id/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "domain"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Valid resources: policies, msps or organizations"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets associated notes from a specific resource."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/notes/:resource/:id/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "domain"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Valid resources: policies, msps or organizations"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates notes for a resource with the specified data."
+        },
+        {
+          "info": {
+            "name": "Bulk update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/notes/:resource/:id/batch_update",
+            "params": [
+              {
+                "name": "append",
+                "value": "",
+                "type": "query",
+                "description": "true/false if the domains and notes are appended or updated, false by default."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              },
+              {
+                "name": "notes",
+                "value": "",
+                "type": "query",
+                "description": "Array with domain and notes information. ie: notes: [domain: 'google.com', note: 'google notes']"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Organization IDs, defaults to user organization ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Valid resources: policies, msps or organizations"
+              },
+              {
+                "name": "single_note",
+                "value": "",
+                "type": "query",
+                "description": "a note applied for all provided domains"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of list allowlist/blocklist (allow, block), defaults to allow"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates notes for a resource with the specified data."
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dnsfilter.com/v1/notes/:resource/:id/notes/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "domain"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Valid resources: policies, msps or organizations"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes notes for a resource."
+        },
+        {
+          "info": {
+            "name": "Batch destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dnsfilter.com/v1/notes/:resource/:id/notes/batch_destroy",
+            "params": [
+              {
+                "name": "domains",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of domains."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Valid resources: policies, msps or organizations"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes notes for a resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2182 @@
+{
+  "item": [
+    {
+      "id": "c065f305-e8a3-4487-85f9-0dd3bce3d5b2",
+      "name": "User Agent Bulk Updates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f559f829-0813-45d8-93ef-4ada2cfe22c4",
+          "name": "Create",
+          "request": {
+            "name": "Create",
+            "description": {
+              "content": "Create a user agent bulk update.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agent_bulk_updates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_state",
+                  "value": "<string>",
+                  "description": "filter by agent state"
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_version",
+                  "value": "<string>",
+                  "description": "Filter user agents by agent version."
+                },
+                {
+                  "disabled": false,
+                  "key": "block_page_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by block page ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_search",
+                  "value": "<string>",
+                  "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "Organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "policy_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by policy ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "policy_schedule",
+                  "value": "<string>",
+                  "description": "Filter user agents by policy/schedule name"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter user agents by release channel. Valid values: stable, beta, preview"
+                },
+                {
+                  "disabled": false,
+                  "key": "scheduled_policy_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by scheduled_policy ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "User agent list by keyword(s) (space delimited), this could be: hostname, friendly name"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "filter by user agent online/offline state"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "traffic_received_last_15_mins",
+                  "value": "<boolean>",
+                  "description": "filter by agents that have received traffic in last 15 minutes"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "User agent type, defaults to non-proxy/no-relays user agents"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"changeset\": {\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"friendly_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"release_channels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"device_setting_attributes\": {\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    },\n    \"vpn_settings_user_agent\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "552b8fef-858d-4485-aa84-daaaa74c8fc1",
+              "name": "User agent bulk update",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"changeset\": {\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"friendly_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"release_channels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"device_setting_attributes\": {\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    },\n    \"vpn_settings_user_agent\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"organization_id\": 2122,\n    \"completed\": true,\n    \"count\": 3771\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cff8a888-3eb1-4a2e-81bb-c06e34ebf2ce",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"changeset\": {\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"friendly_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"release_channels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"device_setting_attributes\": {\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    },\n    \"vpn_settings_user_agent\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd068126-48d6-410b-817a-5520bdae5a09",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"changeset\": {\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"friendly_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"release_channels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"device_setting_attributes\": {\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    },\n    \"vpn_settings_user_agent\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca3d8dcf-d859-4ca9-954a-0b215173740b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_schedule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"changeset\": {\n    \"network_id\": \"<integer>\",\n    \"policy_id\": \"<integer>\",\n    \"scheduled_policy_id\": \"<integer>\",\n    \"block_page_id\": \"<integer>\",\n    \"friendly_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"release_channels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"device_setting_attributes\": {\n      \"enable_cyber_sight\": \"<boolean>\",\n      \"enable_filtering_client\": \"<boolean>\",\n      \"diagnostics_level\": \"<string>\"\n    },\n    \"filtering_client_setting_attributes\": {\n      \"connection_method\": \"<string>\",\n      \"filtering_method\": \"<string>\",\n      \"fail_over_method\": \"<string>\"\n    },\n    \"vpn_settings_user_agent\": {\n      \"_destroy\": \"<boolean>\",\n      \"vpn_settings_state_type_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bef1bb2e-1036-45ab-92bd-4ea3f2912248",
+          "name": "Show",
+          "request": {
+            "name": "Show",
+            "description": {
+              "content": "Gets a user agent bulk update by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agent_bulk_updates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Id of user agent bulk update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "45465535-60b6-4fc5-852e-64463d449f8a",
+              "name": "User agent bulk update",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Id of user agent bulk update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"organization_id\": 2122,\n    \"completed\": true,\n    \"count\": 3771\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66eb3733-9f15-4451-a4f6-8a901b321d0f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Id of user agent bulk update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c87d3534-b5d3-4013-9c06-0853fd50a217",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Id of user agent bulk update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b2224d4-6182-4641-bff3-a9e4efcc4807",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Id of user agent bulk update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "265a0e5f-b82e-46de-bfba-d5368aa1abf9",
+          "name": "Check agent values",
+          "request": {
+            "name": "Check agent values",
+            "description": {
+              "content": "Gets the value of whether each of the attributes of the elected user agents are mixed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agent_bulk_updates",
+                "has_mixed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_state",
+                  "value": "<string>",
+                  "description": "filter by agent state"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_search",
+                  "value": "<string>",
+                  "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_ids",
+                  "value": "<integer>",
+                  "description": "Organization IDs, defaults to user organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "User agent list by keyword(s) (space delimited), this could be: hostname, friendly name"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "filter by user agent online/offline state"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "traffic_received_last_15_mins",
+                  "value": "<boolean>",
+                  "description": "filter by agents that have received traffic in last 15 minutes"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "User agent type, defaults to non-proxy/no-relays user agents"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fddcec72-0320-4de4-9dbf-8b6d02b4e164",
+              "name": "Selected user agents mixed attributes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "has_mixed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"siteMixed\": false,\n    \"tagsMixed\": false,\n    \"policyMixed\": true,\n    \"blockPageMixed\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb16e8bb-4153-4b7f-9790-a9e8a029c6a6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "has_mixed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a83e11d6-65d3-4e94-9943-7f08b5cb6b2a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "has_mixed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a90b42f3-228f-4109-8cba-a91572b8c462",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "has_mixed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5d64d93-f2a3-41c2-bfdb-324123476168",
+          "name": "Counts",
+          "request": {
+            "name": "Counts",
+            "description": {
+              "content": "Gets a user agent bulk delete counts by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_agent_bulk_updates",
+                "counts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_state",
+                  "value": "<string>",
+                  "description": "filter by agent state"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_page_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by block page ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_search",
+                  "value": "<string>",
+                  "description": "A search term to search client name fields (i.e. hostname and friendly_name)"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "network_ids",
+                  "value": "<integer>",
+                  "description": "Networks IDs, defaults to all"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "Organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "policy_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by policy ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Filter user agents by release channel. Valid values: stable, beta, preview"
+                },
+                {
+                  "disabled": false,
+                  "key": "scheduled_policy_id",
+                  "value": "<integer>",
+                  "description": "Filter user agents by scheduled_policy ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "User agent list by keyword(s) (space delimited), this could be: hostname, friendly name"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "filter by user agent online/offline state"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "filter by user agent status, valid attributes: active, disabled, uninstalled"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "User agent list by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "traffic_received_last_15_mins",
+                  "value": "<boolean>",
+                  "description": "filter by agents that have received traffic in last 15 minutes"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "User agent type, defaults to non-proxy/no-relays user agents"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bd37824f-6524-400c-a332-44addbd9e8de",
+              "name": "User agent counts information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uninstall_and_delete\": 665,\n  \"delete\": 3063\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "060b89cb-1675-47b0-8a8a-92f07c6b46cc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "825cfc32-9377-4239-8df7-5904abe4fa36",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "730d6c16-56b9-4ba9-a5ea-8a0a7161433a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_agent_bulk_updates",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_page_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "network_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scheduled_policy_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traffic_received_last_15_mins",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dnsfilter.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3856e674-7efd-4555-9c5e-1c9398657012",
+    "name": "DNSFilter Agent Local User Bulk Deletes User Agent Bulk Updates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,4 +1,3 @@
-# DNSFilter MCP server — DERIVED candidate (not provider-published)
 generated: '2026-07-18'
 method: derived
 status: candidate
@@ -671,3 +670,9 @@ tools:
   method: PATCH
   path: /v1/users/change_password
   source_operation: openapi/dnsfilter-openapi-original.json#V1_Users-change_password
+deployment:
+  mode: none
+  verified: derived
+  tools: 132
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Dictionary Lookups API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dictionary Lookups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List QP Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/dictionary/qp_methods"
+          },
+          "docs": "List QP Methods"
+        },
+        {
+          "info": {
+            "name": "AI Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v2/dictionary/ai_applications"
+          },
+          "docs": "Return a list of AI Applications and websites."
+        },
+        {
+          "info": {
+            "name": "CyberSight Activity Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v2/dictionary/cyber_sight_activity_types"
+          },
+          "docs": "Returns all available CyberSightReports activity types."
+        },
+        {
+          "info": {
+            "name": "VPN Settings State Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v2/dictionary/vpn_settings_state_types"
+          },
+          "docs": "Returns all available VPN Settings State types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

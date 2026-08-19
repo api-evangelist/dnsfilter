@@ -1,0 +1,646 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Networks API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Networks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get extant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks",
+            "params": [
+              {
+                "name": "basic_info",
+                "value": "",
+                "type": "query",
+                "description": "Return most basic Network Info only. Defaults to False"
+              },
+              {
+                "name": "count_network_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return count of IP Addresses. Defaults to False"
+              },
+              {
+                "name": "force_truncate_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return Network info without IP Addresses. Defaults to False"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "protected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks with assigned policy"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search for the given value among the network name, hostname, ip address, etc."
+              },
+              {
+                "name": "unprotected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks without assigned policy"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets user's associated networks with basic information."
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/networks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new network with the specified data."
+        },
+        {
+          "info": {
+            "name": "Get all",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/all",
+            "params": [
+              {
+                "name": "basic_info",
+                "value": "",
+                "type": "query",
+                "description": "Return most basic Network Info only. Defaults to False"
+              },
+              {
+                "name": "count_network_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return count of IP Addresses. Defaults to False"
+              },
+              {
+                "name": "force_truncate_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return Network info without IP Addresses. Defaults to False"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "protected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks with assigned policy"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search for the given value among the network name, hostname, ip address, etc."
+              },
+              {
+                "name": "unprotected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks without assigned policy"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets ALL networks associated to the user with its basic information."
+        },
+        {
+          "info": {
+            "name": "Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/counts",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "query",
+                "description": "MSP ID, will get info for all suborgs"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Organization IDs, defaults to user organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets counts of networks for each network status."
+        },
+        {
+          "info": {
+            "name": "Get extant MSP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/msp",
+            "params": [
+              {
+                "name": "basic_info",
+                "value": "",
+                "type": "query",
+                "description": "Return most basic Network Info only. Defaults to False"
+              },
+              {
+                "name": "count_network_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return count of IP Addresses. Defaults to False"
+              },
+              {
+                "name": "force_truncate_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return Network info without IP Addresses. Defaults to False"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "protected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks with assigned policy"
+              },
+              {
+                "name": "unprotected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks without assigned policy"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets MSP user associated networks with basic information."
+        },
+        {
+          "info": {
+            "name": "Get all MSP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/msp/all",
+            "params": [
+              {
+                "name": "count_network_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return count of IP Addresses. Defaults to False"
+              },
+              {
+                "name": "force_truncate_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return Network info without IP Addresses. Defaults to False"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "protected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks with assigned policy"
+              },
+              {
+                "name": "unprotected",
+                "value": "",
+                "type": "query",
+                "description": "Filter networks without assigned policy"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets ALL networks associated to the MSP user with its basic information."
+        },
+        {
+          "info": {
+            "name": "Get Geo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/geo",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets user's associated networks with geo information only."
+        },
+        {
+          "info": {
+            "name": "Get by IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/lookup",
+            "params": [
+              {
+                "name": "requesting_ip_address",
+                "value": "",
+                "type": "query",
+                "description": "IP address to lookup"
+              }
+            ]
+          },
+          "docs": "Gets basic information of a network based on its associated IP addresses."
+        },
+        {
+          "info": {
+            "name": "Show network",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/:id",
+            "params": [
+              {
+                "name": "count_network_ips",
+                "value": "",
+                "type": "query",
+                "description": "Return count of IP Addresses. Defaults to False"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Network ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets basic information of the specified network."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/networks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Network ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a network with the specified data."
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dnsfilter.com/v1/networks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Network ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a network."
+        },
+        {
+          "info": {
+            "name": "Bulk create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/networks/bulk_create",
+            "params": [
+              {
+                "name": "Network",
+                "value": "",
+                "type": "query",
+                "description": "information"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk create multiple networks with the specified data."
+        },
+        {
+          "info": {
+            "name": "Bulk create status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/bulk_create/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the bulk create job to check status on"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk create status."
+        },
+        {
+          "info": {
+            "name": "Bulk update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/networks/bulk_update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk update multiple networks with the specified data."
+        },
+        {
+          "info": {
+            "name": "Bulk update status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/bulk_update/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the bulk update job to check status on"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk update status"
+        },
+        {
+          "info": {
+            "name": "Bulk Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dnsfilter.com/v1/networks/bulk_destroy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk destroy multiple networks."
+        },
+        {
+          "info": {
+            "name": "Bulk delete status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/networks/bulk_destroy/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the bulk update job to check status on"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk destroy status."
+        },
+        {
+          "info": {
+            "name": "Create Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/networks/:id/secret_key",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Network ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new network secret key to be used by agents."
+        },
+        {
+          "info": {
+            "name": "Rotate key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/networks/:id/secret_key",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Network ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Rotates (renew) a network secret key to be used by agents."
+        },
+        {
+          "info": {
+            "name": "Delete Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dnsfilter.com/v1/networks/:id/secret_key",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Network ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Revokes a network secret key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

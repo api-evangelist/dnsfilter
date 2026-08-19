@@ -1,0 +1,372 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DNSFilter Agent Local User Bulk Deletes Organizations API",
+    "version": "2026-07-13"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get extant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/organizations",
+            "params": [
+              {
+                "name": "basic_info",
+                "value": "",
+                "type": "query",
+                "description": "just return organizations basic info true/false, defaults to false"
+              },
+              {
+                "name": "exclude_inherit_privacy_mode",
+                "value": "",
+                "type": "query",
+                "description": "Exclude organizations that have inherit privacy mode"
+              },
+              {
+                "name": "managed_by_msp_id",
+                "value": "",
+                "type": "query",
+                "description": "MSPs sub-organizations whose MSP ID matches this value"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization name"
+              },
+              {
+                "name": "owned_msp_id",
+                "value": "",
+                "type": "query",
+                "description": "Parent organizations whose MSP ID matches this value"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "pii_grid_search",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization name or privacy mode for pii grid search"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization type"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets user's associated organizations basic information."
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/organizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new organization with the specified data."
+        },
+        {
+          "info": {
+            "name": "Get all",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/organizations/all",
+            "params": [
+              {
+                "name": "basic_info",
+                "value": "",
+                "type": "query",
+                "description": "just return organizations basic info true/false, defaults to false"
+              },
+              {
+                "name": "managed_by_msp_id",
+                "value": "",
+                "type": "query",
+                "description": "MSPs sub-organizations whose MSP ID matches this value"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization name"
+              },
+              {
+                "name": "owned_msp_id",
+                "value": "",
+                "type": "query",
+                "description": "Parent organizations whose MSP ID matches this value"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number and size"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization type"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets all organizations basic information."
+        },
+        {
+          "info": {
+            "name": "Show organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/organizations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              },
+              {
+                "name": "include_current_mrr",
+                "value": "",
+                "type": "query",
+                "description": "Optionally Include current MRR information"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets basic information of the specified organization."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/organizations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates an organization with the specified data."
+        },
+        {
+          "info": {
+            "name": "Delete MSP",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dnsfilter.com/v1/organizations/:id",
+            "params": [
+              {
+                "name": "clear_subscription_info",
+                "value": "",
+                "type": "query",
+                "description": "Clears subscription information tied to the customer, defaults to false"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "MSP customer ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes an MSP customer."
+        },
+        {
+          "info": {
+            "name": "Get settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dnsfilter.com/v1/organizations/settings",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "query",
+                "description": "MSP ID to set scope"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization name"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to set scope"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query",
+                "description": "Multiple organization IDs to set scope"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets basic information of the specified organization."
+        },
+        {
+          "info": {
+            "name": "Bulk update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dnsfilter.com/v1/organizations/bulk_update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates one or more organizations with the specified data."
+        },
+        {
+          "info": {
+            "name": "Cancel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/organizations/:id/cancel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Organization ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets an organization as 'Canceled'."
+        },
+        {
+          "info": {
+            "name": "Promote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dnsfilter.com/v1/organizations/promote_to_msp",
+            "params": [
+              {
+                "name": "plan",
+                "value": "",
+                "type": "query",
+                "description": "Plan name, valid attributes: manual, tier1, tier2, tier3, friendly_wifi"
+              },
+              {
+                "name": "zapier_params",
+                "value": "",
+                "type": "query",
+                "description": "info that are sent to zapier after promoting successfully a MSP. iex { querystring__org_id: 1111, querystring__user_id: 2222 }"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Promote an organization to a MSP."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
