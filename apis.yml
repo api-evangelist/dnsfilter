@@ -97,6 +97,8 @@ apis:
   humanURL: https://apidocs.dnsfilter.com
   baseURL: https://api.dnsfilter.com
   tags:
+  - APIKeys
+  tags_raw:
   - Api Keys
   properties:
   - type: OpenAPI
@@ -126,6 +128,8 @@ apis:
   humanURL: https://apidocs.dnsfilter.com
   baseURL: https://api.dnsfilter.com
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -408,6 +412,8 @@ apis:
   humanURL: https://apidocs.dnsfilter.com
   baseURL: https://api.dnsfilter.com
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -678,6 +684,8 @@ apis:
   humanURL: https://apidocs.dnsfilter.com
   baseURL: https://api.dnsfilter.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
