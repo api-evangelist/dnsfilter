@@ -712,6 +712,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/dnsfilter-capability-edges.yml
+  name: DNSFilter Business Capability Map
 - type: AgenticAccess
   url: agentic-access/dnsfilter-agentic-access.yml
 - type: Authentication

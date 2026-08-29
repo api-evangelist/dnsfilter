@@ -1,0 +1,67 @@
+slug: dnsfilter
+provider: DNSFilter
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Invoices
+  spec_file: dnsfilter-invoices-api-openapi.yml
+  capability_id: BC-4250.30
+  capability_id_l1: BC-4250
+  capability_name: Invoicing & Statement Management
+  confidence: 0.8
+  evidence: GET /v1/invoices/current 'Get current invoice'; schemas Invoice, InvoiceItem, InvoiceItemGroup
+  reason: Read access to the customer's subscription invoices and line items is invoicing/statement management
+    for the SaaS commercial model. Slight ambiguity only in whether retrieval-only counts as full invoicing
+    management.
+- tag: Policies
+  spec_file: dnsfilter-policies-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.75
+  evidence: POST /v1/policies/{id}/add_blacklist_domain  Add block domain; POST /v1/policies/{id}/add_whitelist_domain  Add
+    allow domain; schemas PolicyUpdateSingleCategorySpec, PolicyApplicationSpec
+  reason: Lifecycle of DNS filtering policies with domain block/allow lists, category and application
+    controls — configuration of technical security controls. Mapped at L1; this is not corporate policy-document
+    lifecycle (BC-130.20) nor a clean fit for any single BC-620 L2.
+- tag: Domains
+  spec_file: dnsfilter-domains-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.7
+  evidence: GET /v1/domains/bulk_lookup 'Bulk lookup'; POST /v1/domains/suggest_threat 'Suggest threat'
+  reason: Domain reputation/category lookup plus submission of suspected malicious domains is threat-intelligence
+    and detection work for the DNS security platform. Some ambiguity remains about whether the gold sits
+    at the L1 security level rather than detection & response.
+- tag: Policies Bulk Actions
+  spec_file: dnsfilter-policies-bulk-actions-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: POST /v1/policies/bulk/add_blocklist_domains  Bulk add block; POST /v1/policies/bulk/remove_allowlist_domains  Bulk
+    delete allow
+  reason: Bulk maintenance of allow/block domain lists on filtering policies — same security control configuration
+    capability as the Policies tag, expressed as batch operations.
+- tag: Traffic Reports
+  spec_file: dnsfilter-traffic-reports-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: GET /v1/traffic_reports/total_threats  Total threats/time; GET /v1/traffic_reports/total_threats_organizations  Total
+    threats organizations; schema TrafficReportsTotalCategoryStats
+  reason: Aggregated analytics over DNS query volume, blocked threats and content categories across organizations,
+    clients and users — security monitoring and reporting for the filtering service. Kept at L1 since
+    it is measurement/reporting rather than clearly SOC incident response.
