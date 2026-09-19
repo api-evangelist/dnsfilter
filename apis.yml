@@ -242,6 +242,8 @@ apis:
   humanURL: https://apidocs.dnsfilter.com
   baseURL: https://api.dnsfilter.com
   tags:
+  - Distributor
+  tags_raw:
   - Distributors
   properties:
   - type: OpenAPI
@@ -313,6 +315,8 @@ apis:
   humanURL: https://apidocs.dnsfilter.com
   baseURL: https://api.dnsfilter.com
   tags:
+  - IP Address
+  tags_raw:
   - IP Addresses
   properties:
   - type: OpenAPI
