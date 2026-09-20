@@ -1,0 +1,58 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.dnsfilter.com/pricing
+sources:
+- https://www.dnsfilter.com/pricing
+- https://dnsfilter.com/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+published: true
+note: Monthly prices shown alongside annual (Core 1.15, Plus 2.50 monthly per license). API access included
+  in plans; pricing is per-license subscription tiers.
+plan_count: 7
+currency: USD
+plans:
+- name: Core
+  price_text: '1.00'
+  price: 1.0
+  currency: USD
+  period: month
+  unit: per license (annual)
+  included_quota: $240/year minimum; $23/month minimum
+- name: Plus
+  price_text: '2.25'
+  price: 2.25
+  currency: USD
+  period: month
+  unit: per license (annual)
+  included_quota: $750/year minimum; $62.50/month minimum
+- name: Enterprise
+  price_text: Request Pricing
+  period: none
+- name: MSP partners
+  price_text: Starting at $150/month.
+  price: 150
+  currency: USD
+  period: month
+- name: Education
+  price_text: Contact sales for a quote.
+  period: none
+- name: SecureTransit add-on
+  price_text: $2.00/license/mo
+  price: 2.0
+  currency: USD
+  period: month
+  unit: license
+- name: Data Export add-on
+  price_text: $0.25/license/mo
+  price: 0.25
+  currency: USD
+  period: month
+  unit: license
+rate_limit_statements:
+- We don't set overall usage caps, but rate limits are in place to maintain stability.

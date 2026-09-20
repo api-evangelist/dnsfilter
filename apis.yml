@@ -717,6 +717,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Plans
+  url: plans/dnsfilter-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/dnsfilter-capability-edges.yml
   name: DNSFilter Business Capability Map
