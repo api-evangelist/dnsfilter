@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 4
+edge_count: 7
 edges:
 - tag: Policies
   spec_file: dnsfilter-policies-api-openapi.yml
@@ -24,6 +24,17 @@ edges:
   reason: Defines and maintains DNS filtering policies — blocked/allowed domains, content categories,
     application controls. Clearly cybersecurity control management; ambiguous between security policy
     governance and threat blocking, so L1 only.
+- tag: Invoices
+  spec_file: dnsfilter-invoices-api-openapi.yml
+  capability_id: BC-4250.30
+  capability_id_l1: BC-4250
+  capability_name: Invoicing & Statement Management
+  confidence: 0.8
+  evidence: GET /v1/invoices/current 'Get current invoice'; schemas Invoice, InvoiceItem, InvoiceItemGroup
+  reason: Read access to the customer's subscription invoices and line items is invoicing/statement management
+    for the SaaS commercial model. Slight ambiguity only in whether retrieval-only counts as full invoicing
+    management.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Policies Bulk Actions
   spec_file: dnsfilter-policies-bulk-actions-api-openapi.yml
   capability_id: BC-620
@@ -43,6 +54,17 @@ edges:
   evidence: POST /v1/scheduled_policies  V1_Scheduled_Policies-create  Create; schema ScheduledPolicy
   reason: Time-scheduled variants of DNS filtering policies — lifecycle of security enforcement policies.
     L1 cybersecurity; the schema set gives no detail to choose a sub-capability.
+- tag: Domains
+  spec_file: dnsfilter-domains-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.7
+  evidence: GET /v1/domains/bulk_lookup 'Bulk lookup'; POST /v1/domains/suggest_threat 'Suggest threat'
+  reason: Domain reputation/category lookup plus submission of suspected malicious domains is threat-intelligence
+    and detection work for the DNS security platform. Some ambiguity remains about whether the gold sits
+    at the L1 security level rather than detection & response.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Enterprise Connections
   spec_file: dnsfilter-enterprise-connections-api-openapi.yml
   capability_id: BC-620.20
@@ -53,3 +75,15 @@ edges:
   reason: '''Enterprise connections'' with a role map are federated identity-provider (SSO) configurations,
     i.e. identity & access management/federation. Some chance the intended framing is tenant identity
     federation (BC-4230.50), hence 0.7.'
+- tag: Traffic Reports
+  spec_file: dnsfilter-traffic-reports-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: GET /v1/traffic_reports/total_threats  Total threats/time; GET /v1/traffic_reports/total_threats_organizations  Total
+    threats organizations; schema TrafficReportsTotalCategoryStats
+  reason: Aggregated analytics over DNS query volume, blocked threats and content categories across organizations,
+    clients and users — security monitoring and reporting for the filtering service. Kept at L1 since
+    it is measurement/reporting rather than clearly SOC incident response.
+  recovered_from: sweep-20260829T005356Z-edges.json
