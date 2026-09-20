@@ -1,0 +1,26 @@
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits
+sources:
+- https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: true
+note: Single global limit stated; window is 300 seconds which does not map to a listed unit.
+limit_count: 1
+limits:
+- name: Organization API rate limit
+  limit_text: 2,000 requests per 300 seconds per Organization
+  limit: 2000
+  scope: account
+headers:
+- Retry-After
+- RateLimit-Policy
+- RateLimit
+- RateLimit-Limit
+- RateLimit-Remaining
+- RateLimit-Reset
+exceeded_status: 429

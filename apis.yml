@@ -717,6 +717,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: RateLimits
+  url: rate-limits/dnsfilter-rate-limits.yml
 - type: Plans
   url: plans/dnsfilter-plans-pricing.yml
 - type: CapabilityMap
