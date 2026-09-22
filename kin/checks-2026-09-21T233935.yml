@@ -2,16 +2,16 @@
 kin_checks:
   slug: dnsfilter
   schema_version: 0.22.0
-  scored_at: '2026-09-19'
-  run_ts: 2026-09-19T193153
+  scored_at: '2026-09-21'
+  run_ts: 2026-09-21T233935
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 136
-    earned: 40
-    partial: 11
-    missed: 59
+    earned: 43
+    partial: 12
+    missed: 55
     na: 26
   checks:
   - id: multiple_apis
@@ -60,8 +60,6 @@ kin_checks:
     status: missed
   - id: change_log_present
     status: missed
-  - id: rate_limits_documented
-    status: missed
   - id: rate_limits_rich
     status: missed
   - id: deprecation_policy
@@ -90,10 +88,6 @@ kin_checks:
     status: missed
   - id: postman_present
     status: missed
-  - id: plans_present
-    status: missed
-  - id: plans_multiple
-    status: missed
   - id: finops_mapped
     status: missed
   - id: compliance_published
@@ -117,8 +111,6 @@ kin_checks:
   - id: idempotency
     status: missed
   - id: openapi_examples
-    status: missed
-  - id: rate_limit_signal
     status: missed
   - id: event_surface_described
     status: missed
@@ -175,6 +167,10 @@ kin_checks:
     status: partial
     earned: 3.5
     detail: 'grade: bearer'
+  - id: rate_limit_signal
+    status: partial
+    earned: 3.5
+    detail: 'grade: documented'
   - id: agent_skills
     status: partial
     earned: 1.25
