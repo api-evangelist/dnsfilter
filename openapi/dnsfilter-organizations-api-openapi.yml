@@ -1,7 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: DNSFilter Agent Local User Bulk Deletes Organizations API
-  description: "\n**Note:** If you are a distributor integrating with DNSFilter, please check\n          out our [Distributors Development Guide](/docs/distributors).\n\n### Authentication\n\n- Authentication is required for most, but not all, endpoints.\n\n- Authentication is done by setting the `Authorization` request header.\n  The header value is the API key itself.\n  For example: `Authorization: eyJ...`\n\n- An API key can be obtained through the DNSFilter dashboard under\n  Account Settings. For additional information see\n  [this KB article](https://help.dnsfilter.com/hc/en-us/articles/21169189058323-API-Tokens).\n\n### Rate Limiting\n\n- All endpoints are rate limited.\n\n- The limits may vary by endpoint, but are generally consistent.\n\n- When the rate limit is exceeded the API will return the standard `429` HTTP status.\n\n- The following headers will also be provided in the response:\n  `Retry-After`, `RateLimit-Policy`, `RateLimit`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`.\n  For details on the values of these headers, see the following articles\n  [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After),\n  [here](https://www.ietf.org/archive/id/draft-ietf-httpapi-ratelimit-headers-08.html),\n  and [here](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-05.html).\n\n- For additional information see [this KB article](https://help.dnsfilter.com/hc/en-us/articles/38202811088403-API-Rate-Limits).\n\n### Error Handling\n\n- The API uses standard HTTP status codes to indicate success or failure.\n\n- For _V1_ endpoints the response format is:\n  ```json\n  { \"error\": \"string\", \"type\": \"string(optional)\" }\n  ```\n- For _V2_ endpoints the response format is:\n  ```json\n  { \"error\": { \"message\": \"string\", \"type\": \"string(optional)\" } }\n  ```\n\n### Pagination\n\nFor the _V1_ endpoints, the pagination parameters are nested. That is to say,\nif passed as JSON they look like this: `{\"page[number]\": 1, \"page[size]\": 10}`.\n\nTo pass this information in the URL query string, it would be formatted like\nthis: `...?page%5Bnumber%5D=1&page%5Bsize%5D=10`.\n\nIn this guide, the UI will indicate that `page` is an `object` and if you\nwant to set values when trying the request, you must enter it as if it was\nthe JSON above.\n\n### A Quick Example\n\nThe following will return information about the currently\nauthenticated user.\n\n```bash\n% curl -H 'Authorization: ***' https://api.dnsfilter.com/v1/users/self\n\n{ \"data\": {\n    \"id\": \"12345\",\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john@example.com\",\n      ...additional fields...\n}}}\n```\n"
+  title: DNSFilter Organizations API
+  description: '**Note:** If you are a distributor integrating with DNSFilter, please check
+
+    out our Distributors Development Guide.'
   version: '2026-07-13'
 servers:
 - url: https://api.dnsfilter.com
@@ -602,6 +604,19 @@ paths:
       x-action: promote_to_msp
 components:
   schemas:
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     Links:
       type: object
       properties:
@@ -609,14 +624,6 @@ components:
           type: string
           description: Endpoint URL (may be null)
       description: JSON API links member representation
-    OrganizationCreateSpec:
-      type: object
-      properties:
-        organization:
-          $ref: '#/components/schemas/OrganizationCreate'
-      required:
-      - organization
-      description: Organization creation request parameters
     OrganizationBulkUpdate:
       type: object
       properties:
@@ -654,61 +661,25 @@ components:
               type: integer
           description: Vpn organization settings
       description: Organization bulk update parameters
-    OrganizationCreate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Organization legal name
-        billing_contact_name:
-          type: string
-          description: Contact name
-        billing_contact_phone:
-          type: string
-          description: Contact phone
-        billing_contact_email:
-          type: string
-          description: Contact email
-        address:
-          type: string
-          description: Legal address
-        managed_by_msp_id:
-          type: integer
-          description: Organization is managed by the specified MSP
-        unique_id:
-          type: string
-          description: Used to determine custom login url for enterprise connections
-        sku:
-          type: string
-          description: SKU for plan type selected
-        quantity:
-          type: integer
-          description: Number of licenses to assign
-        vpn_settings_organization_attributes:
-          type: object
-          properties:
-            id:
-              type: integer
-            vpn_settings_state_type_id:
-              type: integer
-            _destroy:
-              type: boolean
-          description: Vpn organization settings
-        privacy_mode:
-          type: string
-          enum:
-          - inherit
-          - standard
-          - identify_devices
-          - maximum
-          description: Privacy mode for the organization, either
-        enable_cybersight:
-          type: boolean
-          description: This will only enable access if the organization is entitled to CyberSight
-      required:
-      - name
-      - managed_by_msp_id
-      description: Organization creation request parameters
+    OrganizationSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Organization'
+          relationships:
+            type: object
+            properties:
+              networks:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Network associated resources
+      description: Organization specification
     Organization:
       type: object
       properties:
@@ -856,6 +827,69 @@ components:
               type: integer
           description: Vpn organization settings
       description: Organization resource
+    OrganizationCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Organization legal name
+        billing_contact_name:
+          type: string
+          description: Contact name
+        billing_contact_phone:
+          type: string
+          description: Contact phone
+        billing_contact_email:
+          type: string
+          description: Contact email
+        address:
+          type: string
+          description: Legal address
+        managed_by_msp_id:
+          type: integer
+          description: Organization is managed by the specified MSP
+        unique_id:
+          type: string
+          description: Used to determine custom login url for enterprise connections
+        sku:
+          type: string
+          description: SKU for plan type selected
+        quantity:
+          type: integer
+          description: Number of licenses to assign
+        vpn_settings_organization_attributes:
+          type: object
+          properties:
+            id:
+              type: integer
+            vpn_settings_state_type_id:
+              type: integer
+            _destroy:
+              type: boolean
+          description: Vpn organization settings
+        privacy_mode:
+          type: string
+          enum:
+          - inherit
+          - standard
+          - identify_devices
+          - maximum
+          description: Privacy mode for the organization, either
+        enable_cybersight:
+          type: boolean
+          description: This will only enable access if the organization is entitled to CyberSight
+      required:
+      - name
+      - managed_by_msp_id
+      description: Organization creation request parameters
+    OrganizationCreateSpec:
+      type: object
+      properties:
+        organization:
+          $ref: '#/components/schemas/OrganizationCreate'
+      required:
+      - organization
+      description: Organization creation request parameters
     Error:
       type: object
       properties:
@@ -863,38 +897,6 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
-    OrganizationSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/Organization'
-          relationships:
-            type: object
-            properties:
-              networks:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/IdType'
-            description: Network associated resources
-      description: Organization specification
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey
