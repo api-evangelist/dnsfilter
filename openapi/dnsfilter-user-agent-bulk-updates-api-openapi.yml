@@ -498,38 +498,48 @@ paths:
       x-action: counts
 components:
   schemas:
-    UserAgentBulkUpdateHasMixed:
+    UserAgentBulkUpdate:
       type: object
       properties:
-        siteMixed:
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        completed:
           type: boolean
-          description: true if sites are mixed
-        tagsMixed:
-          type: boolean
-          description: true if tags are mixed
-        policyMixed:
-          type: boolean
-          description: true if policies are mixed
-        blockPageMixed:
-          type: boolean
-          description: true if blockPages are mixed
-      description: User agents bulk mixed attribute check
-    UserAgentBulkUpdateCreate:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-          description: Ids of user agents to update. Overrides any lookups based on filters
-        exclude_ids:
-          type: array
-          items:
-            type: string
-          description: Ids of user agents to remove from update when using filters
-        changeset:
-          $ref: '#/components/schemas/UserAgentBulkUpdateCreateChangeset'
+          description: true if bulk update is completed
+        count:
+          type: integer
+          description: count of affected user agents
       description: User agent bulk update
+    UserAgentBulkDeleteCounts:
+      type: object
+      properties:
+        uninstall_and_delete:
+          type: integer
+          description: the count of user agents that can bed uninstalled and deleted
+        delete:
+          type: integer
+          description: the count of unsupported user agents that can be deleted
+      description: User agent counts by remote uninstall support
+    DeviceSettingBulkAttributes:
+      type: object
+      properties:
+        enable_cyber_sight:
+          type: boolean
+        enable_filtering_client:
+          type: boolean
+          description: nable_filtering_client [boolean
+        diagnostics_level:
+          type: string
+          enum:
+          - unknown
+          - trace
+          - debug
+          - information
+          - warning
+          - error
+          - critical
+      description: Device setting bulk attributes
     FilteringClientSettingBulkAttributes:
       type: object
       properties:
@@ -555,58 +565,15 @@ components:
           - fail_close
           description: User agents fail over method
       description: Filtering client setting bulk attributes
-    UserAgentBulkDeleteCounts:
+    UserAgentBulkUpdateHasMixedRequest:
       type: object
       properties:
-        uninstall_and_delete:
-          type: integer
-          description: the count of user agents that can bed uninstalled and deleted
-        delete:
-          type: integer
-          description: the count of unsupported user agents that can be deleted
-      description: User agent counts by remote uninstall support
-    VpnSettingsUserAgentAttributes:
-      type: object
-      properties:
-        _destroy:
-          type: boolean
-          description: destroy record by setting to true
-        vpn_settings_state_type_id:
-          type: integer
-          description: id for vpn settings state type
-      description: VPN settings user agent attributes
-    DeviceSettingBulkAttributes:
-      type: object
-      properties:
-        enable_cyber_sight:
-          type: boolean
-        enable_filtering_client:
-          type: boolean
-          description: nable_filtering_client [boolean
-        diagnostics_level:
-          type: string
-          enum:
-          - unknown
-          - trace
-          - debug
-          - information
-          - warning
-          - error
-          - critical
-      description: Device setting bulk attributes
-    UserAgentBulkUpdate:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization resource ID
-        completed:
-          type: boolean
-          description: true if bulk update is completed
-        count:
-          type: integer
-          description: count of affected user agents
-      description: User agent bulk update
+        ids:
+          type: array
+          items:
+            type: string
+          description: Ids of user agents to use in the
+      description: User agents bulk ids
     UserAgentBulkUpdateCreateChangeset:
       type: object
       properties:
@@ -642,15 +609,6 @@ components:
         vpn_settings_user_agent:
           $ref: '#/components/schemas/VpnSettingsUserAgentAttributes'
       description: User agent bulk update changeset
-    UserAgentBulkUpdateHasMixedRequest:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-          description: Ids of user agents to use in the
-      description: User agents bulk ids
     Error:
       type: object
       properties:
@@ -658,6 +616,48 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
+    UserAgentBulkUpdateCreate:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+          description: Ids of user agents to update. Overrides any lookups based on filters
+        exclude_ids:
+          type: array
+          items:
+            type: string
+          description: Ids of user agents to remove from update when using filters
+        changeset:
+          $ref: '#/components/schemas/UserAgentBulkUpdateCreateChangeset'
+      description: User agent bulk update
+    VpnSettingsUserAgentAttributes:
+      type: object
+      properties:
+        _destroy:
+          type: boolean
+          description: destroy record by setting to true
+        vpn_settings_state_type_id:
+          type: integer
+          description: id for vpn settings state type
+      description: VPN settings user agent attributes
+    UserAgentBulkUpdateHasMixed:
+      type: object
+      properties:
+        siteMixed:
+          type: boolean
+          description: true if sites are mixed
+        tagsMixed:
+          type: boolean
+          description: true if tags are mixed
+        policyMixed:
+          type: boolean
+          description: true if policies are mixed
+        blockPageMixed:
+          type: boolean
+          description: true if blockPages are mixed
+      description: User agents bulk mixed attribute check
   securitySchemes:
     header_authorization:
       type: apiKey

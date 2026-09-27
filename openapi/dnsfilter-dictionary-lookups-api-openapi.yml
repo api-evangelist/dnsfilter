@@ -120,13 +120,6 @@ components:
           type: string
           description: Simple description of the activity
       description: Activity Types
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     VpnSettingsStateType:
       type: object
       properties:
@@ -143,6 +136,13 @@ components:
           type: string
           description: Simple description of the state type
       description: Vpn Settings State Types
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

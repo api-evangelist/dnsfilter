@@ -232,14 +232,13 @@ paths:
       x-action: destroy
 components:
   schemas:
-    CollectionUserSpec:
+    Error:
       type: object
       properties:
-        policy:
-          $ref: '#/components/schemas/CollectionUserCreateSpec'
-      required:
-      - policy
-      description: Collection creation request parameters
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     CollectionUserCreateSpec:
       type: object
       properties:
@@ -253,13 +252,14 @@ components:
       - collection_id
       - id
       description: Collection User creation request parameters
-    Error:
+    CollectionUserSpec:
       type: object
       properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
+        policy:
+          $ref: '#/components/schemas/CollectionUserCreateSpec'
+      required:
+      - policy
+      description: Collection creation request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

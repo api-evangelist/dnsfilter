@@ -342,6 +342,19 @@ paths:
       x-action: destroy
 components:
   schemas:
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     NetworkSubnet:
       type: object
       properties:
@@ -358,19 +371,6 @@ components:
           type: string
           description: Subnet upper private IP address
       description: User agent resource
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
     Links:
       type: object
       properties:
@@ -386,6 +386,13 @@ components:
       required:
       - network_subnet
       description: Network subnet creation request parameters
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     NetworkSubnetCreate:
       type: object
       properties:
@@ -439,13 +446,6 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: '] Subnet associated objects'
       description: User agent specification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -328,6 +328,14 @@ components:
           type: boolean
           description: MFA is enabled for the user
       description: OrganizationUser resource
+    OrganizationUserCreateSpec:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/OrganizationUserCreate'
+      required:
+      - user
+      description: OrganizationUser creation request parameters
     Error:
       type: object
       properties:
@@ -362,14 +370,6 @@ components:
           type: boolean
           description: If true the user will only have access to organization_permission_ids. If false, it will prevent access to the organizations in organization_permission_ids.
       description: OrganizationUser create request parameters
-    OrganizationUserCreateSpec:
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/OrganizationUserCreate'
-      required:
-      - user
-      description: OrganizationUser creation request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

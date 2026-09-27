@@ -122,6 +122,20 @@ paths:
       x-action: show
 components:
   schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     Category:
       type: object
       properties:
@@ -154,13 +168,6 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     CategorySpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -187,13 +194,6 @@ components:
                       $ref: '#/components/schemas/IdType'
             description: Category hierarchy
       description: Category specification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

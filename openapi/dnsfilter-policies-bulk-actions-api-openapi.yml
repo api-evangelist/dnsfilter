@@ -162,6 +162,25 @@ paths:
               $ref: '#/components/schemas/PolicyBulkActionListDomains'
 components:
   schemas:
+    PolicyBulkActionsListDomainsResponse:
+      type: object
+      properties:
+        success:
+          type: array
+          items:
+            type: integer
+          description: Policy IDs that were successfully updated
+        failure:
+          type: array
+          items:
+            type: integer
+          description: Policy IDs that failed to update
+        noop:
+          type: array
+          items:
+            type: integer
+          description: Policy IDs that required no update
+      description: Response for policy bulk actions for allow/block lists
     PolicyBulkActionListDomains:
       type: object
       properties:
@@ -189,25 +208,6 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
-    PolicyBulkActionsListDomainsResponse:
-      type: object
-      properties:
-        success:
-          type: array
-          items:
-            type: integer
-          description: Policy IDs that were successfully updated
-        failure:
-          type: array
-          items:
-            type: integer
-          description: Policy IDs that failed to update
-        noop:
-          type: array
-          items:
-            type: integer
-          description: Policy IDs that required no update
-      description: Response for policy bulk actions for allow/block lists
   securitySchemes:
     header_authorization:
       type: apiKey

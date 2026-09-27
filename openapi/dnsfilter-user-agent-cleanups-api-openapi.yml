@@ -103,16 +103,6 @@ paths:
               $ref: '#/components/schemas/UserAgentCleanupUpdate'
 components:
   schemas:
-    UserAgentCleanupUpdate:
-      type: object
-      properties:
-        start:
-          type: boolean
-          description: Start the cleanup, will do nothing if inactive_for is included
-        inactive_for:
-          type: integer
-          description: The number of inactive days, updating restarts job to find RCs to delete
-      description: User agent cleanup update
     UserAgentCleanup:
       type: object
       properties:
@@ -172,6 +162,16 @@ components:
       - organization_ids
       - inactive_for
       description: User agent cleanup create
+    UserAgentCleanupUpdate:
+      type: object
+      properties:
+        start:
+          type: boolean
+          description: Start the cleanup, will do nothing if inactive_for is included
+        inactive_for:
+          type: integer
+          description: The number of inactive days, updating restarts job to find RCs to delete
+      description: User agent cleanup update
   securitySchemes:
     header_authorization:
       type: apiKey

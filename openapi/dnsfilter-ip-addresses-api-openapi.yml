@@ -378,6 +378,22 @@ paths:
       x-action: myip
 components:
   schemas:
+    IpAddress:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP
+        address:
+          type: string
+          description: IP address
+        network_id:
+          type: integer
+          description: Network ID
+        organization_id:
+          type: integer
+          description: Organization ID
+      description: IpAddress resource
     IpAddressSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -395,6 +411,28 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: IP address associated network
       description: IpAddress specification
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    IpAddressCreateSpec:
+      type: object
+      properties:
+        ip_address:
+          $ref: '#/components/schemas/IpAddressCreate'
+      required:
+      - ip_address
+      description: IP address creation request parameters
     IdType:
       type: object
       properties:
@@ -408,44 +446,6 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    IpAddressCreateSpec:
-      type: object
-      properties:
-        ip_address:
-          $ref: '#/components/schemas/IpAddressCreate'
-      required:
-      - ip_address
-      description: IP address creation request parameters
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    IpAddress:
-      type: object
-      properties:
-        ip:
-          type: string
-          description: IP
-        address:
-          type: string
-          description: IP address
-        network_id:
-          type: integer
-          description: Network ID
-        organization_id:
-          type: integer
-          description: Organization ID
-      description: IpAddress resource
     IpAddressCreate:
       type: object
       properties:

@@ -198,6 +198,74 @@ paths:
               $ref: '#/components/schemas/Billing_BillingAddressUpdateSpec'
 components:
   schemas:
+    BillingCreate:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: User organization ID
+        payment_token:
+          type: string
+          description: Stripe token
+      required:
+      - organization_id
+      - payment_token
+      description: Billing creation request parameters
+    Billing_BillingAddressUpdateSpec:
+      type: object
+      properties:
+        billing_address:
+          $ref: '#/components/schemas/Billing_BillingAddress'
+      required:
+      - billing_address
+      description: Billing address update request parameters
+    PaymentMethod:
+      type: object
+      properties:
+        object:
+          type: string
+          description: Payment method type (credit card, paypal, etc.)
+        address_city:
+          type: string
+          description: City
+        address_country:
+          type: string
+          description: Country
+        address_line1:
+          type: string
+          description: Address line 1
+        address_line2:
+          type: string
+          description: Address line 2
+        address_state:
+          type: string
+          description: State
+        address_zip:
+          type: string
+          description: Address ZIP code
+        brand:
+          type: string
+          description: Brand
+        country:
+          type: string
+          description: Country associated with the payment method
+        exp_month:
+          type: integer
+          description: Expiration month
+        exp_year:
+          type: integer
+          description: Expiration year
+        last4:
+          type: string
+          description: Last four digits
+      description: Payment method resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     Billing_BillingAddress:
       type: object
       properties:
@@ -241,74 +309,6 @@ components:
           type: string
           description: Country Must be one of ISO 3166 alpha-2 country code.
       description: Billing address resource
-    Billing_BillingAddressUpdateSpec:
-      type: object
-      properties:
-        billing_address:
-          $ref: '#/components/schemas/Billing_BillingAddress'
-      required:
-      - billing_address
-      description: Billing address update request parameters
-    BillingCreate:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: User organization ID
-        payment_token:
-          type: string
-          description: Stripe token
-      required:
-      - organization_id
-      - payment_token
-      description: Billing creation request parameters
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    PaymentMethod:
-      type: object
-      properties:
-        object:
-          type: string
-          description: Payment method type (credit card, paypal, etc.)
-        address_city:
-          type: string
-          description: City
-        address_country:
-          type: string
-          description: Country
-        address_line1:
-          type: string
-          description: Address line 1
-        address_line2:
-          type: string
-          description: Address line 2
-        address_state:
-          type: string
-          description: State
-        address_zip:
-          type: string
-          description: Address ZIP code
-        brand:
-          type: string
-          description: Brand
-        country:
-          type: string
-          description: Country associated with the payment method
-        exp_month:
-          type: integer
-          description: Expiration month
-        exp_year:
-          type: integer
-          description: Expiration year
-        last4:
-          type: string
-          description: Last four digits
-      description: Payment method resource
   securitySchemes:
     header_authorization:
       type: apiKey

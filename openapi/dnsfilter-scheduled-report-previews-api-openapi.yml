@@ -109,19 +109,13 @@ paths:
                   $ref: '#/components/schemas/ScheduledReportPreviewCreate'
 components:
   schemas:
-    IdType:
+    Error:
       type: object
       properties:
-        id:
+        error:
           type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     ScheduledReportPreviewCreate:
       type: object
       properties:
@@ -160,13 +154,19 @@ components:
           attributes:
             $ref: '#/components/schemas/ScheduledReportPreview'
       description: Scheduled report preview specification
-    Error:
+    IdType:
       type: object
       properties:
-        error:
+        id:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

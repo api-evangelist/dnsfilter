@@ -376,6 +376,16 @@ paths:
       x-action: batch_destroy
 components:
   schemas:
+    DomainNotesSpec:
+      type: object
+      properties:
+        allow_notes:
+          type: object
+          description: Notes for allowed domains
+        block_notes:
+          type: object
+          description: Notes for blocked domains
+      description: Domain notes response
     Error:
       type: object
       properties:
@@ -402,16 +412,6 @@ components:
       - type
       - domain
       description: Ressource Notes creation request parameters
-    DomainNotesSpec:
-      type: object
-      properties:
-        allow_notes:
-          type: object
-          description: Notes for allowed domains
-        block_notes:
-          type: object
-          description: Notes for blocked domains
-      description: Domain notes response
   securitySchemes:
     header_authorization:
       type: apiKey

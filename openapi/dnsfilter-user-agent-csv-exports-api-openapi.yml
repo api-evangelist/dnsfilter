@@ -70,6 +70,24 @@ paths:
       x-action: show
 components:
   schemas:
+    UserAgentCsvExport:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User agent csv export ID
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Organization IDs
+        url:
+          type: string
+          description: URL to download the CSV
+        error:
+          type: string
+          description: Error message if export failed
+      description: User agent csv export
     UserAgentCsvExportCreate:
       type: object
       properties:
@@ -129,24 +147,6 @@ components:
         traffic_received_last_15_mins:
           type: boolean
           description: filter by agents that have received traffic in last 15 minutes
-      description: User agent csv export
-    UserAgentCsvExport:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: User agent csv export ID
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Organization IDs
-        url:
-          type: string
-          description: URL to download the CSV
-        error:
-          type: string
-          description: Error message if export failed
       description: User agent csv export
   securitySchemes:
     header_authorization:

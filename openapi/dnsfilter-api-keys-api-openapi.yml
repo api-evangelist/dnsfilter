@@ -269,19 +269,6 @@ paths:
       x-action: revoke
 components:
   schemas:
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
     ApiKeySpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -297,16 +284,13 @@ components:
           type: string
           description: Endpoint URL (may be null)
       description: JSON API links member representation
-    ApiKeyCreateSpec:
+    Error:
       type: object
       properties:
-        name:
+        error:
           type: string
-          description: name
-        expiry:
-          type: string
-          description: 2024-12-22T17:24:32.162-05:00 intended expiry
-      description: Api key creation specification
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     ApiKey:
       type: object
       properties:
@@ -335,13 +319,29 @@ components:
           type: integer
           description: associated user to api key
       description: ApiKey resource
-    Error:
+    ApiKeyCreateSpec:
       type: object
       properties:
-        error:
+        name:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
+          description: name
+        expiry:
+          type: string
+          description: 2024-12-22T17:24:32.162-05:00 intended expiry
+      description: Api key creation specification
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -279,6 +279,105 @@ components:
         itself. Check the descriptions for each attribute to determine if it is
 
         necessary.'
+    EnterpriseConnectionUpdatePayload:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        default_organization_id:
+          type: integer
+          description: Default organization ID
+        display_name:
+          type: string
+          description: The, UI visible, name of the connection.
+        role_default:
+          type: string
+          enum:
+          - administrator
+          - read_only
+          - owner
+          - technical
+          - accountant
+          - policies_only
+          - super_administrator
+          description: The default role.
+        role_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
+        options:
+          $ref: '#/components/schemas/EnterpriseConnectionOptions'
+        idp:
+          type: string
+          enum:
+          - openid
+          - okta
+          - azure
+          - google
+          description: The type of the enterprise connection's IDP.
+        authorized_domains:
+          type: array
+          items:
+            type: string
+          description: Domains that are authorized to connect.
+      required:
+      - options
+      description: 'Note: To set your organization''s custom login url for enterprise
+
+        connections, you need to set the ''unique_id'' attribute on the
+
+        organization itself. See the PATCH /v1/organizations endpoint.'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    EnterpriseConnection:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        organization_id:
+          type: integer
+          description: Organization ID
+        default_organization_id:
+          type: integer
+          description: Default organization ID
+        name:
+          type: string
+          description: Name
+        display_name:
+          type: string
+          description: Display Name
+        role_default:
+          type: integer
+          description: Default role
+        role_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
+          description: Role map
+        sub_prefix:
+          type: string
+        conn_id:
+          type: string
+        idp:
+          type: string
+          enum:
+          - openid
+          - okta
+          - azure
+          - google
+          description: The type of the enterprise connection's IDP.
+        authorized_domains:
+          type: array
+          items:
+            type: string
+          description: Domains that are authorized to connect.
     EnterpriseConnectionCreatePayload:
       type: object
       properties:
@@ -334,98 +433,6 @@ components:
         connections, you need to set the ''unique_id'' attribute on the
 
         organization itself. See the PATCH /v1/organizations endpoint.'
-    EnterpriseConnection:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID
-        organization_id:
-          type: integer
-          description: Organization ID
-        default_organization_id:
-          type: integer
-          description: Default organization ID
-        name:
-          type: string
-          description: Name
-        display_name:
-          type: string
-          description: Display Name
-        role_default:
-          type: integer
-          description: Default role
-        role_map:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
-          description: Role map
-        sub_prefix:
-          type: string
-        conn_id:
-          type: string
-        idp:
-          type: string
-          enum:
-          - openid
-          - okta
-          - azure
-          - google
-          description: The type of the enterprise connection's IDP.
-        authorized_domains:
-          type: array
-          items:
-            type: string
-          description: Domains that are authorized to connect.
-    EnterpriseConnectionUpdatePayload:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID
-        default_organization_id:
-          type: integer
-          description: Default organization ID
-        display_name:
-          type: string
-          description: The, UI visible, name of the connection.
-        role_default:
-          type: string
-          enum:
-          - administrator
-          - read_only
-          - owner
-          - technical
-          - accountant
-          - policies_only
-          - super_administrator
-          description: The default role.
-        role_map:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
-        options:
-          $ref: '#/components/schemas/EnterpriseConnectionOptions'
-        idp:
-          type: string
-          enum:
-          - openid
-          - okta
-          - azure
-          - google
-          description: The type of the enterprise connection's IDP.
-        authorized_domains:
-          type: array
-          items:
-            type: string
-          description: Domains that are authorized to connect.
-      required:
-      - options
-      description: 'Note: To set your organization''s custom login url for enterprise
-
-        connections, you need to set the ''unique_id'' attribute on the
-
-        organization itself. See the PATCH /v1/organizations endpoint.'
     EnterpriseConnectionRoleMap:
       type: object
       properties:
@@ -433,13 +440,6 @@ components:
           type: string
         group:
           type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -146,26 +146,6 @@ paths:
       x-action: show
 components:
   schemas:
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     Application:
       type: object
       properties:
@@ -188,6 +168,13 @@ components:
           type: string
           description: Application icon
       description: Application resource
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     ApplicationSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -214,6 +201,19 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

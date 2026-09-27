@@ -89,23 +89,6 @@ paths:
       x-action: show
 components:
   schemas:
-    ApplicationCategory:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Application name
-        description:
-          type: string
-          description: Application description
-      description: ApplicationCategory resource
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     IdType:
       type: object
       properties:
@@ -119,6 +102,23 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    ApplicationCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Application name
+        description:
+          type: string
+          description: Application description
+      description: ApplicationCategory resource
     Error:
       type: object
       properties:

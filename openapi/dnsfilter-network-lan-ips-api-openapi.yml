@@ -180,19 +180,27 @@ paths:
               $ref: '#/components/schemas/NetworkLanIpUpdateSpec'
 components:
   schemas:
-    IdType:
+    NetworkLanIp:
       type: object
       properties:
-        id:
+        version:
+          type: integer
+          description: LAN IP family version
+        address:
           type: string
-          description: Resource Id (integer or uuid)
-        type:
+          description: LAN IP address
+        name:
           type: string
-          description: Resource type name
-        uuid:
+          description: LAN IP name or alias (may be null)
+        first_seen:
           type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
+          format: date
+          description: First traffic seen from this address (may be null)
+        last_seen:
+          type: string
+          format: date
+          description: Last traffic seen from this address (may be null)
+      description: User agent resource
     Links:
       type: object
       properties:
@@ -215,13 +223,6 @@ components:
       required:
       - network_lan_ip
       description: Network subnet creation request parameters
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     NetworkLanIpSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -239,27 +240,26 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: LAN IP associated objects
       description: User agent specification
-    NetworkLanIp:
+    Error:
       type: object
       properties:
-        version:
-          type: integer
-          description: LAN IP family version
-        address:
+        error:
           type: string
-          description: LAN IP address
-        name:
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    IdType:
+      type: object
+      properties:
+        id:
           type: string
-          description: LAN IP name or alias (may be null)
-        first_seen:
+          description: Resource Id (integer or uuid)
+        type:
           type: string
-          format: date
-          description: First traffic seen from this address (may be null)
-        last_seen:
+          description: Resource type name
+        uuid:
           type: string
-          format: date
-          description: Last traffic seen from this address (may be null)
-      description: User agent resource
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

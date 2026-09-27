@@ -993,114 +993,6 @@ paths:
                   $ref: '#/components/schemas/UserAgentSettingsBody'
 components:
   schemas:
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    DeviceSettingAttributes:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Device setting id
-        enable_cyber_sight:
-          type: boolean
-        enable_filtering_client:
-          type: boolean
-        diagnostics_level:
-          type: string
-          enum:
-          - unknown
-          - trace
-          - debug
-          - information
-          - warning
-          - error
-          - critical
-      description: Device setting attributes
-    UserAgentPatch:
-      type: object
-      properties:
-        friendly_name:
-          type: string
-          description: Agent friendly name
-        status:
-          type: string
-          enum:
-          - active
-          - disabled
-          - uninstalled
-          description: Agent status
-        network_id:
-          type: integer
-          description: User agent network/site ID, useful to change user agent between networks/sites
-        policy_id:
-          type: integer
-          description: 'Agent custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
-        scheduled_policy_id:
-          type: integer
-          description: Agent custom scheduled policy ID
-        block_page_id:
-          type: integer
-          description: Agent custom block page ID
-        tags:
-          type: array
-          items:
-            type: string
-          description: Agent tags
-        vpn_settings_user_agent_attributes:
-          $ref: '#/components/schemas/VpnSettingsUserAgentAttributes'
-      description: User agent creation request parameters
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    UserAgentCount:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total user agents based on filters
-      description: User agents count
-    UserAgentSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/UserAgent'
-          relationships:
-            type: object
-            properties:
-              network:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-              policy:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-              scheduled_policy:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-            description: '] User agent associated objects'
-      description: User agent specification
     FilteringClientSettingAttributes:
       type: object
       properties:
@@ -1129,60 +1021,68 @@ components:
           - fail_close
           description: User agents fail over method
       description: Filtering client setting attributes
-    UserAgentPatchSpec:
+    DeviceSettingAttributes:
       type: object
       properties:
-        user_agent:
-          $ref: '#/components/schemas/UserAgentPatch'
-      required:
-      - user_agent
-      description: User agent update request parameters
-    UserAgentFilteringClientSetting:
-      type: object
-      properties:
-        auto_updates:
+        id:
+          type: string
+          description: Device setting id
+        enable_cyber_sight:
           type: boolean
-          description: Auto updates setting
-        connection_method:
-          type: string
-          enum:
-          - inherit
-          - transparent_prox
-          - loopback
-          description: Configures connection type
-        filtering_method:
-          type: string
-          enum:
-          - inherit
-          - precheck
-          - dns_filtering
-          description: Configures filtering mode
-        fail_over_method:
-          type: string
-          enum:
-          - inherit
-          - fail_open
-          - fail_close
-          description: Configures fail over method
-      description: User agent filtering client setting
-    UserAgentSettingsBody:
-      type: object
-      properties:
-        device_setting_attributes:
-          $ref: '#/components/schemas/DeviceSettingAttributes'
-        filtering_client_setting_attributes:
-          $ref: '#/components/schemas/FilteringClientSettingAttributes'
-      description: Payload for user agent settings
-    VpnSettingsUserAgentAttributes:
-      type: object
-      properties:
-        _destroy:
+        enable_filtering_client:
           type: boolean
-          description: destroy record by setting to true
-        vpn_settings_state_type_id:
+        diagnostics_level:
+          type: string
+          enum:
+          - unknown
+          - trace
+          - debug
+          - information
+          - warning
+          - error
+          - critical
+      description: Device setting attributes
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    UserAgentSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/UserAgent'
+          relationships:
+            type: object
+            properties:
+              network:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              scheduled_policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: '] User agent associated objects'
+      description: User agent specification
+    UserAgentCount:
+      type: object
+      properties:
+        count:
           type: integer
-          description: id for vpn settings state type
-      description: VPN settings user agent attributes
+          description: Total user agents based on filters
+      description: User agents count
     LegacyUserAgentCounts:
       type: object
       properties:
@@ -1205,6 +1105,14 @@ components:
           type: integer
           description: the count of uninstalled user agents
       description: User agent counts by state
+    UserAgentSettingsBody:
+      type: object
+      properties:
+        device_setting_attributes:
+          $ref: '#/components/schemas/DeviceSettingAttributes'
+        filtering_client_setting_attributes:
+          $ref: '#/components/schemas/FilteringClientSettingAttributes'
+      description: Payload for user agent settings
     Error:
       type: object
       properties:
@@ -1212,6 +1120,14 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
+    UserAgentPatchSpec:
+      type: object
+      properties:
+        user_agent:
+          $ref: '#/components/schemas/UserAgentPatch'
+      required:
+      - user_agent
+      description: User agent update request parameters
     UserAgent:
       type: object
       properties:
@@ -1345,6 +1261,90 @@ components:
         filtering_client_setting:
           $ref: '#/components/schemas/UserAgentFilteringClientSetting'
       description: User agent resource
+    UserAgentPatch:
+      type: object
+      properties:
+        friendly_name:
+          type: string
+          description: Agent friendly name
+        status:
+          type: string
+          enum:
+          - active
+          - disabled
+          - uninstalled
+          description: Agent status
+        network_id:
+          type: integer
+          description: User agent network/site ID, useful to change user agent between networks/sites
+        policy_id:
+          type: integer
+          description: 'Agent custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
+        scheduled_policy_id:
+          type: integer
+          description: Agent custom scheduled policy ID
+        block_page_id:
+          type: integer
+          description: Agent custom block page ID
+        tags:
+          type: array
+          items:
+            type: string
+          description: Agent tags
+        vpn_settings_user_agent_attributes:
+          $ref: '#/components/schemas/VpnSettingsUserAgentAttributes'
+      description: User agent creation request parameters
+    VpnSettingsUserAgentAttributes:
+      type: object
+      properties:
+        _destroy:
+          type: boolean
+          description: destroy record by setting to true
+        vpn_settings_state_type_id:
+          type: integer
+          description: id for vpn settings state type
+      description: VPN settings user agent attributes
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+    UserAgentFilteringClientSetting:
+      type: object
+      properties:
+        auto_updates:
+          type: boolean
+          description: Auto updates setting
+        connection_method:
+          type: string
+          enum:
+          - inherit
+          - transparent_prox
+          - loopback
+          description: Configures connection type
+        filtering_method:
+          type: string
+          enum:
+          - inherit
+          - precheck
+          - dns_filtering
+          description: Configures filtering mode
+        fail_over_method:
+          type: string
+          enum:
+          - inherit
+          - fail_open
+          - fail_close
+          description: Configures fail over method
+      description: User agent filtering client setting
   securitySchemes:
     header_authorization:
       type: apiKey

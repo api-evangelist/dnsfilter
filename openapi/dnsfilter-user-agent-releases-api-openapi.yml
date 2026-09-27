@@ -78,13 +78,6 @@ paths:
       x-action: relay
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     UserAgentRelease:
       type: object
       properties:
@@ -122,6 +115,13 @@ components:
           type: string
           description: The location of the release
       description: User agent release resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

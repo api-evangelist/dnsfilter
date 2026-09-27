@@ -90,27 +90,6 @@ paths:
       x-action: show
 components:
   schemas:
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    PolicyIpSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/PolicyIp'
-      description: Policy IP specification
     PolicyIp:
       type: object
       properties:
@@ -124,6 +103,14 @@ components:
           type: string
           description: NAT secondary address
       description: Policy IP resource
+    PolicyIpSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PolicyIp'
+      description: Policy IP specification
     Error:
       type: object
       properties:
@@ -131,6 +118,19 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

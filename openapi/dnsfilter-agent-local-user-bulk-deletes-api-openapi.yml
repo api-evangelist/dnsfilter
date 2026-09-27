@@ -197,6 +197,12 @@ paths:
       x-action: counts
 components:
   schemas:
+    AgentLocalUserBulkDeletesCounts:
+      type: object
+      properties:
+        count:
+          type: integer
+      description: Agent local user bulk delete counts
     StringContainsOp:
       type: object
       properties:
@@ -207,6 +213,13 @@ components:
           - doesnotcontain
         value:
           type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     ArrayIntegerIsOp:
       type: object
       properties:
@@ -235,19 +248,6 @@ components:
             type: integer
           description: Ids of agent local users to remove from delete when using filters
       description: Agent local user bulk delete request parameters
-    AgentLocalUserBulkDeletesCounts:
-      type: object
-      properties:
-        count:
-          type: integer
-      description: Agent local user bulk delete counts
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -88,6 +88,13 @@ paths:
       x-action: show
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     AgentLocalUsersCsvExport:
       type: object
       properties:
@@ -106,13 +113,6 @@ components:
           type: string
           description: Error message if export failed
       description: Agent local users csv export
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     AgentLocalUsersCsvExportCreate:
       type: object
       properties:
