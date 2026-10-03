@@ -197,22 +197,6 @@ paths:
       x-action: counts
 components:
   schemas:
-    AgentLocalUserBulkDeletesCounts:
-      type: object
-      properties:
-        count:
-          type: integer
-      description: Agent local user bulk delete counts
-    StringContainsOp:
-      type: object
-      properties:
-        operator:
-          type: string
-          enum:
-          - contains
-          - doesnotcontain
-        value:
-          type: string
     Error:
       type: object
       properties:
@@ -234,6 +218,22 @@ components:
             items:
               type: integer
           - type: string
+    AgentLocalUserBulkDeletesCounts:
+      type: object
+      properties:
+        count:
+          type: integer
+      description: Agent local user bulk delete counts
+    StringContainsOp:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - contains
+          - doesnotcontain
+        value:
+          type: string
     AgentLocalUserBulkDeletes:
       type: object
       properties:

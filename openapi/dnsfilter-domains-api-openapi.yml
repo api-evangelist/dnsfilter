@@ -142,6 +142,43 @@ paths:
       x-action: suggest_threat
 components:
   schemas:
+    ApplicationLookup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Application Id
+        name:
+          type: string
+          description: Application name
+        category:
+          type: string
+          description: Application category name
+      description: ApplicationLookup resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Successful operation yes/no
+      description: Success basic representation
+    Domain:
+      type: object
+      properties:
+        host:
+          type: string
+          description: Host
+        name:
+          type: string
+          description: Name
+      description: Domain resource
     DomainSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -162,43 +199,6 @@ components:
                       $ref: '#/components/schemas/IdType'
             description: Domain current associated categories and applications
       description: Domain specification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    Domain:
-      type: object
-      properties:
-        host:
-          type: string
-          description: Host
-        name:
-          type: string
-          description: Name
-      description: Domain resource
-    ApplicationLookup:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Application Id
-        name:
-          type: string
-          description: Application name
-        category:
-          type: string
-          description: Application category name
-      description: ApplicationLookup resource
-    Success:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Successful operation yes/no
-      description: Success basic representation
     IdType:
       type: object
       properties:

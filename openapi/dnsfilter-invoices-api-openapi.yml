@@ -128,6 +128,13 @@ paths:
       x-action: show
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     Invoice:
       type: object
       properties:
@@ -203,45 +210,6 @@ components:
             $ref: '#/components/schemas/InvoiceItem'
           description: Invoice items
       description: Invoice resource
-    InvoiceItemGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Invoice item group ID
-        invoice_id:
-          type: integer
-          description: Invoice ID
-        organization_name:
-          type: string
-          description: Organization name
-        organization_id:
-          type: integer
-          description: Organization resource ID
-        subtotal_cents:
-          type: integer
-          description: Total amount (cents) for item group
-        created_at:
-          type: string
-          format: date
-          description: Item group creation date
-        updated_at:
-          type: string
-          format: date
-          description: Item group last update date
-        invoice_items:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoiceItem'
-          description: Item group associated items
-      description: Invoice item group resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     InvoiceItem:
       type: object
       properties:
@@ -281,6 +249,38 @@ components:
           type: integer
           description: Invoice item group ID
       description: Invoice item resource
+    InvoiceItemGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Invoice item group ID
+        invoice_id:
+          type: integer
+          description: Invoice ID
+        organization_name:
+          type: string
+          description: Organization name
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        subtotal_cents:
+          type: integer
+          description: Total amount (cents) for item group
+        created_at:
+          type: string
+          format: date
+          description: Item group creation date
+        updated_at:
+          type: string
+          format: date
+          description: Item group last update date
+        invoice_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+          description: Item group associated items
+      description: Invoice item group resource
   securitySchemes:
     header_authorization:
       type: apiKey

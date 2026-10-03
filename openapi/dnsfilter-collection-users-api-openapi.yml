@@ -232,6 +232,14 @@ paths:
       x-action: destroy
 components:
   schemas:
+    CollectionUserSpec:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/CollectionUserCreateSpec'
+      required:
+      - policy
+      description: Collection creation request parameters
     Error:
       type: object
       properties:
@@ -252,14 +260,6 @@ components:
       - collection_id
       - id
       description: Collection User creation request parameters
-    CollectionUserSpec:
-      type: object
-      properties:
-        policy:
-          $ref: '#/components/schemas/CollectionUserCreateSpec'
-      required:
-      - policy
-      description: Collection creation request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

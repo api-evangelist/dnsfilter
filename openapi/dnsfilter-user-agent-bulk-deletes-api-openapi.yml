@@ -351,16 +351,6 @@ paths:
       x-action: counts
 components:
   schemas:
-    UserAgentBulkDeleteCounts:
-      type: object
-      properties:
-        uninstall_and_delete:
-          type: integer
-          description: the count of user agents that can bed uninstalled and deleted
-        delete:
-          type: integer
-          description: the count of unsupported user agents that can be deleted
-      description: User agent counts by remote uninstall support
     UserAgentBulkDelete:
       type: object
       properties:
@@ -377,6 +367,16 @@ components:
           type: boolean
           description: true if action was bulk delete and uninstall
       description: User agent bulk delete
+    UserAgentBulkDeleteCounts:
+      type: object
+      properties:
+        uninstall_and_delete:
+          type: integer
+          description: the count of user agents that can bed uninstalled and deleted
+        delete:
+          type: integer
+          description: the count of unsupported user agents that can be deleted
+      description: User agent counts by remote uninstall support
     Error:
       type: object
       properties:

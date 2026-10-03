@@ -1103,6 +1103,192 @@ paths:
       x-action: rotate_secret_key
 components:
   schemas:
+    IpAddress:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP
+        address:
+          type: string
+          description: IP address
+        network_id:
+          type: integer
+          description: Network ID
+        organization_id:
+          type: integer
+          description: Organization ID
+      description: IpAddress resource
+    NetworkCounts:
+      type: object
+      properties:
+        all:
+          type: integer
+        offline:
+          type: integer
+        protected:
+          type: object
+          properties:
+            count:
+              type: integer
+            network_ids:
+              type: array
+              items:
+                type: integer
+        unprotected:
+          type: object
+          properties:
+            count:
+              type: integer
+            network_ids:
+              type: array
+              items:
+                type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    NetworkLookup:
+      type: object
+      properties:
+        block_org_name:
+          type: string
+          description: Blocked page organization name (may be null)
+        block_email_addr:
+          type: string
+          description: Blocked page email address (may be null)
+        block_logo_uuid:
+          type: string
+          description: Blocked page custom logo (may be null)
+        block_default_appearance:
+          type: boolean
+          description: Default page appearance for blocked pages
+      description: Network lookup response
+    NetworkSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Network'
+          relationships:
+            type: object
+            properties:
+              organization:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              ip_addresses:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+              policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              scheduled_policy:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              block_page:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+              policies:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Network associated resources
+      description: Network specification
+    NetworkCreateSpec:
+      type: object
+      properties:
+        network:
+          $ref: '#/components/schemas/NetworkCreate'
+      required:
+      - network
+      description: Network creation request parameters
+    NetworkGeo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Network ID
+        organization_id:
+          type: integer
+          description: Organization ID
+        name:
+          type: string
+          description: Network name
+        latitude:
+          type: number
+          format: double
+          description: Network reported latitude
+        longitude:
+          type: number
+          format: double
+          description: Network reported longitude
+        physical_address:
+          type: string
+          description: Network physical address (may be null)
+      description: NetworkGeo resource
+    NetworkBulkUpdateSpec:
+      type: object
+      properties:
+        ids:
+          type: string
+          description: Comma delimited Network IDs or keyword 'all'
+        organization_id:
+          type: integer
+          description: Organization ID. Required if ids is 'all'
+        policy_id:
+          type: integer
+          description: Policy ID
+        scheduled_policy_id:
+          type: integer
+          description: Scheduled Policy ID
+        block_page_id:
+          type: integer
+          description: Block Page ID
+        is_legacy_vpn_active:
+          type: boolean
+          description: Is Legacy VPN Active
+      required:
+      - ids
+      description: Network bulk update request parameters
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     NetworkCreate:
       type: object
       properties:
@@ -1154,42 +1340,6 @@ components:
       - name
       - organization_id
       description: Network creation request parameters
-    NetworkUpdateSpec:
-      type: object
-      properties:
-        network:
-          $ref: '#/components/schemas/NetworkUpdate'
-      required:
-      - network
-      description: Network update request parameters
-    NetworkBulkDestroySpec:
-      type: object
-      properties:
-        ids:
-          type: string
-          description: Comma delimited Network IDs or keyword 'all'
-        organization_id:
-          type: integer
-          description: Organization ID. Required if ids is 'all'
-      required:
-      - ids
-      description: Network bulk destroy request parameters
-    IpAddress:
-      type: object
-      properties:
-        ip:
-          type: string
-          description: IP
-        address:
-          type: string
-          description: IP address
-        network_id:
-          type: integer
-          description: Network ID
-        organization_id:
-          type: integer
-          description: Organization ID
-      description: IpAddress resource
     NetworkUpdate:
       type: object
       properties:
@@ -1243,39 +1393,18 @@ components:
       - name
       - organization_id
       description: Network update request parameters
-    NetworkCounts:
+    NetworkBulkDestroySpec:
       type: object
       properties:
-        all:
+        ids:
+          type: string
+          description: Comma delimited Network IDs or keyword 'all'
+        organization_id:
           type: integer
-        offline:
-          type: integer
-        protected:
-          type: object
-          properties:
-            count:
-              type: integer
-            network_ids:
-              type: array
-              items:
-                type: integer
-        unprotected:
-          type: object
-          properties:
-            count:
-              type: integer
-            network_ids:
-              type: array
-              items:
-                type: integer
-    NetworkCreateSpec:
-      type: object
-      properties:
-        network:
-          $ref: '#/components/schemas/NetworkCreate'
+          description: Organization ID. Required if ids is 'all'
       required:
-      - network
-      description: Network creation request parameters
+      - ids
+      description: Network bulk destroy request parameters
     IpAddressSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -1293,37 +1422,6 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: IP address associated network
       description: IpAddress specification
-    NetworkGeo:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Network ID
-        organization_id:
-          type: integer
-          description: Organization ID
-        name:
-          type: string
-          description: Network name
-        latitude:
-          type: number
-          format: double
-          description: Network reported latitude
-        longitude:
-          type: number
-          format: double
-          description: Network reported longitude
-        physical_address:
-          type: string
-          description: Network physical address (may be null)
-      description: NetworkGeo resource
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     Network:
       type: object
       properties:
@@ -1392,112 +1490,14 @@ components:
             type: string
           description: Array of IP addresses of local DNS serviers that handle local domains
       description: Network resource
-    Error:
+    NetworkUpdateSpec:
       type: object
       properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    NetworkSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/Network'
-          relationships:
-            type: object
-            properties:
-              organization:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-              ip_addresses:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/IdType'
-              policy:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-              scheduled_policy:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-              block_page:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-              policies:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/IdType'
-            description: Network associated resources
-      description: Network specification
-    NetworkBulkUpdateSpec:
-      type: object
-      properties:
-        ids:
-          type: string
-          description: Comma delimited Network IDs or keyword 'all'
-        organization_id:
-          type: integer
-          description: Organization ID. Required if ids is 'all'
-        policy_id:
-          type: integer
-          description: Policy ID
-        scheduled_policy_id:
-          type: integer
-          description: Scheduled Policy ID
-        block_page_id:
-          type: integer
-          description: Block Page ID
-        is_legacy_vpn_active:
-          type: boolean
-          description: Is Legacy VPN Active
+        network:
+          $ref: '#/components/schemas/NetworkUpdate'
       required:
-      - ids
-      description: Network bulk update request parameters
-    NetworkLookup:
-      type: object
-      properties:
-        block_org_name:
-          type: string
-          description: Blocked page organization name (may be null)
-        block_email_addr:
-          type: string
-          description: Blocked page email address (may be null)
-        block_logo_uuid:
-          type: string
-          description: Blocked page custom logo (may be null)
-        block_default_appearance:
-          type: boolean
-          description: Default page appearance for blocked pages
-      description: Network lookup response
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
+      - network
+      description: Network update request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -249,6 +249,49 @@ paths:
       x-action: destroy
 components:
   schemas:
+    ScheduledReportSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ScheduledReport'
+      description: Scheduled report specification
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    ScheduledReportRecipient:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address of recipient
+        organization:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+          description: Scheduled report recipient associated objects
+      description: Scheduled report recipient resource
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     ScheduledReport:
       type: object
       properties:
@@ -301,49 +344,6 @@ components:
             type: integer
           description: selected sub orgs for scheduled reports on msp organizations
       description: Scheduled report resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    ScheduledReportSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ScheduledReport'
-      description: Scheduled report specification
-    ScheduledReportRecipient:
-      type: object
-      properties:
-        email:
-          type: string
-          description: Email address of recipient
-        organization:
-          type: object
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-          description: Scheduled report recipient associated objects
-      description: Scheduled report recipient resource
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

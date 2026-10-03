@@ -501,23 +501,38 @@ paths:
       x-action: counts
 components:
   schemas:
-    Links:
+    AgentLocalUserUpdateSpec:
       type: object
       properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    StringContainsOp:
+        agent_local_user:
+          $ref: '#/components/schemas/AgentLocalUserUpdate'
+      required:
+      - agent_local_user
+      description: Agent local user update request parameters
+    Error:
       type: object
       properties:
-        operator:
+        error:
           type: string
-          enum:
-          - contains
-          - doesnotcontain
-        value:
-          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    AgentLocalUserSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AgentLocalUser'
+          relationships:
+            type: object
+            properties:
+              organization:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: Agent local user associated objects
+      description: Agent local user specification
     AgentLocalUser:
       type: object
       properties:
@@ -542,13 +557,26 @@ components:
           format: date
           description: Last time the user was seen
       description: Agent local user resource
-    Error:
+    Links:
       type: object
       properties:
-        error:
+        self:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     ArrayIntegerIsOp:
       type: object
       properties:
@@ -563,23 +591,6 @@ components:
             items:
               type: integer
           - type: string
-    AgentLocalUserSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/AgentLocalUser'
-          relationships:
-            type: object
-            properties:
-              organization:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-            description: Agent local user associated objects
-      description: Agent local user specification
     AgentLocalUserUpdate:
       type: object
       properties:
@@ -596,27 +607,16 @@ components:
           type: integer
           description: Agent local user custom block page ID
       description: Agent local user update request parameters
-    AgentLocalUserUpdateSpec:
+    StringContainsOp:
       type: object
       properties:
-        agent_local_user:
-          $ref: '#/components/schemas/AgentLocalUserUpdate'
-      required:
-      - agent_local_user
-      description: Agent local user update request parameters
-    IdType:
-      type: object
-      properties:
-        id:
+        operator:
           type: string
-          description: Resource Id (integer or uuid)
-        type:
+          enum:
+          - contains
+          - doesnotcontain
+        value:
           type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -342,19 +342,21 @@ paths:
       x-action: destroy
 components:
   schemas:
-    IdType:
+    NetworkSubnetCreateSpec:
       type: object
       properties:
-        id:
+        network_subnet:
+          $ref: '#/components/schemas/NetworkSubnetCreate'
+      required:
+      - network_subnet
+      description: Network subnet creation request parameters
+    Error:
+      type: object
+      properties:
+        error:
           type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     NetworkSubnet:
       type: object
       properties:
@@ -371,28 +373,6 @@ components:
           type: string
           description: Subnet upper private IP address
       description: User agent resource
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    NetworkSubnetCreateSpec:
-      type: object
-      properties:
-        network_subnet:
-          $ref: '#/components/schemas/NetworkSubnetCreate'
-      required:
-      - network_subnet
-      description: Network subnet creation request parameters
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     NetworkSubnetCreate:
       type: object
       properties:
@@ -419,6 +399,26 @@ components:
       - from
       - to
       description: Network creation request parameters
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     NetworkSubnetSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'

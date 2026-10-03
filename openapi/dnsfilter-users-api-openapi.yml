@@ -187,13 +187,6 @@ paths:
                   type: string
 components:
   schemas:
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     Error:
       type: object
       properties:
@@ -243,6 +236,13 @@ components:
           attributes:
             $ref: '#/components/schemas/User'
       description: User specification
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     IdType:
       type: object
       properties:

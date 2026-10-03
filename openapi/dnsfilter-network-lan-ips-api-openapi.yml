@@ -201,28 +201,13 @@ components:
           format: date
           description: Last traffic seen from this address (may be null)
       description: User agent resource
-    Links:
+    Error:
       type: object
       properties:
-        self:
+        error:
           type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    NetworkLanIpUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: LAN IP name or alias
-      description: Network creation request parameters
-    NetworkLanIpUpdateSpec:
-      type: object
-      properties:
-        network_lan_ip:
-          $ref: '#/components/schemas/NetworkLanIpUpdate'
-      required:
-      - network_lan_ip
-      description: Network subnet creation request parameters
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     NetworkLanIpSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -240,13 +225,20 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: LAN IP associated objects
       description: User agent specification
-    Error:
+    Links:
       type: object
       properties:
-        error:
+        self:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    NetworkLanIpUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: LAN IP name or alias
+      description: Network creation request parameters
     IdType:
       type: object
       properties:
@@ -260,6 +252,14 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
+    NetworkLanIpUpdateSpec:
+      type: object
+      properties:
+        network_lan_ip:
+          $ref: '#/components/schemas/NetworkLanIpUpdate'
+      required:
+      - network_lan_ip
+      description: Network subnet creation request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

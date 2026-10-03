@@ -289,6 +289,48 @@ paths:
       summary: Resend Invite
 components:
   schemas:
+    OrganizationUserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address
+        first_name:
+          type: string
+          description: First name
+        last_name:
+          type: string
+          description: Last name
+        phone:
+          type: string
+          description: Phone number
+        role:
+          type: string
+          description: One of "administrator", "read_only"
+        organization_permission_ids:
+          type: array
+          items:
+            type: integer
+          description: The organization ids to either add or remove permissions for.
+        is_include_only_list:
+          type: boolean
+          description: If true the user will only have access to organization_permission_ids. If false, it will prevent access to the organizations in organization_permission_ids.
+      description: OrganizationUser create request parameters
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    OrganizationUserCreateSpec:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/OrganizationUserCreate'
+      required:
+      - user
+      description: OrganizationUser creation request parameters
     OrganizationUser:
       type: object
       properties:
@@ -328,48 +370,6 @@ components:
           type: boolean
           description: MFA is enabled for the user
       description: OrganizationUser resource
-    OrganizationUserCreateSpec:
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/OrganizationUserCreate'
-      required:
-      - user
-      description: OrganizationUser creation request parameters
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    OrganizationUserCreate:
-      type: object
-      properties:
-        email:
-          type: string
-          description: Email address
-        first_name:
-          type: string
-          description: First name
-        last_name:
-          type: string
-          description: Last name
-        phone:
-          type: string
-          description: Phone number
-        role:
-          type: string
-          description: One of "administrator", "read_only"
-        organization_permission_ids:
-          type: array
-          items:
-            type: integer
-          description: The organization ids to either add or remove permissions for.
-        is_include_only_list:
-          type: boolean
-          description: If true the user will only have access to organization_permission_ids. If false, it will prevent access to the organizations in organization_permission_ids.
-      description: OrganizationUser create request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -91,21 +91,19 @@ paths:
                       type: string
 components:
   schemas:
-    Error:
+    IdType:
       type: object
       properties:
-        error:
+        id:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    UserSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/User'
-      description: User specification
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     User:
       type: object
       properties:
@@ -140,19 +138,21 @@ components:
                 type: string
           description: Optional list of MSPs user can add organizations to
       description: User resource
-    IdType:
+    UserSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/User'
+      description: User specification
+    Error:
       type: object
       properties:
-        id:
+        error:
           type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

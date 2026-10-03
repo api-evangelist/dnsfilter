@@ -99,13 +99,6 @@ paths:
               $ref: '#/components/schemas/UserUiSetting'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     UserUiSetting:
       type: object
       properties:
@@ -119,6 +112,13 @@ components:
           type: string
           description: 'UI color theme preference. Allowed values: light, dark, system. Defaults to system.'
       description: Payload for User UI settings
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

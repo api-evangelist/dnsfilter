@@ -301,6 +301,13 @@ paths:
       x-action: destroy
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     BlockPage:
       type: object
       properties:
@@ -328,13 +335,6 @@ components:
           format: date
           description: The last updated date of the block page
       description: Represents a custom block page
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

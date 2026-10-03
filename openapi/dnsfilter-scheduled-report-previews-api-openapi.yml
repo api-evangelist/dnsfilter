@@ -116,27 +116,6 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
-    ScheduledReportPreviewCreate:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: The organization that owns the scheduled report
-        include_threat_summary:
-          type: boolean
-          description: Report includes threat summary if true
-        include_content_category_summary:
-          type: boolean
-          description: Report include content category summary if true
-        content_categories_show_count:
-          type: string
-          enum:
-          - all_categories
-          - top5
-          - top10
-          - top15
-          description: Number of categories to show
-      description: Scheduled report preview creation params
     ScheduledReportPreview:
       allOf:
       - $ref: '#/components/schemas/ScheduledReportPreviewCreate'
@@ -167,6 +146,27 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
+    ScheduledReportPreviewCreate:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: The organization that owns the scheduled report
+        include_threat_summary:
+          type: boolean
+          description: Report includes threat summary if true
+        include_content_category_summary:
+          type: boolean
+          description: Report include content category summary if true
+        content_categories_show_count:
+          type: string
+          enum:
+          - all_categories
+          - top5
+          - top10
+          - top15
+          description: Number of categories to show
+      description: Scheduled report preview creation params
   securitySchemes:
     header_authorization:
       type: apiKey

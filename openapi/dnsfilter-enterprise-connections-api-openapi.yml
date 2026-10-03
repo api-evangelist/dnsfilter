@@ -262,23 +262,6 @@ paths:
       x-action: destroy
 components:
   schemas:
-    EnterpriseConnectionOptions:
-      type: object
-      properties:
-        client_id:
-          type: string
-          description: 'Used by: oidc'
-        client_secret:
-          type: string
-          description: 'Used by: oidc'
-        discovery_url:
-          type: string
-          description: 'Used by: oidc'
-      description: 'The options are dependent upon the strategy for the enterprise connection
-
-        itself. Check the descriptions for each attribute to determine if it is
-
-        necessary.'
     EnterpriseConnectionUpdatePayload:
       type: object
       properties:
@@ -322,6 +305,61 @@ components:
             type: string
           description: Domains that are authorized to connect.
       required:
+      - options
+      description: 'Note: To set your organization''s custom login url for enterprise
+
+        connections, you need to set the ''unique_id'' attribute on the
+
+        organization itself. See the PATCH /v1/organizations endpoint.'
+    EnterpriseConnectionCreatePayload:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        default_organization_id:
+          type: integer
+          description: Default organization ID
+        strategy:
+          type: string
+          enum:
+          - oidc
+        display_name:
+          type: string
+          description: The, UI visible, name of the connection. If blank will default to strategy.
+        role_default:
+          type: string
+          enum:
+          - administrator
+          - read_only
+          - owner
+          - technical
+          - accountant
+          - policies_only
+          - super_administrator
+          description: The default role. If blank, defaults to read_only.
+        role_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
+        options:
+          $ref: '#/components/schemas/EnterpriseConnectionOptions'
+        idp:
+          type: string
+          enum:
+          - openid
+          - okta
+          - azure
+          - google
+          description: The type of the enterprise connection's IDP.
+        authorized_domains:
+          type: array
+          items:
+            type: string
+          description: Domains that are authorized to connect.
+      required:
+      - organization_id
+      - strategy
       - options
       description: 'Note: To set your organization''s custom login url for enterprise
 
@@ -378,61 +416,6 @@ components:
           items:
             type: string
           description: Domains that are authorized to connect.
-    EnterpriseConnectionCreatePayload:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID
-        default_organization_id:
-          type: integer
-          description: Default organization ID
-        strategy:
-          type: string
-          enum:
-          - oidc
-        display_name:
-          type: string
-          description: The, UI visible, name of the connection. If blank will default to strategy.
-        role_default:
-          type: string
-          enum:
-          - administrator
-          - read_only
-          - owner
-          - technical
-          - accountant
-          - policies_only
-          - super_administrator
-          description: The default role. If blank, defaults to read_only.
-        role_map:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
-        options:
-          $ref: '#/components/schemas/EnterpriseConnectionOptions'
-        idp:
-          type: string
-          enum:
-          - openid
-          - okta
-          - azure
-          - google
-          description: The type of the enterprise connection's IDP.
-        authorized_domains:
-          type: array
-          items:
-            type: string
-          description: Domains that are authorized to connect.
-      required:
-      - organization_id
-      - strategy
-      - options
-      description: 'Note: To set your organization''s custom login url for enterprise
-
-        connections, you need to set the ''unique_id'' attribute on the
-
-        organization itself. See the PATCH /v1/organizations endpoint.'
     EnterpriseConnectionRoleMap:
       type: object
       properties:
@@ -440,6 +423,23 @@ components:
           type: string
         group:
           type: string
+    EnterpriseConnectionOptions:
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: 'Used by: oidc'
+        client_secret:
+          type: string
+          description: 'Used by: oidc'
+        discovery_url:
+          type: string
+          description: 'Used by: oidc'
+      description: 'The options are dependent upon the strategy for the enterprise connection
+
+        itself. Check the descriptions for each attribute to determine if it is
+
+        necessary.'
   securitySchemes:
     header_authorization:
       type: apiKey

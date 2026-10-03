@@ -1184,6 +1184,140 @@ paths:
       x-action: update_permissive_mode
 components:
   schemas:
+    PolicyUpdateSingleDomainSpec:
+      type: object
+      properties:
+        domain:
+          type: string
+          description: Domain
+        note:
+          type: string
+          description: Note
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+      required:
+      - domain
+      - note
+      description: Policy single domain update request parameters
+    PolicyUpdateSingleCategorySpec:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          description: Category ID
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+      required:
+      - category_id
+      description: Policy single category update request parameters
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    PolicyPermissiveModeSpec:
+      type: object
+      properties:
+        permissive_mode:
+          type: boolean
+          description: Policy's permissive mode value
+      description: Policy permissive mode response
+    PolicyCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Policy name
+        organization_id:
+          type: integer
+          description: Organization ID
+        allow_unknown_domains:
+          type: boolean
+          description: Allow unknown domains yes/no
+        google_safesearch:
+          type: boolean
+          description: Force Google safe search yes/no
+        bing_safe_search:
+          type: boolean
+          description: Force Bing safe search yes/no
+        duck_duck_go_safe_search:
+          type: boolean
+          description: Force Duck Duck Go safe search yes/no
+        ecosia_safesearch:
+          type: boolean
+          description: Force Ecosia safe search yes/no
+        youtube_restricted:
+          type: boolean
+          description: YouTube blocked yes/no
+        youtube_restricted_level:
+          type: string
+          enum:
+          - strict
+          - none
+          description: YouTube restricted level
+        interstitial:
+          type: boolean
+          description: Interstitial page enabled yes/no
+        policy_ip_id:
+          type: integer
+          description: Policy IP ID
+        whitelist_domains:
+          type: array
+          items:
+            type: string
+          description: Allowlisted domains
+        blacklist_domains:
+          type: array
+          items:
+            type: string
+          description: Blocklisted domains
+        blacklist_categories:
+          type: array
+          items:
+            type: integer
+          description: Blocklisted categories
+        is_global_policy:
+          type: boolean
+          description: Global Policy
+        allow_applications:
+          type: array
+          items:
+            type: string
+          description: Allowed applications
+        block_applications:
+          type: array
+          items:
+            type: string
+          description: Blocked applications
+        lock_version:
+          type: integer
+          description: Object version
+        yandex_safe_search:
+          type: boolean
+          description: Force Yandex safe search yes/no
+        allow_list_only:
+          type: boolean
+          description: If true, only domains on the allow list will be allowed. All others will be blocked regardless of configuration.
+      required:
+      - name
+      - organization_id
+      description: Policy creation request parameters
+    PolicyUpdateSingleApplicationSpec:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Application name
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+      required:
+      - name
+      description: Policy single application update request parameters
     PolicyApplicationSpec:
       type: object
       properties:
@@ -1202,42 +1336,6 @@ components:
             $ref: '#/components/schemas/PolicySpec'
           description: List of Policies blocked for an application
       description: Application policies response
-    Application:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Application name
-        display_name:
-          type: string
-          description: Application display name
-        description:
-          type: string
-          description: Application description
-        home_page_url:
-          type: string
-          description: Home page URL
-        favicon:
-          type: string
-          description: Application favicon
-        icon:
-          type: string
-          description: Application icon
-      description: Application resource
-    PolicyCreateSpec:
-      type: object
-      properties:
-        policy:
-          $ref: '#/components/schemas/PolicyCreate'
-        include_relationships:
-          type: boolean
-          description: Include relationships in the response true/false, defaults to true
-        append_domains:
-          type: boolean
-          description: 'Option to append allowlist/blocklist domains to the existing ones. Default: false'
-      required:
-      - policy
-      description: Policy creation request parameters
     Links:
       type: object
       properties:
@@ -1276,6 +1374,19 @@ components:
                       $ref: '#/components/schemas/IdType'
             description: Policy associated resources
       description: Policy specification
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     Policy:
       type: object
       properties:
@@ -1343,6 +1454,20 @@ components:
           type: boolean
           description: If true, only domains on the allow list will be allowed. All others will be blocked regardless of configuration.
       description: Policy resource
+    PolicyCreateSpec:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/PolicyCreate'
+        include_relationships:
+          type: boolean
+          description: Include relationships in the response true/false, defaults to true
+        append_domains:
+          type: boolean
+          description: 'Option to append allowlist/blocklist domains to the existing ones. Default: false'
+      required:
+      - policy
+      description: Policy creation request parameters
     Organization:
       type: object
       properties:
@@ -1490,153 +1615,28 @@ components:
               type: integer
           description: Vpn organization settings
       description: Organization resource
-    PolicyUpdateSingleApplicationSpec:
+    Application:
       type: object
       properties:
         name:
           type: string
           description: Application name
-        include_relationships:
-          type: boolean
-          description: Include relationships in the response true/false, defaults to true
-      required:
-      - name
-      description: Policy single application update request parameters
-    Error:
-      type: object
-      properties:
-        error:
+        display_name:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    PolicyUpdateSingleDomainSpec:
-      type: object
-      properties:
-        domain:
+          description: Application display name
+        description:
           type: string
-          description: Domain
-        note:
+          description: Application description
+        home_page_url:
           type: string
-          description: Note
-        include_relationships:
-          type: boolean
-          description: Include relationships in the response true/false, defaults to true
-      required:
-      - domain
-      - note
-      description: Policy single domain update request parameters
-    PolicyUpdateSingleCategorySpec:
-      type: object
-      properties:
-        category_id:
-          type: integer
-          description: Category ID
-        include_relationships:
-          type: boolean
-          description: Include relationships in the response true/false, defaults to true
-      required:
-      - category_id
-      description: Policy single category update request parameters
-    PolicyPermissiveModeSpec:
-      type: object
-      properties:
-        permissive_mode:
-          type: boolean
-          description: Policy's permissive mode value
-      description: Policy permissive mode response
-    PolicyCreate:
-      type: object
-      properties:
-        name:
+          description: Home page URL
+        favicon:
           type: string
-          description: Policy name
-        organization_id:
-          type: integer
-          description: Organization ID
-        allow_unknown_domains:
-          type: boolean
-          description: Allow unknown domains yes/no
-        google_safesearch:
-          type: boolean
-          description: Force Google safe search yes/no
-        bing_safe_search:
-          type: boolean
-          description: Force Bing safe search yes/no
-        duck_duck_go_safe_search:
-          type: boolean
-          description: Force Duck Duck Go safe search yes/no
-        ecosia_safesearch:
-          type: boolean
-          description: Force Ecosia safe search yes/no
-        youtube_restricted:
-          type: boolean
-          description: YouTube blocked yes/no
-        youtube_restricted_level:
+          description: Application favicon
+        icon:
           type: string
-          enum:
-          - strict
-          - none
-          description: YouTube restricted level
-        interstitial:
-          type: boolean
-          description: Interstitial page enabled yes/no
-        policy_ip_id:
-          type: integer
-          description: Policy IP ID
-        whitelist_domains:
-          type: array
-          items:
-            type: string
-          description: Allowlisted domains
-        blacklist_domains:
-          type: array
-          items:
-            type: string
-          description: Blocklisted domains
-        blacklist_categories:
-          type: array
-          items:
-            type: integer
-          description: Blocklisted categories
-        is_global_policy:
-          type: boolean
-          description: Global Policy
-        allow_applications:
-          type: array
-          items:
-            type: string
-          description: Allowed applications
-        block_applications:
-          type: array
-          items:
-            type: string
-          description: Blocked applications
-        lock_version:
-          type: integer
-          description: Object version
-        yandex_safe_search:
-          type: boolean
-          description: Force Yandex safe search yes/no
-        allow_list_only:
-          type: boolean
-          description: If true, only domains on the allow list will be allowed. All others will be blocked regardless of configuration.
-      required:
-      - name
-      - organization_id
-      description: Policy creation request parameters
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
+          description: Application icon
+      description: Application resource
   securitySchemes:
     header_authorization:
       type: apiKey

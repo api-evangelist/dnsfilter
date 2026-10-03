@@ -247,6 +247,49 @@ paths:
       x-action: show
 components:
   schemas:
+    CyberSightCsvExport:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: format:uuidv7 CyberSight CSV export UUID
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Organization IDs included in the export
+        url:
+          type: string
+          description: Presigned S3 URL to download the CSV file (null if export is still processing or failed)
+        error:
+          type: string
+          description: Error message if export failed (null if export succeeded)
+      description: CyberSight CSV Export
+    CyberSightCsvExportPending:
+      type: object
+      properties:
+        export:
+          type: object
+          properties:
+            uuid:
+              type: string
+            status:
+              type: string
+          description: Export information
+        export.uuid:
+          type: string
+          description: format:uuidv7 CyberSight CSV export UUID
+        export.status:
+          type: string
+          description: enum<processing> Status indicating the export is still processing
+      description: CyberSight CSV Export Pending Response
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     CyberSightCsvExportCreate:
       type: object
       properties:
@@ -391,49 +434,6 @@ components:
       - start_at
       - end_at
       description: CyberSight CSV Export creation request
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    CyberSightCsvExportPending:
-      type: object
-      properties:
-        export:
-          type: object
-          properties:
-            uuid:
-              type: string
-            status:
-              type: string
-          description: Export information
-        export.uuid:
-          type: string
-          description: format:uuidv7 CyberSight CSV export UUID
-        export.status:
-          type: string
-          description: enum<processing> Status indicating the export is still processing
-      description: CyberSight CSV Export Pending Response
-    CyberSightCsvExport:
-      type: object
-      properties:
-        uuid:
-          type: string
-          description: format:uuidv7 CyberSight CSV export UUID
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Organization IDs included in the export
-        url:
-          type: string
-          description: Presigned S3 URL to download the CSV file (null if export is still processing or failed)
-        error:
-          type: string
-          description: Error message if export failed (null if export succeeded)
-      description: CyberSight CSV Export
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -103,21 +103,6 @@ components:
           type: string
           description: NAT secondary address
       description: Policy IP resource
-    PolicyIpSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/PolicyIp'
-      description: Policy IP specification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     IdType:
       type: object
       properties:
@@ -131,6 +116,21 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    PolicyIpSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PolicyIp'
+      description: Policy IP specification
   securitySchemes:
     header_authorization:
       type: apiKey

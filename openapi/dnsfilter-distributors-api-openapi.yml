@@ -1654,69 +1654,6 @@ paths:
       x-action: skus_available
 components:
   schemas:
-    MspDistributor:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID
-        name:
-          type: string
-          description: MSP name
-        total_roaming_clients:
-          type: integer
-          description: Total Roaming Clients registered for the MSP
-        allow_site_creation:
-          type: boolean
-          description: 'Allows MSP customers to create sites on their own. (default: true)'
-        prevent_sub_org_creation:
-          type: boolean
-          description: 'Prevents the MSP on creating customers, the MSP has to rely on the distributor to do that (default: false)'
-        parent_organization:
-          $ref: '#/components/schemas/OrganizationDistributor'
-      description: MSP Distributor resource
-    UserMembershipDistributor:
-      type: object
-      properties:
-        role:
-          type: string
-          enum:
-          - owner
-          - super_administrator
-          - administrator
-          - read_only
-          - technical
-          - accountant
-          - policies_only
-          description: 'Note: An user could only be an owner of a single organization.
-
-            Note: An organization can only have one owner user'
-        organization_id:
-          type: integer
-          description: Organization ID for which the membership is going to be tied to
-        is_include_only_list:
-          type: boolean
-          description: 'Defines if the user is going to have access or restricted access to the organization list defined on the organization_permission_ids param:
-
-            true: user ONLY has access to the organizations/sub-organizations defined
-
-            on the organization_permission_ids param.
-
-            false: user has access to all MSP sub-organizations (or even the MSP parent
-
-            organization) EXCEPT to the ones defined on the organization_permission_ids
-
-            param.
-
-            Only valid if organization_id is an MSP parent organization, it will be always false otherwise'
-        organization_permission_ids:
-          type: array
-          items:
-            type: integer
-          description: 'List of organization/sub-organization IDs the user is going to have access/restricted access
-
-            Only valid if organization_id is an MSP parent organization, it will be always empty otherwise'
-      description: User Membership Distributor resource
     DistributorUpdate:
       type: object
       properties:
@@ -1731,6 +1668,62 @@ components:
         show_support_info:
           type: boolean
       description: Distributor update request parameters
+    UserDistributor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        email:
+          type: string
+          description: 'Email address.
+
+            It is lowercased on DNSFilter side.'
+        name:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        distributor_guid:
+          type: string
+          description: 'User ID on distributor systems.
+
+            It is lowercased on DNSFilter side.
+
+            This value should be unique across all distributor users if specified.'
+        created_at_epoch_utc:
+          type: integer
+        created_at:
+          type: integer
+        transferred_at:
+          type: integer
+        memberships:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserMembershipDistributor'
+      description: User Distributor resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    UserDistributorCreateSpec:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserDistributor'
+        membership:
+          $ref: '#/components/schemas/Membership'
+        send_reset_password_email:
+          type: boolean
+        return-reset_password_url:
+          type: boolean
+      required:
+      - user
+      - membership
     OrganizationDistributor:
       type: object
       properties:
@@ -1799,41 +1792,13 @@ components:
         transferred_at:
           type: integer
       description: OrganizationDistributor resource
-    UserDistributor:
+    OrganizationDistributorUpdateSpec:
       type: object
       properties:
-        id:
-          type: integer
-          description: ID
-        email:
-          type: string
-          description: 'Email address.
-
-            It is lowercased on DNSFilter side.'
-        name:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        distributor_guid:
-          type: string
-          description: 'User ID on distributor systems.
-
-            It is lowercased on DNSFilter side.
-
-            This value should be unique across all distributor users if specified.'
-        created_at_epoch_utc:
-          type: integer
-        created_at:
-          type: integer
-        transferred_at:
-          type: integer
-        memberships:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserMembershipDistributor'
-      description: User Distributor resource
+        msp:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      required:
+      - msp
     Membership:
       type: object
       properties:
@@ -1860,6 +1825,20 @@ components:
           $ref: '#/components/schemas/MspDistributor'
       required:
       - msp
+    DistributorUpdateSpec:
+      type: object
+      properties:
+        distributor:
+          $ref: '#/components/schemas/DistributorUpdate'
+      required:
+      - distributor
+    UserMembershipDistributorSpec:
+      type: object
+      properties:
+        membership:
+          $ref: '#/components/schemas/UserMembershipDistributor'
+      required:
+      - membership
     Distributor:
       type: object
       properties:
@@ -1881,55 +1860,6 @@ components:
         parent_organization:
           $ref: '#/components/schemas/OrganizationDistributor'
       description: Distributor resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    OrganizationDistributorUpdateSpec:
-      type: object
-      properties:
-        msp:
-          $ref: '#/components/schemas/OrganizationDistributor'
-      required:
-      - msp
-    UserDistributorCreateSpec:
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/UserDistributor'
-        membership:
-          $ref: '#/components/schemas/Membership'
-        send_reset_password_email:
-          type: boolean
-        return-reset_password_url:
-          type: boolean
-      required:
-      - user
-      - membership
-    UserMembershipDistributorSpec:
-      type: object
-      properties:
-        membership:
-          $ref: '#/components/schemas/UserMembershipDistributor'
-      required:
-      - membership
-    DistributorUpdateSpec:
-      type: object
-      properties:
-        distributor:
-          $ref: '#/components/schemas/DistributorUpdate'
-      required:
-      - distributor
-    MspDistributorCreateSpec:
-      type: object
-      properties:
-        msp:
-          $ref: '#/components/schemas/MspDistributor'
-      required:
-      - msp
     OrganizationDistributorCreateSpec:
       type: object
       properties:
@@ -1937,6 +1867,76 @@ components:
           $ref: '#/components/schemas/OrganizationDistributor'
       required:
       - msp
+    MspDistributorCreateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/MspDistributor'
+      required:
+      - msp
+    MspDistributor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        name:
+          type: string
+          description: MSP name
+        total_roaming_clients:
+          type: integer
+          description: Total Roaming Clients registered for the MSP
+        allow_site_creation:
+          type: boolean
+          description: 'Allows MSP customers to create sites on their own. (default: true)'
+        prevent_sub_org_creation:
+          type: boolean
+          description: 'Prevents the MSP on creating customers, the MSP has to rely on the distributor to do that (default: false)'
+        parent_organization:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      description: MSP Distributor resource
+    UserMembershipDistributor:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - owner
+          - super_administrator
+          - administrator
+          - read_only
+          - technical
+          - accountant
+          - policies_only
+          description: 'Note: An user could only be an owner of a single organization.
+
+            Note: An organization can only have one owner user'
+        organization_id:
+          type: integer
+          description: Organization ID for which the membership is going to be tied to
+        is_include_only_list:
+          type: boolean
+          description: 'Defines if the user is going to have access or restricted access to the organization list defined on the organization_permission_ids param:
+
+            true: user ONLY has access to the organizations/sub-organizations defined
+
+            on the organization_permission_ids param.
+
+            false: user has access to all MSP sub-organizations (or even the MSP parent
+
+            organization) EXCEPT to the ones defined on the organization_permission_ids
+
+            param.
+
+            Only valid if organization_id is an MSP parent organization, it will be always false otherwise'
+        organization_permission_ids:
+          type: array
+          items:
+            type: integer
+          description: 'List of organization/sub-organization IDs the user is going to have access/restricted access
+
+            Only valid if organization_id is an MSP parent organization, it will be always empty otherwise'
+      description: User Membership Distributor resource
   securitySchemes:
     header_authorization:
       type: apiKey

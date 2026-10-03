@@ -604,25 +604,21 @@ paths:
       x-action: promote_to_msp
 components:
   schemas:
-    OrganizationSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/Organization'
-          relationships:
-            type: object
-            properties:
-              networks:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/IdType'
-            description: Network associated resources
-      description: Organization specification
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    OrganizationCreateSpec:
+      type: object
+      properties:
+        organization:
+          $ref: '#/components/schemas/OrganizationCreate'
+      required:
+      - organization
+      description: Organization creation request parameters
     Links:
       type: object
       properties:
@@ -630,6 +626,19 @@ components:
           type: string
           description: Endpoint URL (may be null)
       description: JSON API links member representation
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     OrganizationBulkUpdate:
       type: object
       properties:
@@ -667,6 +676,25 @@ components:
               type: integer
           description: Vpn organization settings
       description: Organization bulk update parameters
+    OrganizationSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Organization'
+          relationships:
+            type: object
+            properties:
+              networks:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Network associated resources
+      description: Organization specification
     OrganizationCreate:
       type: object
       properties:
@@ -722,13 +750,6 @@ components:
       - name
       - managed_by_msp_id
       description: Organization creation request parameters
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     Organization:
       type: object
       properties:
@@ -876,27 +897,6 @@ components:
               type: integer
           description: Vpn organization settings
       description: Organization resource
-    OrganizationCreateSpec:
-      type: object
-      properties:
-        organization:
-          $ref: '#/components/schemas/OrganizationCreate'
-      required:
-      - organization
-      description: Organization creation request parameters
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

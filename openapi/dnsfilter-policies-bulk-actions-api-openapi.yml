@@ -162,6 +162,13 @@ paths:
               $ref: '#/components/schemas/PolicyBulkActionListDomains'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     PolicyBulkActionsListDomainsResponse:
       type: object
       properties:
@@ -201,13 +208,6 @@ components:
             type: integer
           description: Policy IDs to operate on
       description: Payload for policy bulk actions for allow/block lists
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

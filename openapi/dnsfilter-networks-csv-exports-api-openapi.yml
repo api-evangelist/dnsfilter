@@ -118,31 +118,6 @@ paths:
       x-action: show
 components:
   schemas:
-    NetworksCsvExportCreate:
-      type: object
-      properties:
-        networks_csv_export:
-          type: object
-          properties:
-            organization_ids:
-              type: array
-              items:
-                type: integer
-            msp_id:
-              type: integer
-            ids:
-              type: array
-              items:
-                type: integer
-          description: CSV export attributes
-      description: Networks csv export
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     NetworksCsvExport:
       type: object
       properties:
@@ -160,6 +135,31 @@ components:
         error:
           type: string
           description: Error message if export failed
+      description: Networks csv export
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    NetworksCsvExportCreate:
+      type: object
+      properties:
+        networks_csv_export:
+          type: object
+          properties:
+            organization_ids:
+              type: array
+              items:
+                type: integer
+            msp_id:
+              type: integer
+            ids:
+              type: array
+              items:
+                type: integer
+          description: CSV export attributes
       description: Networks csv export
   securitySchemes:
     header_authorization:

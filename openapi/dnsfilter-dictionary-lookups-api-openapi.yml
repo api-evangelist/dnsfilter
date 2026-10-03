@@ -104,22 +104,6 @@ paths:
       x-action: vpn_settings_state_types
 components:
   schemas:
-    CyberSightActivityType:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Activity type ID
-        name:
-          type: string
-          description: The name of the activity type
-        friendly_name:
-          type: string
-          description: The friendly/display name that can be shown to the user
-        description:
-          type: string
-          description: Simple description of the activity
-      description: Activity Types
     VpnSettingsStateType:
       type: object
       properties:
@@ -143,6 +127,22 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
+    CyberSightActivityType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Activity type ID
+        name:
+          type: string
+          description: The name of the activity type
+        friendly_name:
+          type: string
+          description: The friendly/display name that can be shown to the user
+        description:
+          type: string
+          description: Simple description of the activity
+      description: Activity Types
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -269,21 +269,6 @@ paths:
       x-action: revoke
 components:
   schemas:
-    ApiKeySpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ApiKey'
-      description: ApiKey specification
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     Error:
       type: object
       properties:
@@ -291,6 +276,26 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     ApiKey:
       type: object
       properties:
@@ -319,6 +324,14 @@ components:
           type: integer
           description: associated user to api key
       description: ApiKey resource
+    ApiKeySpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ApiKey'
+      description: ApiKey specification
     ApiKeyCreateSpec:
       type: object
       properties:
@@ -329,19 +342,6 @@ components:
           type: string
           description: 2024-12-22T17:24:32.162-05:00 intended expiry
       description: Api key creation specification
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
   securitySchemes:
     header_authorization:
       type: apiKey

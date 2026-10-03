@@ -146,35 +146,6 @@ paths:
       x-action: show
 components:
   schemas:
-    Application:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Application name
-        display_name:
-          type: string
-          description: Application display name
-        description:
-          type: string
-          description: Application description
-        home_page_url:
-          type: string
-          description: Home page URL
-        favicon:
-          type: string
-          description: Application favicon
-        icon:
-          type: string
-          description: Application icon
-      description: Application resource
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     ApplicationSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -201,6 +172,13 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     IdType:
       type: object
       properties:
@@ -214,6 +192,28 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
+    Application:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Application name
+        display_name:
+          type: string
+          description: Application display name
+        description:
+          type: string
+          description: Application description
+        home_page_url:
+          type: string
+          description: Home page URL
+        favicon:
+          type: string
+          description: Application favicon
+        icon:
+          type: string
+          description: Application icon
+      description: Application resource
   securitySchemes:
     header_authorization:
       type: apiKey
