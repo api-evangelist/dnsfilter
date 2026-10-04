@@ -271,13 +271,6 @@ paths:
       x-action: destroy
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     ScheduledPolicy:
       type: object
       properties:
@@ -296,6 +289,13 @@ components:
           type: string
           description: The timezone string (e.g. America/New_York) for localizing the policy
       description: Represents a time based policy
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

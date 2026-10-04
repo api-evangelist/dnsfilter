@@ -993,39 +993,28 @@ paths:
                   $ref: '#/components/schemas/UserAgentSettingsBody'
 components:
   schemas:
-    UserAgentPatch:
+    LegacyUserAgentCounts:
       type: object
       properties:
-        friendly_name:
-          type: string
-          description: Agent friendly name
-        status:
-          type: string
-          enum:
-          - active
-          - disabled
-          - uninstalled
-          description: Agent status
-        network_id:
+        all:
           type: integer
-          description: User agent network/site ID, useful to change user agent between networks/sites
-        policy_id:
+          description: the count of all user agents
+        protected:
           type: integer
-          description: 'Agent custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
-        scheduled_policy_id:
+          description: the count of protected user agents
+        unprotected:
           type: integer
-          description: Agent custom scheduled policy ID
-        block_page_id:
+          description: the count of unprotected user agents
+        bypassed:
           type: integer
-          description: Agent custom block page ID
-        tags:
-          type: array
-          items:
-            type: string
-          description: Agent tags
-        vpn_settings_user_agent_attributes:
-          $ref: '#/components/schemas/VpnSettingsUserAgentAttributes'
-      description: User agent creation request parameters
+          description: the count of bypassed user agents
+        pending_uninstall:
+          type: integer
+          description: the count of pending uninstall agents
+        uninstalled:
+          type: integer
+          description: the count of uninstalled user agents
+      description: User agent counts by state
     UserAgentSettingsBody:
       type: object
       properties:
@@ -1034,56 +1023,6 @@ components:
         filtering_client_setting_attributes:
           $ref: '#/components/schemas/FilteringClientSettingAttributes'
       description: Payload for user agent settings
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    UserAgentCount:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total user agents based on filters
-      description: User agents count
-    FilteringClientSettingAttributes:
-      type: object
-      properties:
-        id:
-          type: string
-          description: '] Filtering client setting id'
-        connection_method:
-          type: string
-          enum:
-          - unknown
-          - transparent_proxy
-          - loopback
-          description: User agents connection method
-        filtering_method:
-          type: string
-          enum:
-          - unknown
-          - precheck
-          - dns_filtering
-          description: User agents filtering method
-        fail_over_method:
-          type: string
-          enum:
-          - unknown
-          - fail_open
-          - fail_close
-          description: User agents fail over method
-      description: Filtering client setting attributes
-    UserAgentPatchSpec:
-      type: object
-      properties:
-        user_agent:
-          $ref: '#/components/schemas/UserAgentPatch'
-      required:
-      - user_agent
-      description: User agent update request parameters
     UserAgentSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -1111,34 +1050,19 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: '] User agent associated objects'
       description: User agent specification
-    UserAgentFilteringClientSetting:
+    IdType:
       type: object
       properties:
-        auto_updates:
-          type: boolean
-          description: Auto updates setting
-        connection_method:
+        id:
           type: string
-          enum:
-          - inherit
-          - transparent_prox
-          - loopback
-          description: Configures connection type
-        filtering_method:
+          description: Resource Id (integer or uuid)
+        type:
           type: string
-          enum:
-          - inherit
-          - precheck
-          - dns_filtering
-          description: Configures filtering mode
-        fail_over_method:
+          description: Resource type name
+        uuid:
           type: string
-          enum:
-          - inherit
-          - fail_open
-          - fail_close
-          description: Configures fail over method
-      description: User agent filtering client setting
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     DeviceSettingAttributes:
       type: object
       properties:
@@ -1160,48 +1084,20 @@ components:
           - error
           - critical
       description: Device setting attributes
-    Links:
+    UserAgentCount:
       type: object
       properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    IdType:
+        count:
+          type: integer
+          description: Total user agents based on filters
+      description: User agents count
+    Error:
       type: object
       properties:
-        id:
+        error:
           type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    LegacyUserAgentCounts:
-      type: object
-      properties:
-        all:
-          type: integer
-          description: the count of all user agents
-        protected:
-          type: integer
-          description: the count of protected user agents
-        unprotected:
-          type: integer
-          description: the count of unprotected user agents
-        bypassed:
-          type: integer
-          description: the count of bypassed user agents
-        pending_uninstall:
-          type: integer
-          description: the count of pending uninstall agents
-        uninstalled:
-          type: integer
-          description: the count of uninstalled user agents
-      description: User agent counts by state
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     UserAgent:
       type: object
       properties:
@@ -1335,6 +1231,110 @@ components:
         filtering_client_setting:
           $ref: '#/components/schemas/UserAgentFilteringClientSetting'
       description: User agent resource
+    UserAgentFilteringClientSetting:
+      type: object
+      properties:
+        auto_updates:
+          type: boolean
+          description: Auto updates setting
+        connection_method:
+          type: string
+          enum:
+          - inherit
+          - transparent_prox
+          - loopback
+          description: Configures connection type
+        filtering_method:
+          type: string
+          enum:
+          - inherit
+          - precheck
+          - dns_filtering
+          description: Configures filtering mode
+        fail_over_method:
+          type: string
+          enum:
+          - inherit
+          - fail_open
+          - fail_close
+          description: Configures fail over method
+      description: User agent filtering client setting
+    UserAgentPatchSpec:
+      type: object
+      properties:
+        user_agent:
+          $ref: '#/components/schemas/UserAgentPatch'
+      required:
+      - user_agent
+      description: User agent update request parameters
+    FilteringClientSettingAttributes:
+      type: object
+      properties:
+        id:
+          type: string
+          description: '] Filtering client setting id'
+        connection_method:
+          type: string
+          enum:
+          - unknown
+          - transparent_proxy
+          - loopback
+          description: User agents connection method
+        filtering_method:
+          type: string
+          enum:
+          - unknown
+          - precheck
+          - dns_filtering
+          description: User agents filtering method
+        fail_over_method:
+          type: string
+          enum:
+          - unknown
+          - fail_open
+          - fail_close
+          description: User agents fail over method
+      description: Filtering client setting attributes
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    UserAgentPatch:
+      type: object
+      properties:
+        friendly_name:
+          type: string
+          description: Agent friendly name
+        status:
+          type: string
+          enum:
+          - active
+          - disabled
+          - uninstalled
+          description: Agent status
+        network_id:
+          type: integer
+          description: User agent network/site ID, useful to change user agent between networks/sites
+        policy_id:
+          type: integer
+          description: 'Agent custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
+        scheduled_policy_id:
+          type: integer
+          description: Agent custom scheduled policy ID
+        block_page_id:
+          type: integer
+          description: Agent custom block page ID
+        tags:
+          type: array
+          items:
+            type: string
+          description: Agent tags
+        vpn_settings_user_agent_attributes:
+          $ref: '#/components/schemas/VpnSettingsUserAgentAttributes'
+      description: User agent creation request parameters
     VpnSettingsUserAgentAttributes:
       type: object
       properties:

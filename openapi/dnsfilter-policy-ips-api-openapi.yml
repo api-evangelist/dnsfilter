@@ -90,19 +90,14 @@ paths:
       x-action: show
 components:
   schemas:
-    PolicyIp:
-      type: object
-      properties:
-        friendly_id:
-          type: integer
-          description: Policy IP ID
-        primary_address:
-          type: string
-          description: NAT primary address
-        secondary_address:
-          type: string
-          description: NAT secondary address
-      description: Policy IP resource
+    PolicyIpSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PolicyIp'
+      description: Policy IP specification
     IdType:
       type: object
       properties:
@@ -123,14 +118,19 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
-    PolicyIpSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/PolicyIp'
-      description: Policy IP specification
+    PolicyIp:
+      type: object
+      properties:
+        friendly_id:
+          type: integer
+          description: Policy IP ID
+        primary_address:
+          type: string
+          description: NAT primary address
+        secondary_address:
+          type: string
+          description: NAT secondary address
+      description: Policy IP resource
   securitySchemes:
     header_authorization:
       type: apiKey

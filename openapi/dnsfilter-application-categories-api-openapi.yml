@@ -89,6 +89,27 @@ paths:
       x-action: show
 components:
   schemas:
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+    ApplicationCategorySpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ApplicationCategory'
+      description: ApplicaitonCategory specification
     Error:
       type: object
       properties:
@@ -113,27 +134,6 @@ components:
           type: string
           description: Endpoint URL (may be null)
       description: JSON API links member representation
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    ApplicationCategorySpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ApplicationCategory'
-      description: ApplicaitonCategory specification
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -136,13 +136,6 @@ components:
           type: string
           description: Error message if export failed
       description: Networks csv export
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     NetworksCsvExportCreate:
       type: object
       properties:
@@ -161,6 +154,13 @@ components:
                 type: integer
           description: CSV export attributes
       description: Networks csv export
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

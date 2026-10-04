@@ -262,6 +262,73 @@ paths:
       x-action: destroy
 components:
   schemas:
+    EnterpriseConnection:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        organization_id:
+          type: integer
+          description: Organization ID
+        default_organization_id:
+          type: integer
+          description: Default organization ID
+        name:
+          type: string
+          description: Name
+        display_name:
+          type: string
+          description: Display Name
+        role_default:
+          type: integer
+          description: Default role
+        role_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
+          description: Role map
+        sub_prefix:
+          type: string
+        conn_id:
+          type: string
+        idp:
+          type: string
+          enum:
+          - openid
+          - okta
+          - azure
+          - google
+          description: The type of the enterprise connection's IDP.
+        authorized_domains:
+          type: array
+          items:
+            type: string
+          description: Domains that are authorized to connect.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    EnterpriseConnectionOptions:
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: 'Used by: oidc'
+        client_secret:
+          type: string
+          description: 'Used by: oidc'
+        discovery_url:
+          type: string
+          description: 'Used by: oidc'
+      description: 'The options are dependent upon the strategy for the enterprise connection
+
+        itself. Check the descriptions for each attribute to determine if it is
+
+        necessary.'
     EnterpriseConnectionUpdatePayload:
       type: object
       properties:
@@ -366,56 +433,6 @@ components:
         connections, you need to set the ''unique_id'' attribute on the
 
         organization itself. See the PATCH /v1/organizations endpoint.'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    EnterpriseConnection:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID
-        organization_id:
-          type: integer
-          description: Organization ID
-        default_organization_id:
-          type: integer
-          description: Default organization ID
-        name:
-          type: string
-          description: Name
-        display_name:
-          type: string
-          description: Display Name
-        role_default:
-          type: integer
-          description: Default role
-        role_map:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnterpriseConnectionRoleMap'
-          description: Role map
-        sub_prefix:
-          type: string
-        conn_id:
-          type: string
-        idp:
-          type: string
-          enum:
-          - openid
-          - okta
-          - azure
-          - google
-          description: The type of the enterprise connection's IDP.
-        authorized_domains:
-          type: array
-          items:
-            type: string
-          description: Domains that are authorized to connect.
     EnterpriseConnectionRoleMap:
       type: object
       properties:
@@ -423,23 +440,6 @@ components:
           type: string
         group:
           type: string
-    EnterpriseConnectionOptions:
-      type: object
-      properties:
-        client_id:
-          type: string
-          description: 'Used by: oidc'
-        client_secret:
-          type: string
-          description: 'Used by: oidc'
-        discovery_url:
-          type: string
-          description: 'Used by: oidc'
-      description: 'The options are dependent upon the strategy for the enterprise connection
-
-        itself. Check the descriptions for each attribute to determine if it is
-
-        necessary.'
   securitySchemes:
     header_authorization:
       type: apiKey

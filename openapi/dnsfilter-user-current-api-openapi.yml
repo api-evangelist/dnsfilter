@@ -91,19 +91,6 @@ paths:
                       type: string
 components:
   schemas:
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
     User:
       type: object
       properties:
@@ -138,6 +125,19 @@ components:
                 type: string
           description: Optional list of MSPs user can add organizations to
       description: User resource
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     UserSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'

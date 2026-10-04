@@ -165,20 +165,6 @@ components:
                       $ref: '#/components/schemas/IdType'
             description: Application categories
       description: Application specification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     IdType:
       type: object
       properties:
@@ -214,6 +200,20 @@ components:
           type: string
           description: Application icon
       description: Application resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
   securitySchemes:
     header_authorization:
       type: apiKey

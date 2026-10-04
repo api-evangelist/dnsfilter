@@ -122,6 +122,25 @@ paths:
       x-action: show
 components:
   schemas:
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name
+        description:
+          type: string
+          description: Description
+        source:
+          type: string
+          description: Source
+        security:
+          type: boolean
+          description: It is classified as a security threat
+        internal:
+          type: boolean
+          description: True if the category is used internally such as content servers or unknown categorizations
+      description: Category resource
     CategorySpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -148,39 +167,6 @@ components:
                       $ref: '#/components/schemas/IdType'
             description: Category hierarchy
       description: Category specification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    Category:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name
-        description:
-          type: string
-          description: Description
-        source:
-          type: string
-          description: Source
-        security:
-          type: boolean
-          description: It is classified as a security threat
-        internal:
-          type: boolean
-          description: True if the category is used internally such as content servers or unknown categorizations
-      description: Category resource
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     IdType:
       type: object
       properties:
@@ -194,6 +180,20 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
   securitySchemes:
     header_authorization:
       type: apiKey

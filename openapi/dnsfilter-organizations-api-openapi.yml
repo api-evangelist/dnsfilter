@@ -604,28 +604,6 @@ paths:
       x-action: promote_to_msp
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    OrganizationCreateSpec:
-      type: object
-      properties:
-        organization:
-          $ref: '#/components/schemas/OrganizationCreate'
-      required:
-      - organization
-      description: Organization creation request parameters
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     IdType:
       type: object
       properties:
@@ -639,117 +617,6 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
-    OrganizationBulkUpdate:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Organization IDs to update
-        msp_id:
-          type: integer
-          description: MSP ID, scope update to all accessable sub-orgs (overrides organization_ids)
-        exclude_organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Organization IDs to exclude
-        send_uninstall_notifications_to_admin_users:
-          type: boolean
-          description: True if uninstall notifications should be sent to admin users
-        user_agent_uninstall_notification:
-          type: boolean
-          description: True if user agents uninstalls should trigger notification
-        user_agent_uninstall_notification_recipient_emails:
-          type: array
-          items:
-            type: string
-          description: Recipients to receive uninstalled user agent notifications
-        user_agents_auto_update:
-          type: boolean
-          description: True if user agents will auto update
-        vpn_settings_organization_attributes:
-          type: object
-          properties:
-            vpn_settings_state_type_id:
-              type: integer
-          description: Vpn organization settings
-      description: Organization bulk update parameters
-    OrganizationSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/Organization'
-          relationships:
-            type: object
-            properties:
-              networks:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/IdType'
-            description: Network associated resources
-      description: Organization specification
-    OrganizationCreate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Organization legal name
-        billing_contact_name:
-          type: string
-          description: Contact name
-        billing_contact_phone:
-          type: string
-          description: Contact phone
-        billing_contact_email:
-          type: string
-          description: Contact email
-        address:
-          type: string
-          description: Legal address
-        managed_by_msp_id:
-          type: integer
-          description: Organization is managed by the specified MSP
-        unique_id:
-          type: string
-          description: Used to determine custom login url for enterprise connections
-        sku:
-          type: string
-          description: SKU for plan type selected
-        quantity:
-          type: integer
-          description: Number of licenses to assign
-        vpn_settings_organization_attributes:
-          type: object
-          properties:
-            id:
-              type: integer
-            vpn_settings_state_type_id:
-              type: integer
-            _destroy:
-              type: boolean
-          description: Vpn organization settings
-        privacy_mode:
-          type: string
-          enum:
-          - inherit
-          - standard
-          - identify_devices
-          - maximum
-          description: Privacy mode for the organization, either
-        enable_cybersight:
-          type: boolean
-          description: This will only enable access if the organization is entitled to CyberSight
-      required:
-      - name
-      - managed_by_msp_id
-      description: Organization creation request parameters
     Organization:
       type: object
       properties:
@@ -897,6 +764,139 @@ components:
               type: integer
           description: Vpn organization settings
       description: Organization resource
+    OrganizationCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Organization legal name
+        billing_contact_name:
+          type: string
+          description: Contact name
+        billing_contact_phone:
+          type: string
+          description: Contact phone
+        billing_contact_email:
+          type: string
+          description: Contact email
+        address:
+          type: string
+          description: Legal address
+        managed_by_msp_id:
+          type: integer
+          description: Organization is managed by the specified MSP
+        unique_id:
+          type: string
+          description: Used to determine custom login url for enterprise connections
+        sku:
+          type: string
+          description: SKU for plan type selected
+        quantity:
+          type: integer
+          description: Number of licenses to assign
+        vpn_settings_organization_attributes:
+          type: object
+          properties:
+            id:
+              type: integer
+            vpn_settings_state_type_id:
+              type: integer
+            _destroy:
+              type: boolean
+          description: Vpn organization settings
+        privacy_mode:
+          type: string
+          enum:
+          - inherit
+          - standard
+          - identify_devices
+          - maximum
+          description: Privacy mode for the organization, either
+        enable_cybersight:
+          type: boolean
+          description: This will only enable access if the organization is entitled to CyberSight
+      required:
+      - name
+      - managed_by_msp_id
+      description: Organization creation request parameters
+    OrganizationSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/Organization'
+          relationships:
+            type: object
+            properties:
+              networks:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IdType'
+            description: Network associated resources
+      description: Organization specification
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    OrganizationBulkUpdate:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Organization IDs to update
+        msp_id:
+          type: integer
+          description: MSP ID, scope update to all accessable sub-orgs (overrides organization_ids)
+        exclude_organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Organization IDs to exclude
+        send_uninstall_notifications_to_admin_users:
+          type: boolean
+          description: True if uninstall notifications should be sent to admin users
+        user_agent_uninstall_notification:
+          type: boolean
+          description: True if user agents uninstalls should trigger notification
+        user_agent_uninstall_notification_recipient_emails:
+          type: array
+          items:
+            type: string
+          description: Recipients to receive uninstalled user agent notifications
+        user_agents_auto_update:
+          type: boolean
+          description: True if user agents will auto update
+        vpn_settings_organization_attributes:
+          type: object
+          properties:
+            vpn_settings_state_type_id:
+              type: integer
+          description: Vpn organization settings
+      description: Organization bulk update parameters
+    OrganizationCreateSpec:
+      type: object
+      properties:
+        organization:
+          $ref: '#/components/schemas/OrganizationCreate'
+      required:
+      - organization
+      description: Organization creation request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

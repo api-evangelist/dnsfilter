@@ -89,6 +89,13 @@ components:
         active:
           type: boolean
       description: Trial details
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     TrialCreate:
       type: object
       properties:
@@ -97,13 +104,6 @@ components:
         sku:
           type: string
       description: Trial resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

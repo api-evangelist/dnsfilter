@@ -501,6 +501,19 @@ paths:
       x-action: counts
 components:
   schemas:
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
     AgentLocalUserUpdateSpec:
       type: object
       properties:
@@ -509,30 +522,22 @@ components:
       required:
       - agent_local_user
       description: Agent local user update request parameters
-    Error:
+    AgentLocalUserUpdate:
       type: object
       properties:
-        error:
+        friendly_name:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    AgentLocalUserSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/AgentLocalUser'
-          relationships:
-            type: object
-            properties:
-              organization:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-            description: Agent local user associated objects
-      description: Agent local user specification
+          description: Agent local user friendly name
+        policy_id:
+          type: integer
+          description: 'Agent local user custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
+        scheduled_policy_id:
+          type: integer
+          description: Agent local user custom scheduled policy ID
+        block_page_id:
+          type: integer
+          description: Agent local user custom block page ID
+      description: Agent local user update request parameters
     AgentLocalUser:
       type: object
       properties:
@@ -557,26 +562,13 @@ components:
           format: date
           description: Last time the user was seen
       description: Agent local user resource
-    Links:
+    Error:
       type: object
       properties:
-        self:
+        error:
           type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     ArrayIntegerIsOp:
       type: object
       properties:
@@ -591,22 +583,6 @@ components:
             items:
               type: integer
           - type: string
-    AgentLocalUserUpdate:
-      type: object
-      properties:
-        friendly_name:
-          type: string
-          description: Agent local user friendly name
-        policy_id:
-          type: integer
-          description: 'Agent local user custom policy ID, *NOTE*: will be ignored and unset if *scheduled_policy_id* is set'
-        scheduled_policy_id:
-          type: integer
-          description: Agent local user custom scheduled policy ID
-        block_page_id:
-          type: integer
-          description: Agent local user custom block page ID
-      description: Agent local user update request parameters
     StringContainsOp:
       type: object
       properties:
@@ -617,6 +593,30 @@ components:
           - doesnotcontain
         value:
           type: string
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
+    AgentLocalUserSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AgentLocalUser'
+          relationships:
+            type: object
+            properties:
+              organization:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: Agent local user associated objects
+      description: Agent local user specification
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -180,6 +180,58 @@ paths:
               $ref: '#/components/schemas/NetworkLanIpUpdateSpec'
 components:
   schemas:
+    NetworkLanIpUpdateSpec:
+      type: object
+      properties:
+        network_lan_ip:
+          $ref: '#/components/schemas/NetworkLanIpUpdate'
+      required:
+      - network_lan_ip
+      description: Network subnet creation request parameters
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+    NetworkLanIpSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/NetworkLanIp'
+          relationships:
+            type: object
+            properties:
+              network:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: LAN IP associated objects
+      description: User agent specification
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    NetworkLanIpUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: LAN IP name or alias
+      description: Network creation request parameters
     NetworkLanIp:
       type: object
       properties:
@@ -201,30 +253,6 @@ components:
           format: date
           description: Last traffic seen from this address (may be null)
       description: User agent resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    NetworkLanIpSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/NetworkLanIp'
-          relationships:
-            type: object
-            properties:
-              network:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-            description: LAN IP associated objects
-      description: User agent specification
     Links:
       type: object
       properties:
@@ -232,34 +260,6 @@ components:
           type: string
           description: Endpoint URL (may be null)
       description: JSON API links member representation
-    NetworkLanIpUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: LAN IP name or alias
-      description: Network creation request parameters
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    NetworkLanIpUpdateSpec:
-      type: object
-      properties:
-        network_lan_ip:
-          $ref: '#/components/schemas/NetworkLanIpUpdate'
-      required:
-      - network_lan_ip
-      description: Network subnet creation request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

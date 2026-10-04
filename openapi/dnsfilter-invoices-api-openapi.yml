@@ -128,13 +128,77 @@ paths:
       x-action: show
 components:
   schemas:
-    Error:
+    InvoiceItem:
       type: object
       properties:
-        error:
+        id:
+          type: integer
+          description: Invoice item ID
+        invoice_id:
+          type: integer
+          description: Invoice ID
+        network_name:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
+          description: Network name
+        network_id:
+          type: integer
+          description: Network ID
+        cents:
+          type: integer
+          description: Total amount (cents) for item
+        requests:
+          type: integer
+          description: Total number of DNS requests for item
+        created_at:
+          type: string
+          format: date
+          description: Item creation date
+        updated_at:
+          type: string
+          format: date
+          description: Item last update date
+        stripe_id:
+          type: string
+          description: Invoice Stripe ID
+        discounted:
+          type: boolean
+          description: Item discounted
+        invoice_item_group_id:
+          type: integer
+          description: Invoice item group ID
+      description: Invoice item resource
+    InvoiceItemGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Invoice item group ID
+        invoice_id:
+          type: integer
+          description: Invoice ID
+        organization_name:
+          type: string
+          description: Organization name
+        organization_id:
+          type: integer
+          description: Organization resource ID
+        subtotal_cents:
+          type: integer
+          description: Total amount (cents) for item group
+        created_at:
+          type: string
+          format: date
+          description: Item group creation date
+        updated_at:
+          type: string
+          format: date
+          description: Item group last update date
+        invoice_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+          description: Item group associated items
+      description: Invoice item group resource
     Invoice:
       type: object
       properties:
@@ -210,77 +274,13 @@ components:
             $ref: '#/components/schemas/InvoiceItem'
           description: Invoice items
       description: Invoice resource
-    InvoiceItem:
+    Error:
       type: object
       properties:
-        id:
-          type: integer
-          description: Invoice item ID
-        invoice_id:
-          type: integer
-          description: Invoice ID
-        network_name:
+        error:
           type: string
-          description: Network name
-        network_id:
-          type: integer
-          description: Network ID
-        cents:
-          type: integer
-          description: Total amount (cents) for item
-        requests:
-          type: integer
-          description: Total number of DNS requests for item
-        created_at:
-          type: string
-          format: date
-          description: Item creation date
-        updated_at:
-          type: string
-          format: date
-          description: Item last update date
-        stripe_id:
-          type: string
-          description: Invoice Stripe ID
-        discounted:
-          type: boolean
-          description: Item discounted
-        invoice_item_group_id:
-          type: integer
-          description: Invoice item group ID
-      description: Invoice item resource
-    InvoiceItemGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Invoice item group ID
-        invoice_id:
-          type: integer
-          description: Invoice ID
-        organization_name:
-          type: string
-          description: Organization name
-        organization_id:
-          type: integer
-          description: Organization resource ID
-        subtotal_cents:
-          type: integer
-          description: Total amount (cents) for item group
-        created_at:
-          type: string
-          format: date
-          description: Item group creation date
-        updated_at:
-          type: string
-          format: date
-          description: Item group last update date
-        invoice_items:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoiceItem'
-          description: Item group associated items
-      description: Invoice item group resource
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

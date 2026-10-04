@@ -1654,76 +1654,6 @@ paths:
       x-action: skus_available
 components:
   schemas:
-    DistributorUpdate:
-      type: object
-      properties:
-        support_email:
-          type: string
-        support_phone:
-          type: string
-        support_url:
-          type: string
-        support_description:
-          type: string
-        show_support_info:
-          type: boolean
-      description: Distributor update request parameters
-    UserDistributor:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID
-        email:
-          type: string
-          description: 'Email address.
-
-            It is lowercased on DNSFilter side.'
-        name:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        distributor_guid:
-          type: string
-          description: 'User ID on distributor systems.
-
-            It is lowercased on DNSFilter side.
-
-            This value should be unique across all distributor users if specified.'
-        created_at_epoch_utc:
-          type: integer
-        created_at:
-          type: integer
-        transferred_at:
-          type: integer
-        memberships:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserMembershipDistributor'
-      description: User Distributor resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    UserDistributorCreateSpec:
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/UserDistributor'
-        membership:
-          $ref: '#/components/schemas/Membership'
-        send_reset_password_email:
-          type: boolean
-        return-reset_password_url:
-          type: boolean
-      required:
-      - user
-      - membership
     OrganizationDistributor:
       type: object
       properties:
@@ -1792,13 +1722,20 @@ components:
         transferred_at:
           type: integer
       description: OrganizationDistributor resource
-    OrganizationDistributorUpdateSpec:
+    UserDistributorCreateSpec:
       type: object
       properties:
-        msp:
-          $ref: '#/components/schemas/OrganizationDistributor'
+        user:
+          $ref: '#/components/schemas/UserDistributor'
+        membership:
+          $ref: '#/components/schemas/Membership'
+        send_reset_password_email:
+          type: boolean
+        return-reset_password_url:
+          type: boolean
       required:
-      - msp
+      - user
+      - membership
     Membership:
       type: object
       properties:
@@ -1818,20 +1755,20 @@ components:
           - support
           description: Role
       description: Membership resource
-    MspDistributorUpdateSpec:
+    MspDistributorCreateSpec:
       type: object
       properties:
         msp:
           $ref: '#/components/schemas/MspDistributor'
       required:
       - msp
-    DistributorUpdateSpec:
+    Error:
       type: object
       properties:
-        distributor:
-          $ref: '#/components/schemas/DistributorUpdate'
-      required:
-      - distributor
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     UserMembershipDistributorSpec:
       type: object
       properties:
@@ -1839,6 +1776,83 @@ components:
           $ref: '#/components/schemas/UserMembershipDistributor'
       required:
       - membership
+    MspDistributorUpdateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/MspDistributor'
+      required:
+      - msp
+    DistributorUpdate:
+      type: object
+      properties:
+        support_email:
+          type: string
+        support_phone:
+          type: string
+        support_url:
+          type: string
+        support_description:
+          type: string
+        show_support_info:
+          type: boolean
+      description: Distributor update request parameters
+    DistributorUpdateSpec:
+      type: object
+      properties:
+        distributor:
+          $ref: '#/components/schemas/DistributorUpdate'
+      required:
+      - distributor
+    OrganizationDistributorUpdateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      required:
+      - msp
+    OrganizationDistributorCreateSpec:
+      type: object
+      properties:
+        msp:
+          $ref: '#/components/schemas/OrganizationDistributor'
+      required:
+      - msp
+    UserDistributor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        email:
+          type: string
+          description: 'Email address.
+
+            It is lowercased on DNSFilter side.'
+        name:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        distributor_guid:
+          type: string
+          description: 'User ID on distributor systems.
+
+            It is lowercased on DNSFilter side.
+
+            This value should be unique across all distributor users if specified.'
+        created_at_epoch_utc:
+          type: integer
+        created_at:
+          type: integer
+        transferred_at:
+          type: integer
+        memberships:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserMembershipDistributor'
+      description: User Distributor resource
     Distributor:
       type: object
       properties:
@@ -1860,20 +1874,6 @@ components:
         parent_organization:
           $ref: '#/components/schemas/OrganizationDistributor'
       description: Distributor resource
-    OrganizationDistributorCreateSpec:
-      type: object
-      properties:
-        msp:
-          $ref: '#/components/schemas/OrganizationDistributor'
-      required:
-      - msp
-    MspDistributorCreateSpec:
-      type: object
-      properties:
-        msp:
-          $ref: '#/components/schemas/MspDistributor'
-      required:
-      - msp
     MspDistributor:
       type: object
       properties:

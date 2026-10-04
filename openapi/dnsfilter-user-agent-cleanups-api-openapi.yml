@@ -103,34 +103,6 @@ paths:
               $ref: '#/components/schemas/UserAgentCleanupUpdate'
 components:
   schemas:
-    UserAgentCleanupUpdate:
-      type: object
-      properties:
-        start:
-          type: boolean
-          description: Start the cleanup, will do nothing if inactive_for is included
-        inactive_for:
-          type: integer
-          description: The number of inactive days, updating restarts job to find RCs to delete
-      description: User agent cleanup update
-    UserAgentCleanupCreate:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID - deprecated
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: List of Organization IDs
-        inactive_for:
-          type: integer
-          description: The number of inactive days
-      required:
-      - organization_ids
-      - inactive_for
-      description: User agent cleanup create
     UserAgentCleanup:
       type: object
       properties:
@@ -172,6 +144,34 @@ components:
                 type: string
           description: agents to be deleted
       description: User agent cleanups
+    UserAgentCleanupUpdate:
+      type: object
+      properties:
+        start:
+          type: boolean
+          description: Start the cleanup, will do nothing if inactive_for is included
+        inactive_for:
+          type: integer
+          description: The number of inactive days, updating restarts job to find RCs to delete
+      description: User agent cleanup update
+    UserAgentCleanupCreate:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID - deprecated
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: List of Organization IDs
+        inactive_for:
+          type: integer
+          description: The number of inactive days
+      required:
+      - organization_ids
+      - inactive_for
+      description: User agent cleanup create
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -378,6 +378,51 @@ paths:
       x-action: myip
 components:
   schemas:
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+    IpAddressSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/IpAddress'
+          relationships:
+            type: object
+            properties:
+              network:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: IP address associated network
+      description: IpAddress specification
+    IpAddressCreateSpec:
+      type: object
+      properties:
+        ip_address:
+          $ref: '#/components/schemas/IpAddressCreate'
+      required:
+      - ip_address
+      description: IP address creation request parameters
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     IpAddress:
       type: object
       properties:
@@ -394,13 +439,6 @@ components:
           type: integer
           description: Organization ID
       description: IpAddress resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     Links:
       type: object
       properties:
@@ -408,19 +446,6 @@ components:
           type: string
           description: Endpoint URL (may be null)
       description: JSON API links member representation
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
     IpAddressCreate:
       type: object
       properties:
@@ -441,31 +466,6 @@ components:
       - organization_id
       - network_id
       description: IP address creation request parameters
-    IpAddressCreateSpec:
-      type: object
-      properties:
-        ip_address:
-          $ref: '#/components/schemas/IpAddressCreate'
-      required:
-      - ip_address
-      description: IP address creation request parameters
-    IpAddressSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/IpAddress'
-          relationships:
-            type: object
-            properties:
-              network:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-            description: IP address associated network
-      description: IpAddress specification
   securitySchemes:
     header_authorization:
       type: apiKey

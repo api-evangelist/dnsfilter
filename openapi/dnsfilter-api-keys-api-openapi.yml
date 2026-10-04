@@ -269,20 +269,6 @@ paths:
       x-action: revoke
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
     IdType:
       type: object
       properties:
@@ -296,6 +282,13 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     ApiKey:
       type: object
       properties:
@@ -332,6 +325,13 @@ components:
           attributes:
             $ref: '#/components/schemas/ApiKey'
       description: ApiKey specification
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     ApiKeyCreateSpec:
       type: object
       properties:

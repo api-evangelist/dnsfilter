@@ -197,6 +197,26 @@ paths:
       x-action: counts
 components:
   schemas:
+    AgentLocalUserBulkDeletesCounts:
+      type: object
+      properties:
+        count:
+          type: integer
+      description: Agent local user bulk delete counts
+    AgentLocalUserBulkDeletes:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+          description: Ids of agent local users to delete. Overrides any lookups based on filters
+        exclude_ids:
+          type: array
+          items:
+            type: integer
+          description: Ids of agent local users to remove from delete when using filters
+      description: Agent local user bulk delete request parameters
     Error:
       type: object
       properties:
@@ -218,12 +238,6 @@ components:
             items:
               type: integer
           - type: string
-    AgentLocalUserBulkDeletesCounts:
-      type: object
-      properties:
-        count:
-          type: integer
-      description: Agent local user bulk delete counts
     StringContainsOp:
       type: object
       properties:
@@ -234,20 +248,6 @@ components:
           - doesnotcontain
         value:
           type: string
-    AgentLocalUserBulkDeletes:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: integer
-          description: Ids of agent local users to delete. Overrides any lookups based on filters
-        exclude_ids:
-          type: array
-          items:
-            type: integer
-          description: Ids of agent local users to remove from delete when using filters
-      description: Agent local user bulk delete request parameters
   securitySchemes:
     header_authorization:
       type: apiKey
