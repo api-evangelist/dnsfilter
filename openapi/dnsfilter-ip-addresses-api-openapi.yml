@@ -378,6 +378,41 @@ paths:
       x-action: myip
 components:
   schemas:
+    IpAddressCreate:
+      type: object
+      properties:
+        address:
+          type: string
+          description: IP address
+        organization_id:
+          type: integer
+          description: Organization ID that the IP address belongs to
+        network_id:
+          type: integer
+          description: Network ID that the IP address belongs to
+        dynamic_hostname:
+          type: string
+          description: Dynamic hostname of the IP address
+      required:
+      - address
+      - organization_id
+      - network_id
+      description: IP address creation request parameters
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    IpAddressCreateSpec:
+      type: object
+      properties:
+        ip_address:
+          $ref: '#/components/schemas/IpAddressCreate'
+      required:
+      - ip_address
+      description: IP address creation request parameters
     IdType:
       type: object
       properties:
@@ -408,21 +443,13 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: IP address associated network
       description: IpAddress specification
-    IpAddressCreateSpec:
+    Links:
       type: object
       properties:
-        ip_address:
-          $ref: '#/components/schemas/IpAddressCreate'
-      required:
-      - ip_address
-      description: IP address creation request parameters
-    Error:
-      type: object
-      properties:
-        error:
+        self:
           type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     IpAddress:
       type: object
       properties:
@@ -439,33 +466,6 @@ components:
           type: integer
           description: Organization ID
       description: IpAddress resource
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    IpAddressCreate:
-      type: object
-      properties:
-        address:
-          type: string
-          description: IP address
-        organization_id:
-          type: integer
-          description: Organization ID that the IP address belongs to
-        network_id:
-          type: integer
-          description: Network ID that the IP address belongs to
-        dynamic_hostname:
-          type: string
-          description: Dynamic hostname of the IP address
-      required:
-      - address
-      - organization_id
-      - network_id
-      description: IP address creation request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

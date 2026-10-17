@@ -60,6 +60,13 @@ paths:
       x-action: suppress_license_warning
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     LicenseWarningSuppressionData:
       type: object
       properties:
@@ -73,13 +80,6 @@ components:
           type: string
           description: User UUID
       description: Payload for License Warning Suppression Data
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

@@ -198,49 +198,6 @@ paths:
               $ref: '#/components/schemas/Billing_BillingAddressUpdateSpec'
 components:
   schemas:
-    Billing_BillingAddress:
-      type: object
-      properties:
-        first_name:
-          type: string
-          description: First Name
-        last_name:
-          type: string
-          description: Last Name
-        email:
-          type: string
-          description: Email
-        company:
-          type: string
-          description: Company
-        phone:
-          type: string
-          description: Phone
-        line1:
-          type: string
-          description: Address Line1
-        line2:
-          type: string
-          description: Address Line2
-        line3:
-          type: string
-          description: Address Line3
-        city:
-          type: string
-          description: City
-        state_code:
-          type: string
-          description: The ISO 3166-2 state/province code without the country prefix. Currently supported for USA, Canada and India.
-        state:
-          type: string
-          description: State
-        zip:
-          type: string
-          description: Zip or postal code
-        country:
-          type: string
-          description: Country Must be one of ISO 3166 alpha-2 country code.
-      description: Billing address resource
     Error:
       type: object
       properties:
@@ -248,14 +205,6 @@ components:
           type: string
           description: 'Error message (e.x.: Not Authorized)'
       description: Error basic representation
-    Billing_BillingAddressUpdateSpec:
-      type: object
-      properties:
-        billing_address:
-          $ref: '#/components/schemas/Billing_BillingAddress'
-      required:
-      - billing_address
-      description: Billing address update request parameters
     PaymentMethod:
       type: object
       properties:
@@ -309,6 +258,57 @@ components:
       - organization_id
       - payment_token
       description: Billing creation request parameters
+    Billing_BillingAddress:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: First Name
+        last_name:
+          type: string
+          description: Last Name
+        email:
+          type: string
+          description: Email
+        company:
+          type: string
+          description: Company
+        phone:
+          type: string
+          description: Phone
+        line1:
+          type: string
+          description: Address Line1
+        line2:
+          type: string
+          description: Address Line2
+        line3:
+          type: string
+          description: Address Line3
+        city:
+          type: string
+          description: City
+        state_code:
+          type: string
+          description: The ISO 3166-2 state/province code without the country prefix. Currently supported for USA, Canada and India.
+        state:
+          type: string
+          description: State
+        zip:
+          type: string
+          description: Zip or postal code
+        country:
+          type: string
+          description: Country Must be one of ISO 3166 alpha-2 country code.
+      description: Billing address resource
+    Billing_BillingAddressUpdateSpec:
+      type: object
+      properties:
+        billing_address:
+          $ref: '#/components/schemas/Billing_BillingAddress'
+      required:
+      - billing_address
+      description: Billing address update request parameters
   securitySchemes:
     header_authorization:
       type: apiKey

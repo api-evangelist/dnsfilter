@@ -342,6 +342,13 @@ paths:
       x-action: destroy
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     IdType:
       type: object
       properties:
@@ -355,22 +362,6 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
-    NetworkSubnet:
-      type: object
-      properties:
-        version:
-          type: integer
-          description: Subnet IP family version
-        name:
-          type: string
-          description: Subnet name or alias
-        from:
-          type: string
-          description: Subnet lower private IP address
-        to:
-          type: string
-          description: Subnet upper private IP address
-      description: User agent resource
     NetworkSubnetCreateSpec:
       type: object
       properties:
@@ -379,20 +370,6 @@ components:
       required:
       - network_subnet
       description: Network subnet creation request parameters
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     NetworkSubnetCreate:
       type: object
       properties:
@@ -419,6 +396,13 @@ components:
       - from
       - to
       description: Network creation request parameters
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     NetworkSubnetSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -446,6 +430,22 @@ components:
                     $ref: '#/components/schemas/IdType'
             description: '] Subnet associated objects'
       description: User agent specification
+    NetworkSubnet:
+      type: object
+      properties:
+        version:
+          type: integer
+          description: Subnet IP family version
+        name:
+          type: string
+          description: Subnet name or alias
+        from:
+          type: string
+          description: Subnet lower private IP address
+        to:
+          type: string
+          description: Subnet upper private IP address
+      description: User agent resource
   securitySchemes:
     header_authorization:
       type: apiKey

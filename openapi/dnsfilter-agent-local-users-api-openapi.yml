@@ -501,6 +501,45 @@ paths:
       x-action: counts
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    AgentLocalUserUpdateSpec:
+      type: object
+      properties:
+        agent_local_user:
+          $ref: '#/components/schemas/AgentLocalUserUpdate'
+      required:
+      - agent_local_user
+      description: Agent local user update request parameters
+    StringContainsOp:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - contains
+          - doesnotcontain
+        value:
+          type: string
+    ArrayIntegerIsOp:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - is
+          - isnot
+        value:
+          oneOf:
+          - type: array
+            items:
+              type: integer
+          - type: string
     IdType:
       type: object
       properties:
@@ -514,14 +553,30 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
-    AgentLocalUserUpdateSpec:
+    AgentLocalUserSpec:
+      allOf:
+      - $ref: '#/components/schemas/IdType'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AgentLocalUser'
+          relationships:
+            type: object
+            properties:
+              organization:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdType'
+            description: Agent local user associated objects
+      description: Agent local user specification
+    Links:
       type: object
       properties:
-        agent_local_user:
-          $ref: '#/components/schemas/AgentLocalUserUpdate'
-      required:
-      - agent_local_user
-      description: Agent local user update request parameters
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     AgentLocalUserUpdate:
       type: object
       properties:
@@ -562,61 +617,6 @@ components:
           format: date
           description: Last time the user was seen
       description: Agent local user resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    ArrayIntegerIsOp:
-      type: object
-      properties:
-        operator:
-          type: string
-          enum:
-          - is
-          - isnot
-        value:
-          oneOf:
-          - type: array
-            items:
-              type: integer
-          - type: string
-    StringContainsOp:
-      type: object
-      properties:
-        operator:
-          type: string
-          enum:
-          - contains
-          - doesnotcontain
-        value:
-          type: string
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
-    AgentLocalUserSpec:
-      allOf:
-      - $ref: '#/components/schemas/IdType'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/AgentLocalUser'
-          relationships:
-            type: object
-            properties:
-              organization:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/IdType'
-            description: Agent local user associated objects
-      description: Agent local user specification
   securitySchemes:
     header_authorization:
       type: apiKey

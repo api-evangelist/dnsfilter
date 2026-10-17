@@ -167,6 +167,13 @@ components:
           type: integer
           description: Invoice item group ID
       description: Invoice item resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     InvoiceItemGroup:
       type: object
       properties:
@@ -274,13 +281,6 @@ components:
             $ref: '#/components/schemas/InvoiceItem'
           description: Invoice items
       description: Invoice resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
   securitySchemes:
     header_authorization:
       type: apiKey

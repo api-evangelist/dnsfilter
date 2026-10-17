@@ -104,22 +104,6 @@ paths:
       x-action: vpn_settings_state_types
 components:
   schemas:
-    VpnSettingsStateType:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: State type ID
-        name:
-          type: string
-          description: The name of the state type
-        friendly_name:
-          type: string
-          description: The friendly/display name that can be shown to the user
-        description:
-          type: string
-          description: Simple description of the state type
-      description: Vpn Settings State Types
     CyberSightActivityType:
       type: object
       properties:
@@ -136,6 +120,22 @@ components:
           type: string
           description: Simple description of the activity
       description: Activity Types
+    VpnSettingsStateType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: State type ID
+        name:
+          type: string
+          description: The name of the state type
+        friendly_name:
+          type: string
+          description: The friendly/display name that can be shown to the user
+        description:
+          type: string
+          description: Simple description of the state type
+      description: Vpn Settings State Types
     Error:
       type: object
       properties:

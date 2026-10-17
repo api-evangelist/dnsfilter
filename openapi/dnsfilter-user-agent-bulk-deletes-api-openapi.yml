@@ -351,16 +351,13 @@ paths:
       x-action: counts
 components:
   schemas:
-    UserAgentBulkDeleteCounts:
+    Error:
       type: object
       properties:
-        uninstall_and_delete:
-          type: integer
-          description: the count of user agents that can bed uninstalled and deleted
-        delete:
-          type: integer
-          description: the count of unsupported user agents that can be deleted
-      description: User agent counts by remote uninstall support
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     UserAgentBulkDelete:
       type: object
       properties:
@@ -377,13 +374,6 @@ components:
           type: boolean
           description: true if action was bulk delete and uninstall
       description: User agent bulk delete
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     UserAgentBulkDeleteCreate:
       type: object
       properties:
@@ -398,6 +388,16 @@ components:
             type: string
           description: Ids of user agents to remove from delete when using filters
       description: User agent bulk delete
+    UserAgentBulkDeleteCounts:
+      type: object
+      properties:
+        uninstall_and_delete:
+          type: integer
+          description: the count of user agents that can bed uninstalled and deleted
+        delete:
+          type: integer
+          description: the count of unsupported user agents that can be deleted
+      description: User agent counts by remote uninstall support
   securitySchemes:
     header_authorization:
       type: apiKey

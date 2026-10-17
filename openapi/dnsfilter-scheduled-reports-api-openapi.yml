@@ -249,21 +249,13 @@ paths:
       x-action: destroy
 components:
   schemas:
-    ScheduledReportRecipient:
+    Error:
       type: object
       properties:
-        email:
+        error:
           type: string
-          description: Email address of recipient
-        organization:
-          type: object
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-          description: Scheduled report recipient associated objects
-      description: Scheduled report recipient resource
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     IdType:
       type: object
       properties:
@@ -277,13 +269,6 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     ScheduledReport:
       type: object
       properties:
@@ -336,6 +321,21 @@ components:
             type: integer
           description: selected sub orgs for scheduled reports on msp organizations
       description: Scheduled report resource
+    ScheduledReportRecipient:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address of recipient
+        organization:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+          description: Scheduled report recipient associated objects
+      description: Scheduled report recipient resource
     ScheduledReportSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'

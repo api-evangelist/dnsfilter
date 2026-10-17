@@ -122,6 +122,13 @@ paths:
       x-action: show
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     Category:
       type: object
       properties:
@@ -141,6 +148,26 @@ components:
           type: boolean
           description: True if the category is used internally such as content servers or unknown categorizations
       description: Category resource
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Endpoint URL (may be null)
+      description: JSON API links member representation
     CategorySpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -167,33 +194,6 @@ components:
                       $ref: '#/components/schemas/IdType'
             description: Category hierarchy
       description: Category specification
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Endpoint URL (may be null)
-      description: JSON API links member representation
   securitySchemes:
     header_authorization:
       type: apiKey

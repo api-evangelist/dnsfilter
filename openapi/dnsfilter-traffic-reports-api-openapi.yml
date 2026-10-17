@@ -7603,15 +7603,35 @@ paths:
       x-action: total_applications_collections_stats
 components:
   schemas:
-    TrafficReportsTotalApplicationsUsersStats:
+    TrafficReportsTotalDomainsCollections:
       type: object
       properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalApplicationsUsersStatsResult'
+            $ref: '#/components/schemas/TrafficReportsTotalDomainsCollectionsResult'
           description: Result data of the report
-      description: Traffic reports total applications by user stats endpoint
+      description: Traffic reports total requests by domain for collections endpoint
     TrafficReportsTotalCollectionsResult:
       type: object
       properties:
@@ -7663,7 +7683,7 @@ components:
           type: integer
           description: Number of total requests in the bucket made by user agents only
       description: Traffic reports total requests by collection for networks endpoint
-    TrafficReportsTotalDomainsCollections:
+    TrafficReportsTotalThreats:
       type: object
       properties:
         organization_ids:
@@ -7676,23 +7696,148 @@ components:
           items:
             type: string
           description: Organizations names
-        collection_ids:
+        network_ids:
           type: array
           items:
             type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
+          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
+        network_names:
           type: array
           items:
             type: string
-          description: Collections names
+          description: Networks names
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalDomainsCollectionsResult'
+            $ref: '#/components/schemas/TrafficReportsTotalThreatsResult'
           description: Result data of the report
+      description: Traffic reports total threats for networks endpoint
+    TrafficReportsTopOrganizationsRequests:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTopOrganizationsRequestsResult'
+          description: Result data of the report
+      description: Traffic reports to get the top organizations by number of requests
+    TrafficReportsTotalCategories:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        network_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
+        network_names:
+          type: array
+          items:
+            type: string
+          description: Networks names
+        category_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of categories IDs that are contained in the response
+        category_names:
+          type: array
+          items:
+            type: string
+          description: Categories names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCategoriesResult'
+          description: Result data of the report
+      description: Traffic reports total requests by category for networks endpoint
+    TrafficReportsTotalDomainsCollectionsResult:
+      type: object
+      properties:
+        collection_id:
+          type: integer
+          description: Collection ID (if grouped by collection) (may be null)
+        collection_name:
+          type: string
+          description: Collection name (if grouped by collection) (may be null)
+        domain:
+          type: string
+          description: Domain
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
       description: Traffic reports total requests by domain for collections endpoint
-    TrafficReportsTotalThreatsUsers:
+    TrafficReportsQps:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        network_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
+        network_names:
+          type: array
+          items:
+            type: string
+          description: Networks names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsQpsResult'
+          description: Result data of the report
+      description: Traffic reports QPS for networks endpoint
+    TrafficReportsTotalRoamingClients:
       type: object
       properties:
         organization_ids:
@@ -7708,9 +7853,127 @@ components:
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalThreatsUsersResult'
+            $ref: '#/components/schemas/TrafficReportsTotalRoamingClientsResult'
           description: Result data of the report
-      description: Traffic reports total threats for users endpoint
+      description: Traffic reports total roaming clients information
+    TrafficReportsTopUsers:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        user_ids:
+          type: array
+          items:
+            type: integer
+          description: List of user IDs that are contained in the response
+        user_names:
+          type: array
+          items:
+            type: string
+          description: User names
+        user_logins:
+          type: array
+          items:
+            type: string
+          description: User logins
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTopUsersResult'
+          description: Result data of the report
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports top users endpoint
+    TrafficReportsTotalApplicationsStats:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalApplicationsStatsResult'
+          description: Result data of the report
+      description: Traffic reports total applications stats endpoint
+    TrafficReportsTopAgentsResult:
+      type: object
+      properties:
+        agent_id:
+          type: string
+          description: User agent UUID
+        agent_type:
+          type: string
+          description: User agent type
+        agent_name:
+          type: string
+          description: User agent name
+        total:
+          type: integer
+          description: Total number of requests
+        total_networks:
+          type: integer
+          description: Total number of requests made by networks only
+        total_proxies:
+          type: integer
+          description: Total number of requests made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Total number of requests made by user agents only
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+      description: Traffic reports top agents endpoint
+    TrafficReportsTotalApplicationsUsersStatsResult:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: User ID
+        user_name:
+          type: string
+          description: User name or friendly name
+        user_login:
+          type: string
+          description: User remote login
+        total_requests:
+          type: integer
+          description: Number of total requests
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests
+        previous_total_requests:
+          type: integer
+          description: Number of total requests for previous time period
+        most_recent_bucket:
+          type: string
+          description: Last seen bucket (UTC)
+      description: Traffic reports total applications by user stats endpoint
     TrafficReportsTotalRequestsUsers:
       type: object
       properties:
@@ -7730,54 +7993,26 @@ components:
             $ref: '#/components/schemas/TrafficReportsTotalRequestsUsersResult'
           description: Result data of the report
       description: Traffic reports total requests for users endpoint
-    TrafficReportsTotalRequestsOrganizations:
+    TrafficReportsTotalOrganizationsRequestsResult:
       type: object
       properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalRequestsOrganizationsResult'
-          description: Result data of the report
-      description: Traffic reports total requests for organizations endpoint
-    TrafficReportsTopOrganizationsRequests:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTopOrganizationsRequestsResult'
-          description: Result data of the report
-      description: Traffic reports to get the top organizations by number of requests
-    TrafficReportsTotalDomainsOrganizations:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalDomainsOrganizationsResult'
-          description: Result data of the report
-      description: Traffic reports total requests by domain for organizations endpoint
-    TrafficReportsTotalCategoriesAgents:
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        total_requests:
+          type: integer
+          description: Number of total requests in the bucket
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests in the bucket
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests in the bucket
+        threat_requests:
+          type: integer
+          description: Number of threat requests in the bucket
+      description: Traffic reports total number of requests for organizations in a period of time
+    TrafficReportsTotalCategoriesOrganizations:
       type: object
       properties:
         organization_ids:
@@ -7800,11 +8035,134 @@ components:
           items:
             type: string
           description: Categories names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCategoriesOrganizationsResult'
+          description: Result data of the report
+      description: Traffic reports total requests by category for organizations endpoint
+    TrafficReportsTotalCategoriesOrganizationsResult:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          description: Bucket category ID
+        category_name:
+          type: string
+          description: Category name
+        organization_id:
+          type: integer
+          description: Organization ID (if grouped by organization) (may be null)
+        organization_name:
+          type: string
+          description: Organization name (if grouped by organization) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests by category for organizations endpoint
+    TrafficReportsTotalThreatsUsers:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalThreatsUsersResult'
+          description: Result data of the report
+      description: Traffic reports total threats for users endpoint
+    TrafficReportsTotalDomainsUsers:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        user_ids:
+          type: array
+          items:
+            type: integer
+          description: List of user IDs that are contained in the response
+        user_names:
+          type: array
+          items:
+            type: string
+          description: User names
+        user_logins:
+          type: array
+          items:
+            type: string
+          description: User logins
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalDomainsUsersResult'
+          description: Result data of the report
+      description: Traffic reports total requests by domain for users endpoint
+    TrafficReportsTopAgents:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
         agent_ids:
           type: array
           items:
             type: string
-          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
+          description: UUID list of user agents that are contained in the response
         agent_names:
           type: array
           items:
@@ -7813,18 +8171,102 @@ components:
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalCategoriesAgentsResult'
+            $ref: '#/components/schemas/TrafficReportsTopAgentsResult'
           description: Result data of the report
-      description: Traffic reports total requests by category for agents endpoint
-    TrafficReportsTotalApplicationsStatsResult:
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports top agents endpoint
+    TrafficReportsTopNetworks:
       type: object
       properties:
-        application_id:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        network_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of network IDs that are contained in the response
+        network_names:
+          type: array
+          items:
+            type: string
+          description: Networks names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTopNetworksResult'
+          description: Result data of the report
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports top networks endpoint
+    TrafficReportsTotalDomainsUsersResult:
+      type: object
+      properties:
+        user_id:
           type: integer
-          description: Application ID
-        application_name:
+          description: User ID (if grouped by user) (may be null)
+        user_name:
           type: string
-          description: Application name
+          description: User name or friendly name (if grouped by user) (may be null)
+        user_login:
+          type: string
+          description: User remote login (if grouped by user) (may be null)
+        domain:
+          type: string
+          description: Domain
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests by domain for users endpoint
+    TrafficReportsTotalApplicationsCollectionsStatsResult:
+      type: object
+      properties:
+        collection_id:
+          type: integer
+          description: Collection ID
+        collection_name:
+          type: string
+          description: Collection name
         total_requests:
           type: integer
           description: Number of total requests
@@ -7839,73 +8281,151 @@ components:
           description: Number of total requests for previous time period
         most_recent_bucket:
           type: string
-          description: Application last seen bucket (UTC)
-        application_category_id:
-          type: integer
-          description: Application category ID
-        application_category_name:
-          type: string
-          description: Application category name
-      description: Traffic reports total applications stats endpoint
-    TrafficReportsQueryLogs:
+          description: Last seen bucket (UTC)
+      description: Traffic reports total applications by collection stats endpoint
+    TrafficReportsTotalClientStats:
       type: object
       properties:
         organization_id:
           type: integer
-          description: Organization ID of the result
-        organization_ids:
-          type: array
-          items:
-            type: string
-          description: List of organization IDs of the result
+          description: Organization ID
         organization_name:
           type: string
           description: Organization name
+        total_users:
+          type: integer
+          description: Number of users from an organization
+        active_users:
+          type: integer
+          description: Number of active users from an organization
+        total_sites:
+          type: integer
+          description: Number of sites from an organization
+        active_sites:
+          type: integer
+          description: Number of active sites from an organization
+        total_roaming_clients:
+          type: integer
+          description: Number of roaming clients from an organization or network
+        active_roaming_clients:
+          type: integer
+          description: Number of active roaming clients from an organization or network
+        total_relays:
+          type: integer
+          description: Number of relays from an organization or network
+        active_relays:
+          type: integer
+          description: Number of active relays from an organization or network
+      description: Traffic reports total client stats endpoint
+    TrafficReportsTopOrganizationsResult:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        organization_name:
+          type: string
+          description: Organization name
+        total:
+          type: integer
+          description: Total number of requests
+        total_networks:
+          type: integer
+          description: Total number of requests made by networks only
+        total_proxies:
+          type: integer
+          description: Total number of requests made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Total number of requests made by user agents only
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+      description: Traffic reports top organizations endpoint
+    TrafficReportsTotalApplicationsNetworksStats:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalApplicationsNetworksStatsResult'
+          description: Result data of the report
+      description: Traffic reports total applications by network stats endpoint
+    TrafficReportsQpsActiveCollectionsResult:
+      type: object
+      properties:
+        collection_id:
+          type: integer
+          description: Collection ID
+        collection_name:
+          type: string
+          description: Collection name
+        bucket:
+          type: string
+          description: Bucket datetime in UTC, bucket size is one minute
+        qps:
+          type: number
+          format: float
+          description: Total QPS in the bucket (all values are rounded to one decimal)
+        qps_networks:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
+        qps_proxies:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
+        qps_agents:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
+      description: Traffic reports QPS for collections endpoint
+    TrafficReportsTotalThreatsAgents:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
         organization_names:
           type: array
           items:
             type: string
-          description: List of organization name of the result
-        network_id:
-          type: integer
-          description: Network ID of the result (may be null)
-        network_ids:
+          description: Organizations names
+        agent_ids:
           type: array
           items:
             type: string
-          description: List of network IDs of the result (may be null)
-        client_id:
-          type: string
-          description: User agent UUID of the result (may be null)
-        client_ids:
+          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
+        agent_names:
           type: array
           items:
             type: string
-          description: List of user agent UUIDs of the result (may be null)
-        user_id:
-          type: integer
-          description: User local ID of the result (may be null)
-        user_ids:
-          type: array
-          items:
-            type: string
-          description: List of user local IDs of the result (may be null)
-        collection_id:
-          type: integer
-          description: Collection ID of the result (may be null)
-        collection_ids:
-          type: array
-          items:
-            type: string
-          description: List of collection IDs of the result (may be null)
+          description: User agents names
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsQueryLogsResult'
+            $ref: '#/components/schemas/TrafficReportsTotalThreatsAgentsResult'
           description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports query log endpoint
+      description: Traffic reports total threats for agents endpoint
     TrafficReportsTotalCategoriesUsers:
       type: object
       properties:
@@ -7950,81 +8470,21 @@ components:
             $ref: '#/components/schemas/TrafficReportsTotalCategoriesUsersResult'
           description: Result data of the report
       description: Traffic reports total requests by category for users endpoint
-    TrafficReportsTotalOrganizationsRequests:
+    TrafficReportsTotalCollectionsOrganizationsResult:
       type: object
       properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalOrganizationsRequestsResult'
-          description: Result data of the report
-      description: Traffic reports total number of requests for organizations in a period of time
-    TrafficReportsTotalCollectionsUsers:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        user_ids:
-          type: array
-          items:
-            type: integer
-          description: List of user IDs that are contained in the response
-        user_names:
-          type: array
-          items:
-            type: string
-          description: User names
-        user_logins:
-          type: array
-          items:
-            type: string
-          description: User logins
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalCollectionsUsersResult'
-          description: Result data of the report
-      description: Traffic reports total requests by collection for users endpoint
-    TrafficReportsTotalThreatsAgentsResult:
-      type: object
-      properties:
-        agent_id:
+        collection_id:
+          type: integer
+          description: Collection ID
+        collection_name:
           type: string
-          description: User agent UUID (if grouped by agent) (may be null)
-        agent_type:
+          description: Collection name
+        organization_id:
+          type: integer
+          description: Organization ID (if grouped by organization) (may be null)
+        organization_name:
           type: string
-          description: User agent type (if grouped by agent) (may be null)
-        agent_name:
-          type: string
-          description: User agent name (if grouped by agent) (may be null)
+          description: Organization name (if grouped by organization) (may be null)
         bucket:
           type: string
           description: Bucket datetime in UTC
@@ -8060,36 +8520,27 @@ components:
         total_agents:
           type: integer
           description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total threats for agents endpoint
-    TrafficReportsTopUsersResult:
+      description: Traffic reports total requests by collection for organizations endpoint
+    TrafficReportsTotalDomainsResult:
       type: object
       properties:
-        user_id:
+        network_id:
           type: integer
-          description: User ID
-        user_name:
+          description: Bucket network ID (if grouped by network ID) (may be null)
+        network_name:
           type: string
-          description: User name or friendly name
-        user_login:
+          description: Network name (if grouped by network ID) (may be null)
+        domain:
           type: string
-          description: User remote login
-        total:
-          type: integer
-          description: Total number of requests
-        total_networks:
-          type: integer
-          description: Total number of requests made by networks only
-        total_proxies:
-          type: integer
-          description: Total number of requests made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Total number of requests made by user agents only
+          description: Domain
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
         policies:
           type: array
           items:
             type: integer
-          description: Matched policies IDs
+          description: Matched policies IDs for the domain
         policies_names:
           type: array
           items:
@@ -8099,118 +8550,34 @@ components:
           type: array
           items:
             type: integer
-          description: Matched scheduled policies IDs
+          description: Matched scheduled policies IDs for the domain
         scheduled_policies_names:
           type: array
           items:
             type: string
           description: Matched scheduled policies IDs names
-      description: Traffic reports top users endpoint
-    TrafficReportsTotalApplicationsOrganizationsStats:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalApplicationsOrganizationsStatsResult'
-          description: Result data of the report
-      description: Traffic reports total applications by organization stats endpoint
-    TrafficReportsQpsActiveAgents:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        agent_ids:
-          type: array
-          items:
-            type: string
-          description: String list of user agents UUIDs that are contained in the response
-        agent_names:
-          type: array
-          items:
-            type: string
-          description: User agents names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsQpsActiveAgentsResult'
-          description: Result data of the report
-      description: Traffic reports QPS for agents endpoint
-    TrafficReportsQpsActiveAgentsResult:
-      type: object
-      properties:
-        agent_id:
-          type: string
-          description: User agent UUID
-        agent_name:
-          type: string
-          description: User agent name
-        bucket:
-          type: string
-          description: Bucket datetime in UTC, bucket size is one minute
-        qps:
-          type: number
-          format: float
-          description: Total QPS in the bucket (all values are rounded to one decimal)
-        qps_networks:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
-        qps_proxies:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
-        qps_agents:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
-      description: Traffic reports QPS for agents endpoint
-    TrafficReportsTotalDomainStats:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        total_requests:
+        total:
           type: integer
           description: Number of total requests in the bucket
-        allowed_requests:
+        total_networks:
           type: integer
-          description: Number of allowed requests in the bucket
-        blocked_requests:
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
           type: integer
-          description: Number of blocked requests in the bucket
-        threat_requests:
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
           type: integer
-          description: Number of threat requests in the bucket
-      description: Traffic reports total number of stats for a domain in a period of time
-    TrafficReportsTotalApplicationsAgentsStatsResult:
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests by domain for networks endpoint
+    TrafficReportsTotalApplicationsNetworksStatsResult:
       type: object
       properties:
-        agent_id:
+        network_id:
+          type: integer
+          description: Network ID
+        network_name:
           type: string
-          description: User agent UUID
-        agent_type:
-          type: string
-          description: User agent type
-        agent_name:
-          type: string
-          description: User agent name
+          description: Network name
         total_requests:
           type: integer
           description: Number of total requests
@@ -8226,45 +8593,7 @@ components:
         most_recent_bucket:
           type: string
           description: Last seen bucket (UTC)
-      description: Traffic reports total applications by agent stats endpoint
-    TrafficReportsTotalApplicationsCollectionsStatsResult:
-      type: object
-      properties:
-        collection_id:
-          type: integer
-          description: Collection ID
-        collection_name:
-          type: string
-          description: Collection name
-        total_requests:
-          type: integer
-          description: Number of total requests
-        allowed_requests:
-          type: integer
-          description: Number of allowed requests
-        blocked_requests:
-          type: integer
-          description: Number of blocked requests
-        previous_total_requests:
-          type: integer
-          description: Number of total requests for previous time period
-        most_recent_bucket:
-          type: string
-          description: Last seen bucket (UTC)
-      description: Traffic reports total applications by collection stats endpoint
-    TrafficReportsTopOrganizationsRequestsResult:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID
-        organization_name:
-          type: string
-          description: Organization name
-        total_requests:
-          type: integer
-          description: Number of total requests
-      description: Traffic reports top organizations endpoint
+      description: Traffic reports total applications by network stats endpoint
     TrafficReportsTotalCategoriesResult:
       type: object
       properties:
@@ -8316,6 +8645,162 @@ components:
           type: integer
           description: Number of total requests in the bucket made by user agents only
       description: Traffic reports total requests by category for networks endpoint
+    TrafficReportsQpsActiveOrganizationsResult:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        organization_name:
+          type: string
+          description: Organization name
+        bucket:
+          type: string
+          description: Bucket datetime in UTC, bucket size is one minute
+        qps:
+          type: number
+          format: float
+          description: Total QPS in the bucket (all values are rounded to one decimal)
+        qps_networks:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
+        qps_proxies:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
+        qps_agents:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
+      description: Traffic reports QPS for organizations endpoint
+    TrafficReportsTotalThreatsUsersResult:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: User ID (if grouped by user) (may be null)
+        user_name:
+          type: string
+          description: User name or friendly name (if grouped by user) (may be null)
+        user_login:
+          type: string
+          description: User remote login (if grouped by user) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total threats for users endpoint
+    TrafficReportsTotalDomainRequestsResult:
+      type: object
+      properties:
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        total_requests:
+          type: integer
+          description: Number of total requests in the bucket
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests in the bucket
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests in the bucket
+        threat_requests:
+          type: integer
+          description: Number of threat requests in the bucket
+      description: Traffic reports total number of requests for a domain in a period of time
+    TrafficReportsTopCategoriesResult:
+      type: object
+      properties:
+        categoryid:
+          type: integer
+          description: Category ID (deprecated)
+        category_id:
+          type: integer
+          description: Category ID
+        category_name:
+          type: string
+          description: Category name
+        methods:
+          type: array
+          items:
+            type: integer
+          description: Matched methods ID for the category
+        methods_names:
+          type: array
+          items:
+            type: string
+          description: Matched methods names
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        organizations:
+          type: array
+          items:
+            type: integer
+          description: Organizations who made the request
+        networks:
+          type: array
+          items:
+            type: integer
+          description: Networks who made the request
+        agents:
+          type: array
+          items:
+            type: string
+          description: User agents who made the request
+        collections:
+          type: array
+          items:
+            type: integer
+          description: Collections who made the request
+        users:
+          type: array
+          items:
+            type: integer
+          description: Users who made the request
+        total:
+          type: integer
+          description: Total number of requests for the category
+        total_networks:
+          type: integer
+          description: Total number of requests for the category made by networks only
+        total_proxies:
+          type: integer
+          description: Total number of requests for the category made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Total number of requests for the category made by user agents only
+      description: Traffic reports top categories endpoint
     TrafficReportsTopCollectionsResult:
       type: object
       properties:
@@ -8358,6 +8843,710 @@ components:
             type: string
           description: Matched scheduled policies IDs names
       description: Traffic reports top collections endpoint
+    TrafficReportsTopOrganizations:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTopOrganizationsResult'
+          description: Result data of the report
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports top organizations endpoint
+    TrafficReportsTotalCategoriesUsersResult:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          description: Bucket category ID
+        category_name:
+          type: string
+          description: Category name
+        user_id:
+          type: integer
+          description: User ID (if grouped by user) (may be null)
+        user_name:
+          type: string
+          description: User name or friendly name (if grouped by user) (may be null)
+        user_login:
+          type: string
+          description: User remote login (if grouped by user) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests by category for users endpoint
+    TrafficReportsTotalApplicationsStatsResult:
+      type: object
+      properties:
+        application_id:
+          type: integer
+          description: Application ID
+        application_name:
+          type: string
+          description: Application name
+        total_requests:
+          type: integer
+          description: Number of total requests
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests
+        previous_total_requests:
+          type: integer
+          description: Number of total requests for previous time period
+        most_recent_bucket:
+          type: string
+          description: Application last seen bucket (UTC)
+        application_category_id:
+          type: integer
+          description: Application category ID
+        application_category_name:
+          type: string
+          description: Application category name
+      description: Traffic reports total applications stats endpoint
+    TrafficReportsQpsActiveUsersResult:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: User ID
+        user_name:
+          type: string
+          description: User name or friendly name
+        user_login:
+          type: string
+          description: User remote login
+        bucket:
+          type: string
+          description: Bucket datetime in UTC, bucket size is one minute
+        qps:
+          type: number
+          format: float
+          description: Total QPS in the bucket (all values are rounded to one decimal)
+        qps_networks:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
+        qps_proxies:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
+        qps_agents:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
+      description: Traffic reports QPS for users endpoint
+    TrafficReportsTotalCollections:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
+        network_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
+        network_names:
+          type: array
+          items:
+            type: string
+          description: Networks names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCollectionsResult'
+          description: Result data of the report
+      description: Traffic reports total requests by collection for networks endpoint
+    TrafficReportsTotalDomainStats:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        total_requests:
+          type: integer
+          description: Number of total requests in the bucket
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests in the bucket
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests in the bucket
+        threat_requests:
+          type: integer
+          description: Number of threat requests in the bucket
+      description: Traffic reports total number of stats for a domain in a period of time
+    TrafficReportsTotalThreatsResult:
+      type: object
+      properties:
+        network_id:
+          type: integer
+          description: Bucket network ID (if grouped by network ID) (may be null)
+        network_name:
+          type: string
+          description: Network name (if grouped by network ID) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total threats for networks endpoint
+    TrafficReportsTotalThreatsCollections:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalThreatsCollectionsResult'
+          description: Result data of the report
+      description: Traffic reports total threats for collections endpoint
+    TrafficReportsTotalApplicationsUsersStats:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalApplicationsUsersStatsResult'
+          description: Result data of the report
+      description: Traffic reports total applications by user stats endpoint
+    TrafficReportsTotalCollectionsUsers:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
+        user_ids:
+          type: array
+          items:
+            type: integer
+          description: List of user IDs that are contained in the response
+        user_names:
+          type: array
+          items:
+            type: string
+          description: User names
+        user_logins:
+          type: array
+          items:
+            type: string
+          description: User logins
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCollectionsUsersResult'
+          description: Result data of the report
+      description: Traffic reports total requests by collection for users endpoint
+    TrafficReportsTotalRequestsOrganizationsResult:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID (if grouped by organization) (may be null)
+        organization_name:
+          type: string
+          description: Organization name (if grouped by organization) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests for organizations endpoint
+    TrafficReportsTopUsersResult:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: User ID
+        user_name:
+          type: string
+          description: User name or friendly name
+        user_login:
+          type: string
+          description: User remote login
+        total:
+          type: integer
+          description: Total number of requests
+        total_networks:
+          type: integer
+          description: Total number of requests made by networks only
+        total_proxies:
+          type: integer
+          description: Total number of requests made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Total number of requests made by user agents only
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+      description: Traffic reports top users endpoint
+    TrafficReportsTotalCategoriesAgents:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        category_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of categories IDs that are contained in the response
+        category_names:
+          type: array
+          items:
+            type: string
+          description: Categories names
+        agent_ids:
+          type: array
+          items:
+            type: string
+          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
+        agent_names:
+          type: array
+          items:
+            type: string
+          description: User agents names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCategoriesAgentsResult'
+          description: Result data of the report
+      description: Traffic reports total requests by category for agents endpoint
+    TrafficReportsTotalRequestsUsersResult:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: User ID (if grouped by user) (may be null)
+        user_name:
+          type: string
+          description: User name or friendly name (if grouped by user) (may be null)
+        user_login:
+          type: string
+          description: User remote login (if grouped by user) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests for users endpoint
+    TrafficReportsTotalThreatsCollectionsResult:
+      type: object
+      properties:
+        collection_id:
+          type: integer
+          description: Collection ID (if grouped by collection) (may be null)
+        collection_name:
+          type: string
+          description: Collection name (if grouped by collection) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total threats for collections endpoint
+    TrafficReportsTotalDeployments:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        organization_name:
+          type: string
+          description: Organization name
+        collections:
+          type: integer
+          description: Number of collections
+        user_agents:
+          type: integer
+          description: Number of user agents
+        sync_tools:
+          type: integer
+          description: Number of sync tools
+        relays:
+          type: integer
+          description: Number of relays
+        users:
+          type: integer
+          description: Number of users from an organization
+      description: Traffic reports top deployments endpoint
+    TrafficReportsTotalApplicationsCollectionsStats:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalApplicationsCollectionsStatsResult'
+          description: Result data of the report
+      description: Traffic reports total applications by collection stats endpoint
+    TrafficReportsTopNetworksResult:
+      type: object
+      properties:
+        network_id:
+          type: integer
+          description: Network ID
+        network_name:
+          type: string
+          description: Network name
+        total:
+          type: integer
+          description: Total number of requests
+        total_networks:
+          type: integer
+          description: Total number of requests made by networks only
+        total_proxies:
+          type: integer
+          description: Total number of requests made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Total number of requests made by user agents only
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+      description: Traffic reports top networks endpoint
+    TrafficReportsQpsActiveAgents:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        agent_ids:
+          type: array
+          items:
+            type: string
+          description: String list of user agents UUIDs that are contained in the response
+        agent_names:
+          type: array
+          items:
+            type: string
+          description: User agents names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsQpsActiveAgentsResult'
+          description: Result data of the report
+      description: Traffic reports QPS for agents endpoint
+    TrafficReportsTotalCategoriesAgentsResult:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          description: Bucket category ID
+        category_name:
+          type: string
+          description: Category name
+        agent_id:
+          type: string
+          description: User agent UUID (if grouped by agent) (may be null)
+        agent_type:
+          type: string
+          description: User agent type (if grouped by agent) (may be null)
+        agent_name:
+          type: string
+          description: User agent name (if grouped by agent) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests by category for agents endpoint
+    TrafficReportsTopOrganizationsRequestsResult:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        organization_name:
+          type: string
+          description: Organization name
+        total_requests:
+          type: integer
+          description: Number of total requests
+      description: Traffic reports top organizations endpoint
     TrafficReportsTotalCollectionsUsersResult:
       type: object
       properties:
@@ -8412,750 +9601,6 @@ components:
           type: integer
           description: Number of total requests in the bucket made by user agents only
       description: Traffic reports total requests by collection for users endpoint
-    TrafficReportsTopAgents:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        agent_ids:
-          type: array
-          items:
-            type: string
-          description: UUID list of user agents that are contained in the response
-        agent_names:
-          type: array
-          items:
-            type: string
-          description: User agents names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTopAgentsResult'
-          description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports top agents endpoint
-    TrafficReportsTotalThreatsUsersResult:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          description: User ID (if grouped by user) (may be null)
-        user_name:
-          type: string
-          description: User name or friendly name (if grouped by user) (may be null)
-        user_login:
-          type: string
-          description: User remote login (if grouped by user) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total threats for users endpoint
-    TrafficReportsQpsActiveUsersResult:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          description: User ID
-        user_name:
-          type: string
-          description: User name or friendly name
-        user_login:
-          type: string
-          description: User remote login
-        bucket:
-          type: string
-          description: Bucket datetime in UTC, bucket size is one minute
-        qps:
-          type: number
-          format: float
-          description: Total QPS in the bucket (all values are rounded to one decimal)
-        qps_networks:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
-        qps_proxies:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
-        qps_agents:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
-      description: Traffic reports QPS for users endpoint
-    TrafficReportsTotalThreatsCollections:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalThreatsCollectionsResult'
-          description: Result data of the report
-      description: Traffic reports total threats for collections endpoint
-    TrafficReportsQpsResult:
-      type: object
-      properties:
-        network_id:
-          type: integer
-          description: Bucket network ID (if grouped by network ID) (may be null)
-        network_name:
-          type: string
-          description: Network name (if grouped by network ID) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        qps:
-          type: number
-          format: float
-          description: Total QPS in the bucket (all values are rounded to one decimal)
-        qps_networks:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
-        qps_proxies:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
-        qps_agents:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
-      description: Traffic reports QPS for networks endpoint
-    TrafficReportsTotalRequestsCollectionsResult:
-      type: object
-      properties:
-        collection_id:
-          type: integer
-          description: Collection ID (if grouped by collection) (may be null)
-        collection_name:
-          type: string
-          description: Collection name (if grouped by collection) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests for collections endpoint
-    TrafficReportsTotalCollectionsAgentsResult:
-      type: object
-      properties:
-        collection_id:
-          type: integer
-          description: Collection ID
-        collection_name:
-          type: string
-          description: Collection name
-        agent_id:
-          type: string
-          description: User agent UUID (if grouped by agent) (may be null)
-        agent_type:
-          type: string
-          description: User agent type (if grouped by agent) (may be null)
-        agent_name:
-          type: string
-          description: User agent name (if grouped by agent) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by collection for agents endpoint
-    TrafficReportsTotalRequestsResult:
-      type: object
-      properties:
-        network_id:
-          type: integer
-          description: Bucket network ID (if grouped by network ID) (may be null)
-        network_name:
-          type: string
-          description: Network name (if grouped by network ID) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests for networks endpoint
-    TrafficReportsTotalDomainsResult:
-      type: object
-      properties:
-        network_id:
-          type: integer
-          description: Bucket network ID (if grouped by network ID) (may be null)
-        network_name:
-          type: string
-          description: Network name (if grouped by network ID) (may be null)
-        domain:
-          type: string
-          description: Domain
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by domain for networks endpoint
-    TrafficReportsTotalThreatsCollectionsResult:
-      type: object
-      properties:
-        collection_id:
-          type: integer
-          description: Collection ID (if grouped by collection) (may be null)
-        collection_name:
-          type: string
-          description: Collection name (if grouped by collection) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total threats for collections endpoint
-    TrafficReportsTotalCategoryStats:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        total_requests:
-          type: integer
-          description: Number of total requests in the bucket
-        allowed_requests:
-          type: integer
-          description: Number of allowed requests in the bucket
-        blocked_requests:
-          type: integer
-          description: Number of blocked requests in the bucket
-        threat_requests:
-          type: integer
-          description: Number of threat requests in the bucket
-      description: Traffic reports total number of stats for a category in a period of time
-    TrafficReportsTotalCollectionsAgents:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        agent_ids:
-          type: array
-          items:
-            type: string
-          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
-        agent_names:
-          type: array
-          items:
-            type: string
-          description: User agents names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalCollectionsAgentsResult'
-          description: Result data of the report
-      description: Traffic reports total requests by collection for agents endpoint
-    TrafficReportsTopOrganizations:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTopOrganizationsResult'
-          description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports top organizations endpoint
-    TrafficReportsTotalCollectionsOrganizations:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalCollectionsOrganizationsResult'
-          description: Result data of the report
-      description: Traffic reports total requests by collection for organizations endpoint
-    TrafficReportsTotalDomainsUsersResult:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          description: User ID (if grouped by user) (may be null)
-        user_name:
-          type: string
-          description: User name or friendly name (if grouped by user) (may be null)
-        user_login:
-          type: string
-          description: User remote login (if grouped by user) (may be null)
-        domain:
-          type: string
-          description: Domain
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by domain for users endpoint
-    TrafficReportsTotalThreatsOrganizations:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        agent_ids:
-          type: array
-          items:
-            type: string
-          description: UUID list of network IDs that are contained in the response (if grouped by user agent ID)
-        agent_names:
-          type: array
-          items:
-            type: string
-          description: User agents names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalThreatsOrganizationsResult'
-          description: Result data of the report
-      description: Traffic reports total threats for organizations endpoint
-    TrafficReportsTopCollections:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTopCollectionsResult'
-          description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports top collections endpoint
-    TrafficReportsTotalRoamingClients:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalRoamingClientsResult'
-          description: Result data of the report
-      description: Traffic reports total roaming clients information
-    TrafficReportsTotalThreatsOrganizationsResult:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID (if grouped by organization) (may be null)
-        organization_name:
-          type: string
-          description: Organization name (if grouped by organization) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total threats for organizations endpoint
-    TrafficReportsTotalOrganizationsStats:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        total_requests:
-          type: integer
-          description: Number of total requests in the bucket
-        allowed_requests:
-          type: integer
-          description: Number of allowed requests in the bucket
-        blocked_requests:
-          type: integer
-          description: Number of blocked requests in the bucket
-        threat_requests:
-          type: integer
-          description: Number of threat requests in the bucket
-      description: Traffic reports total number of stats for organizations in a period of time
-    TrafficReportsTopNetworksResult:
-      type: object
-      properties:
-        network_id:
-          type: integer
-          description: Network ID
-        network_name:
-          type: string
-          description: Network name
-        total:
-          type: integer
-          description: Total number of requests
-        total_networks:
-          type: integer
-          description: Total number of requests made by networks only
-        total_proxies:
-          type: integer
-          description: Total number of requests made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Total number of requests made by user agents only
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-      description: Traffic reports top networks endpoint
     TrafficReportsTotalCategoriesCollectionsResult:
       type: object
       properties:
@@ -9207,6 +9652,214 @@ components:
           type: integer
           description: Number of total requests in the bucket made by user agents only
       description: Traffic reports total requests by category for collections endpoint
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
+    TrafficReportsQpsActiveAgentsResult:
+      type: object
+      properties:
+        agent_id:
+          type: string
+          description: User agent UUID
+        agent_name:
+          type: string
+          description: User agent name
+        bucket:
+          type: string
+          description: Bucket datetime in UTC, bucket size is one minute
+        qps:
+          type: number
+          format: float
+          description: Total QPS in the bucket (all values are rounded to one decimal)
+        qps_networks:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
+        qps_proxies:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
+        qps_agents:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
+      description: Traffic reports QPS for agents endpoint
+    TrafficReportsTotalThreatsOrganizationsResult:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID (if grouped by organization) (may be null)
+        organization_name:
+          type: string
+          description: Organization name (if grouped by organization) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total threats for organizations endpoint
+    TrafficReportsTotalApplicationsOrganizationsStatsResult:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID
+        organization_name:
+          type: string
+          description: Organization name
+        total_requests:
+          type: integer
+          description: Number of total requests
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests
+        previous_total_requests:
+          type: integer
+          description: Number of total requests for previous time period
+        most_recent_bucket:
+          type: string
+          description: Last seen bucket (UTC)
+      description: Traffic reports total applications by organization stats endpoint
+    TrafficReportsTotalDomainsOrganizationsResult:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID (if grouped by organization) (may be null)
+        organization_name:
+          type: string
+          description: Organization name (if grouped by organization) (may be null)
+        domain:
+          type: string
+          description: Domain
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests by domain for organizations endpoint
+    TrafficReportsTotalApplicationsOrganizationsStats:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalApplicationsOrganizationsStatsResult'
+          description: Result data of the report
+      description: Traffic reports total applications by organization stats endpoint
+    TrafficReportsTotalRequestsCollectionsResult:
+      type: object
+      properties:
+        collection_id:
+          type: integer
+          description: Collection ID (if grouped by collection) (may be null)
+        collection_name:
+          type: string
+          description: Collection name (if grouped by collection) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests for collections endpoint
     TrafficReportsTotalRequestsAgentsResult:
       type: object
       properties:
@@ -9255,85 +9908,6 @@ components:
           type: integer
           description: Number of total requests in the bucket made by user agents only
       description: Traffic reports total requests for agents endpoint
-    TrafficReportsTotalApplicationsAgentsStats:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalApplicationsAgentsStatsResult'
-          description: Result data of the report
-      description: Traffic reports total applications by agent stats endpoint
-    TrafficReportsTotalCategoriesCollections:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        category_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of categories IDs that are contained in the response
-        category_names:
-          type: array
-          items:
-            type: string
-          description: Categories names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalCategoriesCollectionsResult'
-          description: Result data of the report
-      description: Traffic reports total requests by category for collections endpoint
-    TrafficReportsTopNetworks:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        network_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of network IDs that are contained in the response
-        network_names:
-          type: array
-          items:
-            type: string
-          description: Networks names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTopNetworksResult'
-          description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports top networks endpoint
     TrafficReportsTopDomainsResult:
       type: object
       properties:
@@ -9428,7 +10002,59 @@ components:
             type: integer
           description: Users who made the request
       description: Traffic reports top domains endpoint
-    TrafficReportsTotalDomainRequests:
+    TrafficReportsTotalOrganizationsStats:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        total_requests:
+          type: integer
+          description: Number of total requests in the bucket
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests in the bucket
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests in the bucket
+        threat_requests:
+          type: integer
+          description: Number of threat requests in the bucket
+      description: Traffic reports total number of stats for organizations in a period of time
+    TrafficReportsTotalCategoryStats:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        total_requests:
+          type: integer
+          description: Number of total requests in the bucket
+        allowed_requests:
+          type: integer
+          description: Number of allowed requests in the bucket
+        blocked_requests:
+          type: integer
+          description: Number of blocked requests in the bucket
+        threat_requests:
+          type: integer
+          description: Number of threat requests in the bucket
+      description: Traffic reports total number of stats for a category in a period of time
+    TrafficReportsQpsActiveOrganizations:
       type: object
       properties:
         organization_ids:
@@ -9444,303 +10070,9 @@ components:
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalDomainRequestsResult'
+            $ref: '#/components/schemas/TrafficReportsQpsActiveOrganizationsResult'
           description: Result data of the report
-      description: Traffic reports total number of requests for a domain in a period of time
-    TrafficReportsTotalCategoriesAgentsResult:
-      type: object
-      properties:
-        category_id:
-          type: integer
-          description: Bucket category ID
-        category_name:
-          type: string
-          description: Category name
-        agent_id:
-          type: string
-          description: User agent UUID (if grouped by agent) (may be null)
-        agent_type:
-          type: string
-          description: User agent type (if grouped by agent) (may be null)
-        agent_name:
-          type: string
-          description: User agent name (if grouped by agent) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by category for agents endpoint
-    TrafficReportsTotalDomainsCollectionsResult:
-      type: object
-      properties:
-        collection_id:
-          type: integer
-          description: Collection ID (if grouped by collection) (may be null)
-        collection_name:
-          type: string
-          description: Collection name (if grouped by collection) (may be null)
-        domain:
-          type: string
-          description: Domain
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by domain for collections endpoint
-    TrafficReportsTotalCategories:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        network_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
-        network_names:
-          type: array
-          items:
-            type: string
-          description: Networks names
-        category_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of categories IDs that are contained in the response
-        category_names:
-          type: array
-          items:
-            type: string
-          description: Categories names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalCategoriesResult'
-          description: Result data of the report
-      description: Traffic reports total requests by category for networks endpoint
-    TrafficReportsTotalRequestsUsersResult:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          description: User ID (if grouped by user) (may be null)
-        user_name:
-          type: string
-          description: User name or friendly name (if grouped by user) (may be null)
-        user_login:
-          type: string
-          description: User remote login (if grouped by user) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests for users endpoint
-    TrafficReportsTotalCollectionsOrganizationsResult:
-      type: object
-      properties:
-        collection_id:
-          type: integer
-          description: Collection ID
-        collection_name:
-          type: string
-          description: Collection name
-        organization_id:
-          type: integer
-          description: Organization ID (if grouped by organization) (may be null)
-        organization_name:
-          type: string
-          description: Organization name (if grouped by organization) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by collection for organizations endpoint
-    TrafficReportsTotalRequestsGeo:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        network_ids:
-          type: array
-          items:
-            type: string
-          description: Network IDs that are contained in the response
-        network_names:
-          type: array
-          items:
-            type: string
-          description: Network names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalRequestsGeoResult'
-          description: Result data of the report
-      description: Traffic reports total requests for geo endpoint
-    TrafficReportsTotalThreatsResult:
-      type: object
-      properties:
-        network_id:
-          type: integer
-          description: Bucket network ID (if grouped by network ID) (may be null)
-        network_name:
-          type: string
-          description: Network name (if grouped by network ID) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total threats for networks endpoint
+      description: Traffic reports QPS for organizations endpoint
     TrafficReportsPagination:
       type: object
       properties:
@@ -9766,295 +10098,7 @@ components:
           type: integer
           description: Number of the next page (if any) (may be null)
       description: Traffic reports pagination response
-    TrafficReportsTopCategories:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTopCategoriesResult'
-          description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports top categories endpoint
-    TrafficReportsTotalCategoriesOrganizationsResult:
-      type: object
-      properties:
-        category_id:
-          type: integer
-          description: Bucket category ID
-        category_name:
-          type: string
-          description: Category name
-        organization_id:
-          type: integer
-          description: Organization ID (if grouped by organization) (may be null)
-        organization_name:
-          type: string
-          description: Organization name (if grouped by organization) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by category for organizations endpoint
-    TrafficReportsTotalApplicationsUsersStatsResult:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          description: User ID
-        user_name:
-          type: string
-          description: User name or friendly name
-        user_login:
-          type: string
-          description: User remote login
-        total_requests:
-          type: integer
-          description: Number of total requests
-        allowed_requests:
-          type: integer
-          description: Number of allowed requests
-        blocked_requests:
-          type: integer
-          description: Number of blocked requests
-        previous_total_requests:
-          type: integer
-          description: Number of total requests for previous time period
-        most_recent_bucket:
-          type: string
-          description: Last seen bucket (UTC)
-      description: Traffic reports total applications by user stats endpoint
-    TrafficReportsTotalApplicationsOrganizationsStatsResult:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID
-        organization_name:
-          type: string
-          description: Organization name
-        total_requests:
-          type: integer
-          description: Number of total requests
-        allowed_requests:
-          type: integer
-          description: Number of allowed requests
-        blocked_requests:
-          type: integer
-          description: Number of blocked requests
-        previous_total_requests:
-          type: integer
-          description: Number of total requests for previous time period
-        most_recent_bucket:
-          type: string
-          description: Last seen bucket (UTC)
-      description: Traffic reports total applications by organization stats endpoint
-    TrafficReportsTotalDomainsUsers:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        user_ids:
-          type: array
-          items:
-            type: integer
-          description: List of user IDs that are contained in the response
-        user_names:
-          type: array
-          items:
-            type: string
-          description: User names
-        user_logins:
-          type: array
-          items:
-            type: string
-          description: User logins
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalDomainsUsersResult'
-          description: Result data of the report
-      description: Traffic reports total requests by domain for users endpoint
-    TrafficReportsQpsActiveUsers:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        user_ids:
-          type: array
-          items:
-            type: integer
-          description: List of user IDs that are contained in the response
-        user_names:
-          type: array
-          items:
-            type: string
-          description: User names
-        user_logins:
-          type: array
-          items:
-            type: string
-          description: User logins
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsQpsActiveUsersResult'
-          description: Result data of the report
-      description: Traffic reports QPS for users endpoint
-    TrafficReportsQpsActiveOrganizations:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsQpsActiveOrganizationsResult'
-          description: Result data of the report
-      description: Traffic reports QPS for organizations endpoint
-    TrafficReportsQpsActiveCollectionsResult:
-      type: object
-      properties:
-        collection_id:
-          type: integer
-          description: Collection ID
-        collection_name:
-          type: string
-          description: Collection name
-        bucket:
-          type: string
-          description: Bucket datetime in UTC, bucket size is one minute
-        qps:
-          type: number
-          format: float
-          description: Total QPS in the bucket (all values are rounded to one decimal)
-        qps_networks:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
-        qps_proxies:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
-        qps_agents:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
-      description: Traffic reports QPS for collections endpoint
-    TrafficReportsTotalRequestsGeoResult:
-      type: object
-      properties:
-        network_id:
-          type: integer
-        total_requests:
-          type: integer
-        qps:
-          type: integer
-      description: Traffic reports total requests for geo endpoint
-    TrafficReportsTopDomains:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTopDomainsResult'
-          description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports top domains endpoint
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
-    TrafficReportsTotalApplicationsStats:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalApplicationsStatsResult'
-          description: Result data of the report
-      description: Traffic reports total applications stats endpoint
-    TrafficReportsTotalThreats:
+    TrafficReportsTotalRequests:
       type: object
       properties:
         organization_ids:
@@ -10080,19 +10124,10 @@ components:
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalThreatsResult'
+            $ref: '#/components/schemas/TrafficReportsTotalRequestsResult'
           description: Result data of the report
-      description: Traffic reports total threats for networks endpoint
-    TrafficReportsTotalApplicationsNetworksStats:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalApplicationsNetworksStatsResult'
-          description: Result data of the report
-      description: Traffic reports total applications by network stats endpoint
-    TrafficReportsQps:
+      description: Traffic reports total requests for networks endpoint
+    TrafficReportsTotalRequestsAgents:
       type: object
       properties:
         organization_ids:
@@ -10105,80 +10140,22 @@ components:
           items:
             type: string
           description: Organizations names
-        network_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
-        network_names:
+        agent_ids:
           type: array
           items:
             type: string
-          description: Networks names
+          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
+        agent_names:
+          type: array
+          items:
+            type: string
+          description: User agents names
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsQpsResult'
+            $ref: '#/components/schemas/TrafficReportsTotalRequestsAgentsResult'
           description: Result data of the report
-      description: Traffic reports QPS for networks endpoint
-    TrafficReportsQpsActiveOrganizationsResult:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID
-        organization_name:
-          type: string
-          description: Organization name
-        bucket:
-          type: string
-          description: Bucket datetime in UTC, bucket size is one minute
-        qps:
-          type: number
-          format: float
-          description: Total QPS in the bucket (all values are rounded to one decimal)
-        qps_networks:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
-        qps_proxies:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
-        qps_agents:
-          type: number
-          format: float
-          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
-      description: Traffic reports QPS for organizations endpoint
-    TrafficReportsQpsActiveCollections:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsQpsActiveCollectionsResult'
-          description: Result data of the report
-      description: Traffic reports QPS for collections endpoint
+      description: Traffic reports total requests for agents endpoint
     TrafficReportsTotalDomains:
       type: object
       properties:
@@ -10208,60 +10185,7 @@ components:
             $ref: '#/components/schemas/TrafficReportsTotalDomainsResult'
           description: Result data of the report
       description: Traffic reports total requests by domain for networks endpoint
-    TrafficReportsTotalDomainRequestsResult:
-      type: object
-      properties:
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        total_requests:
-          type: integer
-          description: Number of total requests in the bucket
-        allowed_requests:
-          type: integer
-          description: Number of allowed requests in the bucket
-        blocked_requests:
-          type: integer
-          description: Number of blocked requests in the bucket
-        threat_requests:
-          type: integer
-          description: Number of threat requests in the bucket
-      description: Traffic reports total number of requests for a domain in a period of time
-    TrafficReportsTotalClientStats:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID
-        organization_name:
-          type: string
-          description: Organization name
-        total_users:
-          type: integer
-          description: Number of users from an organization
-        active_users:
-          type: integer
-          description: Number of active users from an organization
-        total_sites:
-          type: integer
-          description: Number of sites from an organization
-        active_sites:
-          type: integer
-          description: Number of active sites from an organization
-        total_roaming_clients:
-          type: integer
-          description: Number of roaming clients from an organization or network
-        active_roaming_clients:
-          type: integer
-          description: Number of active roaming clients from an organization or network
-        total_relays:
-          type: integer
-          description: Number of relays from an organization or network
-        active_relays:
-          type: integer
-          description: Number of active relays from an organization or network
-      description: Traffic reports total client stats endpoint
-    TrafficReportsTotalCollections:
+    TrafficReportsTotalRequestsOrganizations:
       type: object
       properties:
         organization_ids:
@@ -10274,157 +10198,12 @@ components:
           items:
             type: string
           description: Organizations names
-        collection_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of collection IDs that are contained in the response
-        collection_names:
-          type: array
-          items:
-            type: string
-          description: Collections names
-        network_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
-        network_names:
-          type: array
-          items:
-            type: string
-          description: Networks names
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalCollectionsResult'
+            $ref: '#/components/schemas/TrafficReportsTotalRequestsOrganizationsResult'
           description: Result data of the report
-      description: Traffic reports total requests by collection for networks endpoint
-    TrafficReportsTopAgentsResult:
-      type: object
-      properties:
-        agent_id:
-          type: string
-          description: User agent UUID
-        agent_type:
-          type: string
-          description: User agent type
-        agent_name:
-          type: string
-          description: User agent name
-        total:
-          type: integer
-          description: Total number of requests
-        total_networks:
-          type: integer
-          description: Total number of requests made by networks only
-        total_proxies:
-          type: integer
-          description: Total number of requests made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Total number of requests made by user agents only
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-      description: Traffic reports top agents endpoint
-    TrafficReportsTotalOrganizationsRequestsResult:
-      type: object
-      properties:
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        total_requests:
-          type: integer
-          description: Number of total requests in the bucket
-        allowed_requests:
-          type: integer
-          description: Number of allowed requests in the bucket
-        blocked_requests:
-          type: integer
-          description: Number of blocked requests in the bucket
-        threat_requests:
-          type: integer
-          description: Number of threat requests in the bucket
-      description: Traffic reports total number of requests for organizations in a period of time
-    TrafficReportsTopOrganizationsResult:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID
-        organization_name:
-          type: string
-          description: Organization name
-        total:
-          type: integer
-          description: Total number of requests
-        total_networks:
-          type: integer
-          description: Total number of requests made by networks only
-        total_proxies:
-          type: integer
-          description: Total number of requests made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Total number of requests made by user agents only
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-      description: Traffic reports top organizations endpoint
-    TrafficReportsTotalApplicationsCollectionsStats:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalApplicationsCollectionsStatsResult'
-          description: Result data of the report
-      description: Traffic reports total applications by collection stats endpoint
-    TrafficReportsTotalRoamingClientsResult:
-      type: object
-      properties:
-        os:
-          type: string
-          description: deployment OS name
-        value:
-          type: integer
-          description: Number of deployments
-      description: Traffic reports total roaming clients information per organization networks
+      description: Traffic reports total requests for organizations endpoint
     TrafficReportsQueryLogsResult:
       type: object
       properties:
@@ -10577,15 +10356,326 @@ components:
           type: string
           description: Region (may be null)
       description: Traffic reports query log endpoint
-    TrafficReportsTotalApplicationsNetworksStatsResult:
+    TrafficReportsTotalCollectionsOrganizations:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCollectionsOrganizationsResult'
+          description: Result data of the report
+      description: Traffic reports total requests by collection for organizations endpoint
+    TrafficReportsTotalCategoriesCollections:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        category_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of categories IDs that are contained in the response
+        category_names:
+          type: array
+          items:
+            type: string
+          description: Categories names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCategoriesCollectionsResult'
+          description: Result data of the report
+      description: Traffic reports total requests by category for collections endpoint
+    TrafficReportsTotalOrganizationsRequests:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalOrganizationsRequestsResult'
+          description: Result data of the report
+      description: Traffic reports total number of requests for organizations in a period of time
+    TrafficReportsTotalRequestsResult:
       type: object
       properties:
         network_id:
           type: integer
-          description: Network ID
+          description: Bucket network ID (if grouped by network ID) (may be null)
         network_name:
           type: string
-          description: Network name
+          description: Network name (if grouped by network ID) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests for networks endpoint
+    TrafficReportsQueryLogs:
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          description: Organization ID of the result
+        organization_ids:
+          type: array
+          items:
+            type: string
+          description: List of organization IDs of the result
+        organization_name:
+          type: string
+          description: Organization name
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: List of organization name of the result
+        network_id:
+          type: integer
+          description: Network ID of the result (may be null)
+        network_ids:
+          type: array
+          items:
+            type: string
+          description: List of network IDs of the result (may be null)
+        client_id:
+          type: string
+          description: User agent UUID of the result (may be null)
+        client_ids:
+          type: array
+          items:
+            type: string
+          description: List of user agent UUIDs of the result (may be null)
+        user_id:
+          type: integer
+          description: User local ID of the result (may be null)
+        user_ids:
+          type: array
+          items:
+            type: string
+          description: List of user local IDs of the result (may be null)
+        collection_id:
+          type: integer
+          description: Collection ID of the result (may be null)
+        collection_ids:
+          type: array
+          items:
+            type: string
+          description: List of collection IDs of the result (may be null)
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsQueryLogsResult'
+          description: Result data of the report
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports query log endpoint
+    TrafficReportsTotalThreatsOrganizations:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        agent_ids:
+          type: array
+          items:
+            type: string
+          description: UUID list of network IDs that are contained in the response (if grouped by user agent ID)
+        agent_names:
+          type: array
+          items:
+            type: string
+          description: User agents names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalThreatsOrganizationsResult'
+          description: Result data of the report
+      description: Traffic reports total threats for organizations endpoint
+    TrafficReportsTotalDomainRequests:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalDomainRequestsResult'
+          description: Result data of the report
+      description: Traffic reports total number of requests for a domain in a period of time
+    TrafficReportsQpsResult:
+      type: object
+      properties:
+        network_id:
+          type: integer
+          description: Bucket network ID (if grouped by network ID) (may be null)
+        network_name:
+          type: string
+          description: Network name (if grouped by network ID) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        qps:
+          type: number
+          format: float
+          description: Total QPS in the bucket (all values are rounded to one decimal)
+        qps_networks:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by networks only (all values are rounded to one decimal)
+        qps_proxies:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by LAN proxies only (all values are rounded to one decimal)
+        qps_agents:
+          type: number
+          format: float
+          description: Total QPS in the bucket made by user agents only (all values are rounded to one decimal)
+      description: Traffic reports QPS for networks endpoint
+    TrafficReportsTotalApplicationsAgentsStats:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalApplicationsAgentsStatsResult'
+          description: Result data of the report
+      description: Traffic reports total applications by agent stats endpoint
+    TrafficReportsTopCollections:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTopCollectionsResult'
+          description: Result data of the report
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports top collections endpoint
+    TrafficReportsTotalApplicationsAgentsStatsResult:
+      type: object
+      properties:
+        agent_id:
+          type: string
+          description: User agent UUID
+        agent_type:
+          type: string
+          description: User agent type
+        agent_name:
+          type: string
+          description: User agent name
         total_requests:
           type: integer
           description: Number of total requests
@@ -10601,88 +10691,18 @@ components:
         most_recent_bucket:
           type: string
           description: Last seen bucket (UTC)
-      description: Traffic reports total applications by network stats endpoint
-    TrafficReportsTopCategoriesResult:
+      description: Traffic reports total applications by agent stats endpoint
+    TrafficReportsTotalRoamingClientsResult:
       type: object
       properties:
-        categoryid:
-          type: integer
-          description: Category ID (deprecated)
-        category_id:
-          type: integer
-          description: Category ID
-        category_name:
+        os:
           type: string
-          description: Category name
-        methods:
-          type: array
-          items:
-            type: integer
-          description: Matched methods ID for the category
-        methods_names:
-          type: array
-          items:
-            type: string
-          description: Matched methods names
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        organizations:
-          type: array
-          items:
-            type: integer
-          description: Organizations who made the request
-        networks:
-          type: array
-          items:
-            type: integer
-          description: Networks who made the request
-        agents:
-          type: array
-          items:
-            type: string
-          description: User agents who made the request
-        collections:
-          type: array
-          items:
-            type: integer
-          description: Collections who made the request
-        users:
-          type: array
-          items:
-            type: integer
-          description: Users who made the request
-        total:
+          description: deployment OS name
+        value:
           type: integer
-          description: Total number of requests for the category
-        total_networks:
-          type: integer
-          description: Total number of requests for the category made by networks only
-        total_proxies:
-          type: integer
-          description: Total number of requests for the category made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Total number of requests for the category made by user agents only
-      description: Traffic reports top categories endpoint
-    TrafficReportsTotalRequestsAgents:
+          description: Number of deployments
+      description: Traffic reports total roaming clients information per organization networks
+    TrafficReportsQpsActiveCollections:
       type: object
       properties:
         organization_ids:
@@ -10695,253 +10715,33 @@ components:
           items:
             type: string
           description: Organizations names
-        agent_ids:
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
           type: array
           items:
             type: string
-          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
-        agent_names:
-          type: array
-          items:
-            type: string
-          description: User agents names
+          description: Collections names
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalRequestsAgentsResult'
+            $ref: '#/components/schemas/TrafficReportsQpsActiveCollectionsResult'
           description: Result data of the report
-      description: Traffic reports total requests for agents endpoint
-    TrafficReportsTotalDeployments:
+      description: Traffic reports QPS for collections endpoint
+    TrafficReportsTotalRequestsGeoResult:
       type: object
       properties:
-        organization_id:
+        network_id:
           type: integer
-          description: Organization ID
-        organization_name:
-          type: string
-          description: Organization name
-        collections:
+        total_requests:
           type: integer
-          description: Number of collections
-        user_agents:
+        qps:
           type: integer
-          description: Number of user agents
-        sync_tools:
-          type: integer
-          description: Number of sync tools
-        relays:
-          type: integer
-          description: Number of relays
-        users:
-          type: integer
-          description: Number of users from an organization
-      description: Traffic reports top deployments endpoint
-    TrafficReportsTotalRequestsOrganizationsResult:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID (if grouped by organization) (may be null)
-        organization_name:
-          type: string
-          description: Organization name (if grouped by organization) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests for organizations endpoint
-    TrafficReportsTotalDomainsOrganizationsResult:
-      type: object
-      properties:
-        organization_id:
-          type: integer
-          description: Organization ID (if grouped by organization) (may be null)
-        organization_name:
-          type: string
-          description: Organization name (if grouped by organization) (may be null)
-        domain:
-          type: string
-          description: Domain
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by domain for organizations endpoint
-    TrafficReportsTotalThreatsAgents:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        agent_ids:
-          type: array
-          items:
-            type: string
-          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
-        agent_names:
-          type: array
-          items:
-            type: string
-          description: User agents names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalThreatsAgentsResult'
-          description: Result data of the report
-      description: Traffic reports total threats for agents endpoint
-    TrafficReportsTotalRequests:
-      type: object
-      properties:
-        organization_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of organization IDs that are contained in the response
-        organization_names:
-          type: array
-          items:
-            type: string
-          description: Organizations names
-        network_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of network IDs that are contained in the response (if grouped by network ID)
-        network_names:
-          type: array
-          items:
-            type: string
-          description: Networks names
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficReportsTotalRequestsResult'
-          description: Result data of the report
-      description: Traffic reports total requests for networks endpoint
-    TrafficReportsTotalCategoriesUsersResult:
-      type: object
-      properties:
-        category_id:
-          type: integer
-          description: Bucket category ID
-        category_name:
-          type: string
-          description: Category name
-        user_id:
-          type: integer
-          description: User ID (if grouped by user) (may be null)
-        user_name:
-          type: string
-          description: User name or friendly name (if grouped by user) (may be null)
-        user_login:
-          type: string
-          description: User remote login (if grouped by user) (may be null)
-        bucket:
-          type: string
-          description: Bucket datetime in UTC
-        policies:
-          type: array
-          items:
-            type: integer
-          description: Matched policies IDs for the domain
-        policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched policies IDs names
-        scheduled_policies:
-          type: array
-          items:
-            type: integer
-          description: Matched scheduled policies IDs for the domain
-        scheduled_policies_names:
-          type: array
-          items:
-            type: string
-          description: Matched scheduled policies IDs names
-        total:
-          type: integer
-          description: Number of total requests in the bucket
-        total_networks:
-          type: integer
-          description: Number of total requests in the bucket made by networks only
-        total_proxies:
-          type: integer
-          description: Number of total requests in the bucket made by LAN proxies only
-        total_agents:
-          type: integer
-          description: Number of total requests in the bucket made by user agents only
-      description: Traffic reports total requests by category for users endpoint
-    TrafficReportsTopUsers:
+      description: Traffic reports total requests for geo endpoint
+    TrafficReportsQpsActiveUsers:
       type: object
       properties:
         organization_ids:
@@ -10972,12 +10772,10 @@ components:
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTopUsersResult'
+            $ref: '#/components/schemas/TrafficReportsQpsActiveUsersResult'
           description: Result data of the report
-        page:
-          $ref: '#/components/schemas/TrafficReportsPagination'
-      description: Traffic reports top users endpoint
-    TrafficReportsTotalCategoriesOrganizations:
+      description: Traffic reports QPS for users endpoint
+    TrafficReportsTopDomains:
       type: object
       properties:
         organization_ids:
@@ -10990,22 +10788,224 @@ components:
           items:
             type: string
           description: Organizations names
-        category_ids:
-          type: array
-          items:
-            type: integer
-          description: Integer list of categories IDs that are contained in the response
-        category_names:
-          type: array
-          items:
-            type: string
-          description: Categories names
         values:
           type: array
           items:
-            $ref: '#/components/schemas/TrafficReportsTotalCategoriesOrganizationsResult'
+            $ref: '#/components/schemas/TrafficReportsTopDomainsResult'
           description: Result data of the report
-      description: Traffic reports total requests by category for organizations endpoint
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports top domains endpoint
+    TrafficReportsTotalCollectionsAgents:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        collection_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of collection IDs that are contained in the response
+        collection_names:
+          type: array
+          items:
+            type: string
+          description: Collections names
+        agent_ids:
+          type: array
+          items:
+            type: string
+          description: UUID list of user agents that are contained in the response (if grouped by user agent ID)
+        agent_names:
+          type: array
+          items:
+            type: string
+          description: User agents names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalCollectionsAgentsResult'
+          description: Result data of the report
+      description: Traffic reports total requests by collection for agents endpoint
+    TrafficReportsTotalThreatsAgentsResult:
+      type: object
+      properties:
+        agent_id:
+          type: string
+          description: User agent UUID (if grouped by agent) (may be null)
+        agent_type:
+          type: string
+          description: User agent type (if grouped by agent) (may be null)
+        agent_name:
+          type: string
+          description: User agent name (if grouped by agent) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total threats for agents endpoint
+    TrafficReportsTotalDomainsOrganizations:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalDomainsOrganizationsResult'
+          description: Result data of the report
+      description: Traffic reports total requests by domain for organizations endpoint
+    TrafficReportsTopCategories:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTopCategoriesResult'
+          description: Result data of the report
+        page:
+          $ref: '#/components/schemas/TrafficReportsPagination'
+      description: Traffic reports top categories endpoint
+    TrafficReportsTotalRequestsGeo:
+      type: object
+      properties:
+        organization_ids:
+          type: array
+          items:
+            type: integer
+          description: Integer list of organization IDs that are contained in the response
+        organization_names:
+          type: array
+          items:
+            type: string
+          description: Organizations names
+        network_ids:
+          type: array
+          items:
+            type: string
+          description: Network IDs that are contained in the response
+        network_names:
+          type: array
+          items:
+            type: string
+          description: Network names
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficReportsTotalRequestsGeoResult'
+          description: Result data of the report
+      description: Traffic reports total requests for geo endpoint
+    TrafficReportsTotalCollectionsAgentsResult:
+      type: object
+      properties:
+        collection_id:
+          type: integer
+          description: Collection ID
+        collection_name:
+          type: string
+          description: Collection name
+        agent_id:
+          type: string
+          description: User agent UUID (if grouped by agent) (may be null)
+        agent_type:
+          type: string
+          description: User agent type (if grouped by agent) (may be null)
+        agent_name:
+          type: string
+          description: User agent name (if grouped by agent) (may be null)
+        bucket:
+          type: string
+          description: Bucket datetime in UTC
+        policies:
+          type: array
+          items:
+            type: integer
+          description: Matched policies IDs for the domain
+        policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched policies IDs names
+        scheduled_policies:
+          type: array
+          items:
+            type: integer
+          description: Matched scheduled policies IDs for the domain
+        scheduled_policies_names:
+          type: array
+          items:
+            type: string
+          description: Matched scheduled policies IDs names
+        total:
+          type: integer
+          description: Number of total requests in the bucket
+        total_networks:
+          type: integer
+          description: Number of total requests in the bucket made by networks only
+        total_proxies:
+          type: integer
+          description: Number of total requests in the bucket made by LAN proxies only
+        total_agents:
+          type: integer
+          description: Number of total requests in the bucket made by user agents only
+      description: Traffic reports total requests by collection for agents endpoint
   securitySchemes:
     header_authorization:
       type: apiKey

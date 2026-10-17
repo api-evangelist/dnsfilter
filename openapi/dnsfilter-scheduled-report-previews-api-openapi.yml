@@ -130,6 +130,13 @@ components:
           - top15
           description: Number of categories to show
       description: Scheduled report preview creation params
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     IdType:
       type: object
       properties:
@@ -143,13 +150,6 @@ components:
           type: string
           description: Resource UUID (if applicable)
       description: JSON API resource ID and type attributes
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     ScheduledReportPreview:
       allOf:
       - $ref: '#/components/schemas/ScheduledReportPreviewCreate'

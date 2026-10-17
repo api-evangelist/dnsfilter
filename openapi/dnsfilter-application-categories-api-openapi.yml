@@ -89,6 +89,13 @@ paths:
       x-action: show
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Error message (e.x.: Not Authorized)'
+      description: Error basic representation
     IdType:
       type: object
       properties:
@@ -110,13 +117,6 @@ components:
           attributes:
             $ref: '#/components/schemas/ApplicationCategory'
       description: ApplicaitonCategory specification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: 'Error message (e.x.: Not Authorized)'
-      description: Error basic representation
     ApplicationCategory:
       type: object
       properties:

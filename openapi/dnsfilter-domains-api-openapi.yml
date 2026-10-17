@@ -142,29 +142,6 @@ paths:
       x-action: suggest_threat
 components:
   schemas:
-    IdType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Resource Id (integer or uuid)
-        type:
-          type: string
-          description: Resource type name
-        uuid:
-          type: string
-          description: Resource UUID (if applicable)
-      description: JSON API resource ID and type attributes
-    Domain:
-      type: object
-      properties:
-        host:
-          type: string
-          description: Host
-        name:
-          type: string
-          description: Name
-      description: Domain resource
     Error:
       type: object
       properties:
@@ -185,6 +162,36 @@ components:
           type: string
           description: Application category name
       description: ApplicationLookup resource
+    IdType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource Id (integer or uuid)
+        type:
+          type: string
+          description: Resource type name
+        uuid:
+          type: string
+          description: Resource UUID (if applicable)
+      description: JSON API resource ID and type attributes
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Successful operation yes/no
+      description: Success basic representation
+    Domain:
+      type: object
+      properties:
+        host:
+          type: string
+          description: Host
+        name:
+          type: string
+          description: Name
+      description: Domain resource
     DomainSpec:
       allOf:
       - $ref: '#/components/schemas/IdType'
@@ -205,13 +212,6 @@ components:
                       $ref: '#/components/schemas/IdType'
             description: Domain current associated categories and applications
       description: Domain specification
-    Success:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Successful operation yes/no
-      description: Success basic representation
   securitySchemes:
     header_authorization:
       type: apiKey
